@@ -1,0 +1,22 @@
+Install Linux, Apache, MySQL, PHP (LAMP) Stack on Ubuntu 22.04:
+
+https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-on-ubuntu-22-04
+
+installation of xdebug:
+
+https://xdebug.org/docs/install#linux
+
+Configuration of xdebug:
+https://www.jetbrains.com/help/phpstorm/2022.3/configuring-xdebug.html?utm_source=product&utm_medium=link&utm_campaign=PS&utm_content=2022.3
+
+option1:
+firefox xdebug extension:
+
+https://addons.mozilla.org/en-US/firefox/addon/xdebug-helper-for-firefox/
+
+option2:
+add browser bookmark to debug:
+
+https://www.youtube.com/watch?v=3idASlzGTg4
+
+https://www.jetbrains.com/phpstorm/marklets/
