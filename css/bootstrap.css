@@ -427,7 +427,9 @@ thead,
 tbody,
 tfoot,
 tr,
-td,
+td {
+  text-align: left;
+}
 th {
   border-color: inherit;
   border-style: solid;
