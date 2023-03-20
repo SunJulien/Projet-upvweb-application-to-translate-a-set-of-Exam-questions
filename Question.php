@@ -38,11 +38,11 @@
                     <form action="handling.php" method="POST">
                         <table style="width: 100%;">
                             <tr>
-                                <th><label for="question">Question :</label></th>
+                                <th><label for="question">Question:</label></th>
                                 <th style="width: 90%"><input type="text" id="question" name="question" style="width: 100%"></th>
                             </tr>
                             <tr>
-                                <th><label for="answer">Answer :</label></th>
+                                <th><label for="answer">Answer:</label></th>
                                 <th style="width: 90%"><input type="text" id="answer" name="answer" style="width: 100%"></th>
                             </tr>
                             <tr>
@@ -61,7 +61,7 @@
                     <form action="handling.php" method="POST">
                         <table style="width: 100%;">
                             <tr>
-                                <th><label for="question">Question :</label></th>
+                                <th><label for="question">Question:</label></th>
                                 <th style="width: 90%"><input type="text" id="question" name="question" style="width: 100%"></th>
                             </tr>
                             <tr>
@@ -88,29 +88,29 @@
                     <form action="handling.php" method="POST">
                         <table style="width: 100%">
                             <tr>
-                                <th style="width: 10%"><label for="question">Question :</label></th>
+                                <th style="width: 10%"><label for="question">Question:</label></th>
                                 <th><input type="text" id="question" name="question" style="width: 95%"></th>
                             </tr>
                             <tr>
-                                <th><label for="answer1">Answer 1 :</label></th>
+                                <th><label for="answer1">Answer 1:</label></th>
                                 <th><input type="text" id="answer1" name="answer1" style="width: 95%"></th>
                                 <td><input type="radio" id="answer1" name="answer" value="1"></td>
 
                             </tr>
                             <tr>
-                                <th><label for="answer2">Answer 2 :</label></th>
+                                <th><label for="answer2">Answer 2:</label></th>
                                 <th><input type="text" id="answer2" name="answer2" style="width: 95%"></th>
                                 <td><input type="radio" id="answer2" name="answer" value="2"></td>
 
                             </tr>
                             <tr>
-                                <th><label for="answer3">Answer 3 :</label></th>
+                                <th><label for="answer3">Answer 3:</label></th>
                                 <th><input type="text" id="answer3" name="answer3" style="width: 95%"></th>
                                 <td><input type="radio" id="answer3" name="answer" value="3"></td>
 
                             </tr>
                             <tr>
-                                <th><label for="answer4">Answer 4 :</label></th>
+                                <th><label for="answer4">Answer 4:</label></th>
                                 <th><input type="text" id="answer4" name="answer4" style="width: 95%"></th>
                                 <td><input type="radio" id="answer4" name="answer" value="4"></td>
 
