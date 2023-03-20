@@ -11,54 +11,47 @@
         <div style="flex: 0.1; height: 100%;"></div>
 
         <div style="flex: 5;">
-            <nav>
-                <div style="background-color: lightgreen;">
-                    <br>
-                    <h1 style = "color: white;text-align: center;" >Translate a set of exam questions</h1>
-                    <ul class="nav nav-tabs justify-content-center" >
-                        <li class="nav-item">
-                            <a class="nav-link" style = "color: white;" href="index.php">Welcome</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" style = "color: white;" href="Question.php">Question</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" style = "color: white;" href="xdebug.php">xdebug</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="todo_list.php">todo_lists</a>
-                        </li>
-                    </ul>
+            <div style="flex: 5;">
+                <div id="nav-placeholder">
                 </div>
-                <?php
-                $servername = "localhost";
-                $user = "example_user";
-                $password = "password";
-                $database = "question";
-                $table = "question";
+                <script src="//code.jquery.com/jquery.min.js"></script>
+                <script>
+                    $.get("navigation.php", function(data){
+                        $("#nav-placeholder").replaceWith(data);
+                    });
+                </script>
 
-                // Create connection
-                $conn = mysqli_connect($servername, $user, $password, $database);
-                // Check connection
-                if (!$conn) {
-                    die("Connection failed: " . mysqli_connect_error());
+
+            </div>
+            <?php
+            $servername = "localhost";
+            $user = "example_user";
+            $password = "password";
+            $database = "question";
+            $table = "question";
+
+            // Create connection
+            $conn = mysqli_connect($servername, $user, $password, $database);
+            // Check connection
+            if (!$conn) {
+                die("Connection failed: " . mysqli_connect_error());
+            }
+
+            $sql = "SELECT * FROM question";
+            $result = mysqli_query($conn, $sql);
+
+            if (mysqli_num_rows($result) > 0) {
+                // output data of each row
+                while($row = mysqli_fetch_assoc($result)) {
+                    echo $row["id"]. " -Question: " . $row["libelle"]. " - answer1: " . $row["answer1"]. " - answer2: " . $row["answer2"]. " - answer3: " . $row["answer3"]. " - answer4: " . $row["answer4"]. " - Correct answer: " . $row["correct"]. "<br>";
                 }
+            } else {
+                echo "0 results";
+            }
 
-                $sql = "SELECT * FROM question";
-                $result = mysqli_query($conn, $sql);
+            mysqli_close($conn);
+            ?>
 
-                if (mysqli_num_rows($result) > 0) {
-                    // output data of each row
-                    while($row = mysqli_fetch_assoc($result)) {
-                        echo "id: " . $row["id"]. " - libelle: " . $row["libelle"]. " - answer1: " . $row["answer1"]. "<br>";
-                    }
-                } else {
-                    echo "0 results";
-                }
-
-                mysqli_close($conn);
-                ?>
-            </nav>
         </div>
 
         <div style="flex: 0.1; height: 100%;"></div>

@@ -11,26 +11,35 @@
         <div style="flex: 0.1; height: 100%;"></div>
 
         <div style="flex: 5;">
-            <nav>
-                <div style="background-color: lightgreen;">
-                    <br>
-                    <h1 style = "color: white;text-align: center;" >Translate a set of exam questions</h1>
-                    <ul class="nav nav-tabs justify-content-center" >
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page"  href="index.php">Welcome</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" style = "color: white;" href="Question.php">Question</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" style = "color: white;" href="xdebug.php">xdebug</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" style = "color: white;" href="todo_list.php">todo_lists</a>
-                        </li>
-                    </ul>
+            <div id="nav-placeholder">
+            </div>
+            <script src="//code.jquery.com/jquery.min.js"></script>
+            <script>
+                $.get("navigation.php", function(data){
+                    $("#nav-placeholder").replaceWith(data);
+                });
+
+            </script>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm">
+                        <img src="QTIlogo.png" alt="QTI Logo">
+                    </div>
+                    <div class="col-sm">
+                        One of three columns
+                    </div>
                 </div>
-            </nav>
+                <div class="row">
+                    <div class="col-sm">
+                        <button>Subir fichero</button>
+                    </div>
+                    <div class="col-sm">
+                        <button>Editior Online</button>
+                    </div>
+                    <div class="col-sm">
+                        <button>Ayuda</button>
+                    </div>
+                </div>
         </div>
 
         <div style="flex: 0.1; height: 100%;"></div>
@@ -38,7 +47,6 @@
         <div style="flex: 0.1; height: 100%;"></div>
 
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
     </body>
 </html>

@@ -1,23 +1,31 @@
 <?php
+    $servername = "localhost";
     $user = "example_user";
     $password = "password";
-    $database = "example_database";
-    $table = "todo_list";
+    $database = "question";
+    $table = "question";
     // Récupérer les données soumises dans le formulaire
-    $nom = $_POST['nom'];
-    $email = $_POST['email'];
-    require_once('db.php');
+    $qType = str_replace("'", "''", $_POST['qType']);
+    $libelle = str_replace("'", "''", $_POST['libelle']);
+    $answer1 = str_replace("'", "''", $_POST['answer1']);
+    $answer2 = str_replace("'", "''", $_POST['answer2']);
+    $answer3 = str_replace("'", "''", $_POST['answer3']);
+    $answer4 = str_replace("'", "''", $_POST['answer4']);
+    $correct = str_replace("'", "''", $_POST['correct']);
 
     try {
-        $db = new PDO("mysql:host=localhost;dbname=$database", $user, $password);
-        foreach($db->query("SELECT content FROM $table") as $row) {
-            echo "<li>" . $row['content'] . "</li>";
-        }
-        echo "</ol>";
-    } catch (PDOException $e) {
-        print "Error!: " . $e->getMessage() . "<br/>";
-        die();
+        $conn = new PDO("mysql:host=$servername;dbname=$database", $user, $password);
+        // set the PDO error mode to exception
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $sql = "INSERT INTO $table (qType, libelle, answer1, answer2, answer3 ,answer4 ,correct) 
+        VALUES ('$qType', '$libelle', '$answer1', '$answer2', '$answer3', '$answer4', '$correct')";
+        // use exec() because no results are returned
+        $conn->exec($sql);
+    } catch(PDOException $e) {
+        echo $sql . "<br>" . $e->getMessage();
     }
+
+    $conn = null;
 ?>
 
 
