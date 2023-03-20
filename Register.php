@@ -19,6 +19,30 @@
                 $("#nav-placeholder").replaceWith(data);
             });
         </script>
+        <br>
+        <div class="container">
+            <div class="row justify-content-md-center" style="padding-top: 5em">
+                <div class="col-sm-auto">
+                    <img src="QTIlogo.png" alt="QTI Logo">
+                </div>
+                <div class="col-sm-auto">
+                    <div class="card card-body">
+                        <h2> Register </h2>
+
+                        <form action="handling.php" method="POST">
+                            <br>
+                            <label for="email">Email:</label>
+                            <input type="text" id="email" name="email" style="width: 100%"><br><br>
+                            <label for="password">Password:</label>
+                            <input type="password" id="password" name="password" style="width: 100%"><br><br>
+                            <input type="submit" value="Register">
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div style="flex: 0.1; height: 100%;"></div>

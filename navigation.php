@@ -3,21 +3,23 @@
 <nav>
     <div style="background-color: lightgreen;">
         <br>
-        <h1 style = "color: white;text-align: center;" >Editor online</h1>
+        <h1 style = "color: white;text-align: center;font-size: 5em;">Editor online</h1>
         <ul class="nav nav-tabs justify-content-center" >
             <li class="nav-item">
-                <a id="index" class="nav-link" style = "color: white;" href="index.php">Welcome</a>
+                <a id="index" class="nav-link" style = "color: white;font-size: 2em;" href="index.php">Welcome</a>
             </li>
             <li class="nav-item">
-                <a id="Question" class="nav-link" style = "color: white;" href="Question.php">Question</a>
+                <a id="Question" class="nav-link" style = "color: white;font-size: 2em;" href="Question.php">Upload</a>
             </li>
             <li class="nav-item">
-                <a id="todo_list" class="nav-link" style = "color: white;" href="todo_list.php">todo_lists</a>
+                <a id="todo_list" class="nav-link" style = "color: white;font-size: 2em;" href="todo_list.php">Write</a>
             </li>
             <li class="nav-item">
-                <a id="Register" class="nav-link" style = "color: white;" href="Register.php">Register</a>
+                <a id="Register" class="nav-link" style = "color: white;font-size: 2em;" href="Register.php">Register</a>
             </li>
-
+            <li class="nav-item">
+                <a id="Register" class="nav-link" style = "color: white;font-size: 2em;" href="Register.php">Help</a>
+            </li>
         </ul>
     </div>
 </nav>

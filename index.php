@@ -21,25 +21,23 @@
 
             </script>
             <div class="container">
-                <div class="row">
-                    <div class="col-sm">
+                <div class="row justify-content-md-center" style="padding-top: 5em">
+                    <div class="col-sm-auto">
                         <img src="QTIlogo.png" alt="QTI Logo">
                     </div>
-                    <div class="col-sm">
-                        One of three columns
+                    <div class="col-sm-auto">
+
+                        <h2>    <br>Marcas -> QTI<br></h2>
+                        <p>
+                            Transforma documentos fácilmente a QTI<br>
+                            usando un lenguaje de marcas muy intuitivo.<br>
+                            TFG realizado por Héctor Herraiz Muñoz.<br>
+                            TFG realizado por Jorge Brusel Borrero.<br>
+                            Tutor: Antonio Martí Campoy (amarti@disca.upv.es)<br>
+                        </p>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-sm">
-                        <button>Subir fichero</button>
-                    </div>
-                    <div class="col-sm">
-                        <button>Editior Online</button>
-                    </div>
-                    <div class="col-sm">
-                        <button>Ayuda</button>
-                    </div>
-                </div>
+            </div>
         </div>
 
         <div style="flex: 0.1; height: 100%;"></div>
