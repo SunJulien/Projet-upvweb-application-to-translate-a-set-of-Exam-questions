@@ -22,4 +22,4 @@ https://www.youtube.com/watch?v=3idASlzGTg4
 https://www.jetbrains.com/phpstorm/marklets/
 
 Github token :
-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
+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

@@ -20,7 +20,7 @@
             });
         </script>
         <br>
-        <div class="container">
+        <div class="container ">
             <div class="row justify-content-md-center" style="padding-top: 5em">
                 <div class="col-sm-auto">
                     <img src="QTIlogo.png" alt="QTI Logo">
@@ -29,16 +29,16 @@
                     <div class="card card-body">
                         <h2> Register </h2>
 
-                        <form action="handling.php" method="POST">
+                        <form action="SignUp.php" method="POST">
                             <br>
+                            <label for="user">User:</label>
+                            <input type="text" id="user" name="user" style="width: 100%"><br><br>
                             <label for="email">Email:</label>
                             <input type="text" id="email" name="email" style="width: 100%"><br><br>
                             <label for="password">Password:</label>
                             <input type="password" id="password" name="password" style="width: 100%"><br><br>
                             <input type="submit" value="Register">
-
                         </form>
-
                     </div>
                 </div>
             </div>
