@@ -3,7 +3,7 @@
 	<head>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">        <title>upvsun website</title>
 	</head>
-	<body>
+	<body style="background-color: #f7f7f7">
 
     <div class="container">
         <div class="row justify-content-md-center" style="padding-top: 7em">
@@ -20,7 +20,7 @@
                     Tutor: Antonio Martí Campoy (amarti@disca.upv.es)<br>
                 </p>
                 <a href="/Edito.php" role="button" class="btn btn-secondary" style="font-size:2em;">Editor online</a>
-                <a href="#" role="button" class="btn btn-secondary" style="font-size:2em;">Ayuda</a>
+                <a href="/help.php" role="button" class="btn btn-secondary" style="font-size:2em;">Help</a>
                 <a href="#" role="button" class="btn btn-secondary" style="font-size:2em;">Login</a>
             </div>
         </div>
