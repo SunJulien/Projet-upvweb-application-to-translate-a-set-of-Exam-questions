@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>upvsun Edito</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">        <title>upvsun website</title>
 </head>
 <body style="background-color: #f7f7f7">
@@ -9,18 +10,30 @@
             const input = document.getElementById("file");
             const file = input.files[0];
             const reader = new FileReader();
+            // Récupération du nom du fichier
+            let nom_fichier = input.files[0].name;
+            // Récupération de l'extension du fichier
+            let extension = nom_fichier.split('.').pop();
 
-            reader.readAsText(file);
+            if (extension != "txt"){
+                // Affichage de l'extension
+                alert("L'extension du fichier doit etre en .txt celui que vous avez choisie est en : ." + extension);
+            }else{
+                reader.readAsText(file);
 
-            reader.onload = function () {
-                const text = reader.result;
-                const output = document.getElementById("TextArea1");
-                output.value = text;
-            };
-
+                reader.onload = function () {
+                    const text = reader.result;
+                    const output = document.getElementById("TextArea1");
+                    output.value = text;
+                };
+            }
             reader.onerror = function () {
                 console.log(reader.error);
             };
+        }
+        function clearBox() {
+            const input = document.getElementById("TextArea1");
+            input.value = "";
         }
     </script>
     <div class="container">
@@ -54,10 +67,11 @@
             </div>
             <div class="col-sm-auto">
                 <input type="file" id="file" name="file">
-                <input type="submit" name="readfile" value="Readfile" onclick="loadFile()">
+                <input type="submit" id="clearbox" name="clearbox" value="Clear" onclick="clearBox()" style="float: right">
+                <input type="submit" id="readfile" name="readfile" value="Readfile" onclick="loadFile()" style="float: right">
 
                 <form action="generate.php" method="POST" style="padding-top: 0.1em">
-                    <textarea id="TextArea1" name="TextArea1" cols="50" rows="8" runat="server" placeholder="Código de la batería en lenguaje de marcas"></textarea><br><br>
+                    <textarea id="TextArea1" name="TextArea1" cols="50" rows="8" placeholder="Código de la batería en lenguaje de marcas"></textarea><br><br>
                     <input type="text" id="filename" name="filename" style="width: 100%" placeholder="Nombre del archivo a generar"><br><br>
                     <input type="text" id="theme" name="theme" style="width: 100%" placeholder="Nombre de la bateria"><br><br>
                     <input type="submit" class="btn btn-secondary" style="font-size:1em;" value="Generate">

@@ -11,23 +11,60 @@
     error_reporting(E_ALL);
     ob_start();
     $Content = $_POST['TextArea1'];
-    $Filename = $_POST['filename'];
+    $Filename = $_POST['filename']. ".xml";
     $Theme = $_POST['theme'];
-    $ext = '.xml';
-    $Filename .= $ext;
-
+    $lines = explode("\r\n", $Content);
+    $question = "";
     // Créer un objet DOMDocument
     $doc = new DOMDocument('1.0', 'UTF-8');
 
     // Créer l'élément racine du document
-    $bibliotheque = $doc->createElement('bibliotheque');
+    $bibliotheque = $doc->createElement('questestinterop');
     $doc->appendChild($bibliotheque);
 
+
     // Ajouter des éléments pour chaque livre
-    $livre1 = $doc->createElement($Theme);
-    $titre1 = $doc->createElement('Content', $Content);
-    $livre1->appendChild($titre1);
-    $bibliotheque->appendChild($livre1);
+    $assessment = $doc->createElement("assessment");
+    $assessment->setAttribute('ident', '333283');
+    $assessment->setAttribute('title', $Theme);
+
+    include ('xmlgeneral.php');
+
+    // Parcourir les lignes et les afficher
+    foreach ($lines as $line) {
+        $line = htmlspecialchars($line);
+        if (strlen($line) > 0){
+            //Reconnais la premier balise
+            if(strpos($line, "&lt;QF&gt;")!== false){
+                $question= "&lt;QF&gt;";
+                $line = str_replace("&lt;QF&gt;", "", $line);
+            }
+            if(strpos($line, "&lt;QN&gt;")!== false){
+                $question= "&lt;QN&gt;";
+                $line = str_replace("&lt;QN&gt;", "", $line);
+            }
+            if(strpos($line, "&lt;QM&gt;")!== false){
+                $question= "&lt;QM&gt;";
+                $line = str_replace("&lt;QM&gt;", "", $line);
+            }
+            //Efface la balisede fin
+            if(strpos($line, "&lt;/Q&gt;")!== false){
+                $line = str_replace("&lt;/Q&gt;", "", $line);
+            }
+            //Va dans le programme en fonction de la balise reconnue
+            if($question== "&lt;QF&gt;"){
+                include ('fill.php');
+            }
+            if($question== "&lt;QN&gt;"){
+                include ('number.php');
+            }
+            if($question== "&lt;QM&gt;"){
+                include ('multi.php');
+            }
+        }
+    }
+
+    $bibliotheque->appendChild($assessment);
 
     // Générer le fichier XML
     $doc->formatOutput = true; // Pour formater le document avec des indentations
