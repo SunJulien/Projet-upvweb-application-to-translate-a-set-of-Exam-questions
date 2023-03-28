@@ -6,6 +6,7 @@
 </head>
 <body style="background-color: #f7f7f7">
     <script>
+
         function loadFile() {
             const input = document.getElementById("file");
             const file = input.files[0];
@@ -70,12 +71,31 @@
                 <input type="submit" id="clearbox" name="clearbox" value="Clear" onclick="clearBox()" style="float: right">
                 <input type="submit" id="readfile" name="readfile" value="Readfile" onclick="loadFile()" style="float: right">
 
-                <form action="generate.php" method="POST" style="padding-top: 0.1em">
+                <form id="monFormulate" action="generate.php" method="POST" style="padding-top: 0.1em">
                     <textarea id="TextArea1" name="TextArea1" cols="50" rows="8" placeholder="Código de la batería en lenguaje de marcas"></textarea><br><br>
                     <input type="text" id="filename" name="filename" style="width: 100%" placeholder="Nombre del archivo a generar"><br><br>
                     <input type="text" id="theme" name="theme" style="width: 100%" placeholder="Nombre de la bateria"><br><br>
                     <input type="submit" class="btn btn-secondary" style="font-size:1em;" value="Generate">
                 </form><br><br>
+                <script>
+                    document.getElementById("monFormulate").addEventListener("submit", function(event) {
+                        // Empêcher l'envoi du formulaire
+                        event.preventDefault();
+                        // Récupérer la valeur du champ "nom"
+                        var TextArea1 = document.getElementById("TextArea1").value;
+                        var filename = document.getElementById("filename").value;
+                        var theme = document.getElementById("theme").value;
+
+                        // Vérifier si le champ est vide
+                        if (TextArea1.trim() == ''||filename.trim() == ''||theme.trim() == '') {
+                            // Afficher un message d'erreur
+                            alert("All field must be fill");
+                            return false;
+                        }
+                        // Si tout est valide, envoyer le formulaire
+                        this.submit();
+                    });
+                </script>
 
             </div>
         </div>

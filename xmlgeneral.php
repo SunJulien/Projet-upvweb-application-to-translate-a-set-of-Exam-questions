@@ -1236,20 +1236,10 @@
     $rubric->setAttributeNode($rubricview);
     $assessment->appendChild($rubric);
 
-    $rubricmaterial = $doc->CreateElement("material");
-    $rubric->appendChild($rubricmaterial);
+    $material = $doc->CreateElement("material");
+    $rubric->appendChild($material);
 
-    $rubricmaterialmattext = $doc->CreateElement("mattext");
-    $rubricmaterialmattextcharset = $doc->CreateAttribute("charset");
-    $rubricmaterialmattextcharset->value = "ascii-us";
-    $rubricmaterialmattext->setAttributeNode($rubricmaterialmattextcharset);
-    $rubricmaterialmattexttexttype = $doc->CreateAttribute("texttype");
-    $rubricmaterialmattexttexttype->value = "text/plain";
-    $rubricmaterialmattext->setAttributeNode($rubricmaterialmattexttexttype);
-    $rubricmaterialmattextxmlspace = $doc->CreateAttribute("xml:space");
-    $rubricmaterialmattextxmlspace->value = "default";
-    $rubricmaterialmattext->setAttributeNode($rubricmaterialmattextxmlspace);
-    $rubricmaterial->appendChild($rubricmaterialmattext);
+    include ("mattext.php");
 
     $presentationmaterial = $doc->CreateElement("presentation_material");
     $assessment->appendChild($presentationmaterial);
@@ -1295,20 +1285,10 @@
     $flowmatassessfeedback->setAttributeNode($flowmatassessfeedbackclass);
     $assessfeedback->appendChild($flowmatassessfeedback);
 
-    $flowmatafmaterial = $doc->CreateElement("material");
-    $flowmatassessfeedback->appendChild($flowmatafmaterial);
+    $material = $doc->CreateElement("material");
+    $flowmatassessfeedback->appendChild($material);
 
-    $flowmatafmaterialmattext = $doc->CreateElement("mattext");
-    $flowmatafmaterialmattextcharset = $doc->CreateAttribute("charset");
-    $flowmatafmaterialmattextcharset->value = "ascii-us";
-    $flowmatafmaterialmattext->setAttributeNode($flowmatafmaterialmattextcharset);
-    $flowmatafmaterialmattexttexttype = $doc->CreateAttribute("texttype");
-    $flowmatafmaterialmattexttexttype->value = "text/plain";
-    $flowmatafmaterialmattext->setAttributeNode($flowmatafmaterialmattexttexttype);
-    $flowmatafmaterialmattextxmlspace = $doc->CreateAttribute("xml:space");
-    $flowmatafmaterialmattextxmlspace->value = "default";
-    $flowmatafmaterialmattext->setAttributeNode($flowmatafmaterialmattextxmlspace);
-    $flowmatafmaterial->appendChild($flowmatafmaterialmattext);
+    include ("mattext.php");
 
     $section = $doc->CreateElement("section");
     $sectionident = $doc->CreateAttribute("ident");
@@ -1419,20 +1399,10 @@
     $sectionpmflowmat->setAttributeNode($sectionpmflowmatclass);
     $sectionpresentationmaterial->appendChild($sectionpmflowmat);
 
-    $sectionpmflowmatmatt = $doc->CreateElement("material");
-    $sectionpmflowmat->appendChild($sectionpmflowmatmatt);
+    $material = $doc->CreateElement("material");
+    $sectionpmflowmat->appendChild($material);
 
-    $sectionpmflowmatmattext = $doc->CreateElement("mattext");
-    $sectionpmflowmatmattextcharset = $doc->CreateAttribute("charset");
-    $sectionpmflowmatmattextcharset->value = "ascii-us";
-    $sectionpmflowmatmattext->setAttributeNode($sectionpmflowmatmattextcharset);
-    $sectionpmflowmatmattexttexttype = $doc->CreateAttribute("texttype");
-    $sectionpmflowmatmattexttexttype->value = "text/plain";
-    $sectionpmflowmatmattext->setAttributeNode($sectionpmflowmatmattexttexttype);
-    $sectionpmflowmatmattextxmlspace = $doc->CreateAttribute("xml:space");
-    $sectionpmflowmatmattextxmlspace->value = "default";
-    $sectionpmflowmatmattext->setAttributeNode($sectionpmflowmatmattextxmlspace);
-    $sectionpmflowmatmatt->appendChild($sectionpmflowmatmattext);
+    include ("mattext.php");
 
     $sectionpmflowmatmati = $doc->CreateElement("material");
     $sectionpmflowmat->appendChild($sectionpmflowmatmati);

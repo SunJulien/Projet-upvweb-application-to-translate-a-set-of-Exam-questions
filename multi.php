@@ -40,47 +40,8 @@
     $fieldentryqmditemtype->appendChild($fieldentryqmditemtypetext);
     $qtimetafieldqmditemtype->appendChild($fieldentryqmditemtype);
 
-    $qtimetafieldtextformat = $doc->CreateElement("qtimetadatafield");
-    $qtimeta->appendChild($qtimetafieldtextformat);
-    $fieldlabeltextformat = $doc->CreateElement("fieldlabel");
-    $fieldlabeltextformattext = $doc->CreateTextNode("TEXT_FORMAT");
-    $fieldlabeltextformat->appendChild($fieldlabeltextformattext);
-    $qtimetafieldtextformat->appendChild($fieldlabeltextformat);
-    $fieldentrytextformat = $doc->CreateElement("fieldentry");
-    $fieldentrytextformattext = $doc->CreateTextNode("HTML");
-    $fieldentrytextformat->appendChild($fieldentrytextformattext);
-    $qtimetafieldtextformat->appendChild($fieldentrytextformat);
-    $qtimetafielditemobjective = $doc->CreateElement("qtimetadatafield");
-    $qtimeta->appendChild($qtimetafielditemobjective);
-    $fieldlabelitemobjective = $doc->CreateElement("fieldlabel");
-    $fieldlabelitemobjectivetext = $doc->CreateTextNode("ITEM_OBJECTIVE");
-    $fieldlabelitemobjective->appendChild($fieldlabelitemobjectivetext);
-    $qtimetafielditemobjective->appendChild($fieldlabelitemobjective);
-    $qtimetafielditemobjective->appendChild($doc->CreateElement("fieldentry"));
+    include ("qtimetadatafield.php");
 
-    $qtimetafielditemkeyword = $doc->CreateElement("qtimetadatafield");
-    $qtimeta->appendChild($qtimetafielditemkeyword);
-    $fieldlabelitemkeyword = $doc->CreateElement("fieldlabel");
-    $fieldlabelitemkeywordtext = $doc->CreateTextNode("ITEM_KEYWORD");
-    $fieldlabelitemkeyword->appendChild($fieldlabelitemkeywordtext);
-    $qtimetafielditemkeyword->appendChild($fieldlabelitemkeyword);
-    $qtimetafielditemkeyword->appendChild($doc->CreateElement("fieldentry"));
-
-    $qtimetafielditemrubric = $doc->CreateElement("qtimetadatafield");
-    $qtimeta->appendChild($qtimetafielditemrubric);
-    $fieldlabelitemrubric = $doc->CreateElement("fieldlabel");
-    $fieldlabelitemrubrictext = $doc->CreateTextNode("ITEM_RUBRIC");
-    $fieldlabelitemrubric->appendChild($fieldlabelitemrubrictext);
-    $qtimetafielditemrubric->appendChild($fieldlabelitemrubric);
-    $qtimetafielditemrubric->appendChild($doc->CreateElement("fieldentry"));
-
-    $qtimetafieldattach = $doc->CreateElement("qtimetadatafield");
-    $qtimeta->appendChild($qtimetafieldattach);
-    $fieldlabelattach = $doc->CreateElement("fieldlabel");
-    $fieldlabelattachtext = $doc->CreateTextNode("ATTACHMENT");
-    $fieldlabelattach->appendChild($fieldlabelattachtext);
-    $qtimetafieldattach->appendChild($fieldlabelattach);
-    $qtimetafieldattach->appendChild($doc->CreateElement("fieldentry"));
     //if NFM
     $qtimetafieldhasrational = $doc->CreateElement("qtimetadatafield");
     $qtimeta->appendChild($qtimetafieldhasrational);
@@ -123,20 +84,10 @@
     $itemrubric->setAttributeNode($itemrubricview);
     $item->appendChild($itemrubric);
 
-    $itrubmaterial = $doc->CreateElement("material");
-    $itemrubric->appendChild($itrubmaterial);
+    $material = $doc->CreateElement("material");
+    $itemrubric->appendChild($material);
 
-    $itrubmattext = $doc->CreateElement("mattext");
-    $itrubmattextcharset = $doc->CreateAttribute("charset");
-    $itrubmattextcharset->value = "ascii-us";
-    $itrubmattext->setAttributeNode($itrubmattextcharset);
-    $itrubmattexttexttype = $doc->CreateAttribute("texttype");
-    $itrubmattexttexttype->value = "text/plain";
-    $itrubmattext->setAttributeNode($itrubmattexttexttype);
-    $itrubmattextxmlspace = $doc->CreateAttribute("xml:space");
-    $itrubmattextxmlspace->value = "default";
-    $itrubmattext->setAttributeNode($itrubmattextxmlspace);
-    $itrubmaterial->appendChild($itrubmattext);
+    include ("mattext.php");
 
     $itempresentation = $doc->CreateElement("presentation");
     $fieldentryrandomizitempresentationlabel = $doc->CreateAttribute("label");
@@ -155,18 +106,26 @@
     $itpresflowflow->setAttributeNode($itpresflowflowclass);
     $itempresentation->appendChild($itpresflowflow);
 
-    $itpresflflmaterial = $doc->CreateElement("material");
-    $itpresflowflow->appendChild($itpresflflmaterial);
+    $material = $doc->CreateElement("material");
+    $itpresflowflow->appendChild($material);
 
-    $itpresflflmattext = $doc->CreateElement("mattext");
-    $itpresflflmattextcharset = $doc->CreateAttribute("charset");
-    $itpresflflmattextcharset->value = "ascii-us";
-    $itpresflflmattext->setAttributeNode($itpresflflmattextcharset);
-    $itpresflflmattexttexttype = $doc->CreateAttribute("texttype");
-    $itpresflflmattexttexttype->value = "text/plain";
-    $itpresflflmattext->setAttributeNode($itpresflflmattexttexttype);
-    $itpresflflmattextxmlspace = $doc->CreateAttribute("xml:space");
-    $itpresflflmattextxmlspace->value = "default";
-    $itpresflflmattext->setAttributeNode($itpresflflmattextxmlspace);
-    $itpresflflmaterial->appendChild($itpresflflmattext);
+    include ("mattext.php");
+
+    $itpresflflmattextcdata = $doc->createCDATAsection("");
+    $mattext->appendChild($itpresflflmattextcdata);
+
+    $itpresflflmaterial2 = $doc->CreateElement("material");
+    $itpresflowflow->appendChild($itpresflflmaterial2);
+
+    $itpresflflmaterial2matimg = $doc->CreateElement("matimage");
+    $itpresflflmaterial2matimgembedded = $doc->CreateAttribute("embedded");
+    $itpresflflmaterial2matimgembedded->value = "base64";
+    $itpresflflmaterial2matimg->setAttributeNode($itpresflflmaterial2matimgembedded);
+    $itpresflflmaterial2matimgimagtype = $doc->CreateAttribute("imagtype");
+    $itpresflflmaterial2matimgimagtype->value = "text/html";
+    $itpresflflmaterial2matimg->setAttributeNode($itpresflflmaterial2matimgimagtype);
+    $itpresflflmaterial2matimguri = $doc->CreateAttribute("uri");
+    $itpresflflmaterial2matimguri->value = null;
+    $itpresflflmaterial2matimg->setAttributeNode($itpresflflmaterial2matimguri);
+    $itpresflflmaterial2->appendChild($itpresflflmaterial2matimg);
 ?>

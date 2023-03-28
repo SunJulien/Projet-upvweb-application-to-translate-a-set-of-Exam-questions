@@ -15,6 +15,7 @@
     $Theme = $_POST['theme'];
     $lines = explode("\r\n", $Content);
     $question = "";
+
     // Créer un objet DOMDocument
     $doc = new DOMDocument('1.0', 'UTF-8');
 
