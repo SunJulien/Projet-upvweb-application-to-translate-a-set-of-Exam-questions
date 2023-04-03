@@ -1239,7 +1239,8 @@
     $material = $doc->CreateElement("material");
     $rubric->appendChild($material);
 
-    include ("mattext.php");
+    include ('mattext.php');
+    $material->appendChild($mattext);
 
     $presentationmaterial = $doc->CreateElement("presentation_material");
     $assessment->appendChild($presentationmaterial);
@@ -1253,19 +1254,13 @@
     $flowmatpmmaterial = $doc->CreateElement("material");
     $flowmatpresentationmaterial->appendChild($flowmatpmmaterial);
 
-    $flowmatpmmaterialmattext = $doc->createElement("mattext");
-    $flowmatpmmaterialmattextcharset = $doc->createAttribute("charset");
-    $flowmatpmmaterialmattextcharset->value = "ascii-us";
-    $flowmatpmmaterialmattext->setAttributeNode($flowmatpmmaterialmattextcharset);
-    $flowmatpmmaterialmattexttexttype = $doc->createAttribute("texttype");
-    $flowmatpmmaterialmattexttexttype->value = "text/plain";
-    $flowmatpmmaterialmattext->setAttributeNode($flowmatpmmaterialmattexttexttype);
-    $flowmatpmmaterialmattextxmlspace = $doc->createAttribute("xml:space");
-    $flowmatpmmaterialmattextxmlspace->value = "default";
-    $flowmatpmmaterialmattext->setAttributeNode($flowmatpmmaterialmattextxmlspace);
-    $flowmatpmmaterialmattextcdata = $doc->createCDATAsection(" ");
-    $flowmatpmmaterialmattext->appendChild($flowmatpmmaterialmattextcdata);
-    $flowmatpmmaterial->appendChild($flowmatpmmaterialmattext);
+    include ('mattext.php');
+    $material->appendChild($mattext);
+
+
+$flowmatpmmaterialmattextcdata = $doc->createCDATAsection(" ");
+    $mattext->appendChild($flowmatpmmaterialmattextcdata);
+    $flowmatpmmaterial->appendChild($mattext);
 
     $assessfeedback = $doc->CreateElement("assessfeedback");
     $assessfeedbackident = $doc->CreateAttribute("ident");
@@ -1288,7 +1283,9 @@
     $material = $doc->CreateElement("material");
     $flowmatassessfeedback->appendChild($material);
 
-    include ("mattext.php");
+    include ('mattext.php');
+    $material->appendChild($mattext);
+
 
     $section = $doc->CreateElement("section");
     $sectionident = $doc->CreateAttribute("ident");
@@ -1402,24 +1399,17 @@
     $material = $doc->CreateElement("material");
     $sectionpmflowmat->appendChild($material);
 
-    include ("mattext.php");
+    include ('mattext.php');
+    $material->appendChild($mattext);
 
-    $sectionpmflowmatmati = $doc->CreateElement("material");
-    $sectionpmflowmat->appendChild($sectionpmflowmatmati);
 
-    $sectionpmflowmatmatimg = $doc->CreateElement("matimage");
-    $sectionpmflowmatmatimgembedded = $doc->CreateAttribute("embedded");
-    $sectionpmflowmatmatimgembedded->value = "base64";
-    $sectionpmflowmatmatimg->setAttributeNode($sectionpmflowmatmatimgembedded);
-    $sectionpmflowmatmatimgimagtype = $doc->CreateAttribute("imagtype");
-    $sectionpmflowmatmatimgimagtype->value = "text/html";
-    $sectionpmflowmatmatimg->setAttributeNode($sectionpmflowmatmatimgimagtype);
-    $sectionpmflowmatmatimguri = $doc->CreateAttribute("uri");
-    $sectionpmflowmatmatimguri->value = "";
-    $sectionpmflowmatmatimg->setAttributeNode($sectionpmflowmatmatimguri);
-    $sectionpmflowmatmati->appendChild($sectionpmflowmatmatimg);
+$material = $doc->CreateElement("material");
+    $sectionpmflowmat->appendChild($material);
 
-    $selectionordering = $doc->CreateElement("selection_ordering");
+    include ("matimage.php");
+    $material->appendChild($matimage);
+
+$selectionordering = $doc->CreateElement("selection_ordering");
     $selectionorderingsequencetype = $doc->CreateAttribute("sequence_type");
     $selectionorderingsequencetype->value = "Normal";
     $selectionordering->setAttributeNode($selectionorderingsequencetype);

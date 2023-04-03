@@ -10,6 +10,5 @@ $mattext->setAttributeNode($mattexttexttype);
 $mattextxmlspace = $doc->CreateAttribute("xml:space");
 $mattextxmlspace->value = "default";
 $mattext->setAttributeNode($mattextxmlspace);
-$material->appendChild($mattext);
 
 ?>

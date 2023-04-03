@@ -12,20 +12,24 @@
             const file = input.files[0];
             const reader = new FileReader();
             // Récupération du nom du fichier
-            let nom_fichier = input.files[0].name;
+            let file_name = input.files[0].name;
             // Récupération de l'extension du fichier
-            let extension = nom_fichier.split('.').pop();
+            const file_name_split= file_name.split('.');
 
-            if (extension != "txt"){
+            if (file_name_split[1] != "txt"){
                 // Affichage de l'extension
-                alert("L'extension du fichier doit etre en .txt celui que vous avez choisie est en : ." + extension);
+                alert("L'extension du fichier doit etre en .txt celui que vous avez choisie est en : ." + file_name_split[1]);
             }else{
                 reader.readAsText(file);
 
                 reader.onload = function () {
                     const text = reader.result;
-                    const output = document.getElementById("TextArea1");
-                    output.value = text;
+                    const TextArea1 = document.getElementById("TextArea1");
+                    const filename = document.getElementById("filename");
+                    const theme = document.getElementById("theme");
+                    TextArea1.value = text;
+                    filename.value = file_name_split[0];
+                    theme.value = file_name_split[0];
                 };
             }
             reader.onerror = function () {
@@ -72,7 +76,7 @@
                 <input type="submit" id="readfile" name="readfile" value="Readfile" onclick="loadFile()" style="float: right">
 
                 <form id="monFormulate" action="generate.php" method="POST" style="padding-top: 0.1em">
-                    <textarea id="TextArea1" name="TextArea1" cols="50" rows="8" placeholder="Código de la batería en lenguaje de marcas"></textarea><br><br>
+                    <textarea id="TextArea1" name="TextArea1" cols="55" rows="15" placeholder="Código de batería en lenguaje de marcas&#10;Puede escribir o importar un documento .txt&#10;Luego léalo con el botón readfile"></textarea><br><br>
                     <input type="text" id="filename" name="filename" style="width: 100%" placeholder="Nombre del archivo a generar"><br><br>
                     <input type="text" id="theme" name="theme" style="width: 100%" placeholder="Nombre de la bateria"><br><br>
                     <input type="submit" class="btn btn-secondary" style="font-size:1em;" value="Generate">
