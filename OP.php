@@ -1,6 +1,6 @@
 <?php
     if(strpos($line[$x], "&lt;/Q&gt;")!== false){
-        for ($i = 0; $i < $compteur; $i++) {
+        for ($i = 0; $i < $question_counter; $i++) {
             $itpresflflresplidrendchoresp = $doc->CreateElement("response_label");
             $itpresflflresplidrendchorespid = $doc->CreateAttribute("ident");
             $itpresflflresplidrendchorespid->value = $letraresp;
@@ -50,7 +50,145 @@
             include ("mattext.php");
             $material->appendChild($mattext);
         }
-        
+
+        $itemresproc = $doc->CreateElement("resprocessing");
+        $item->appendChild($itemresproc);
+
+        $itemresprocoutc = $doc->createElement("outcomes");
+        $itemresproc->appendChild($itemresprocoutc);
+
+        $itemresprocoutcdecvar = $doc->createElement("decvar");
+        $itemresprocoutcdecvardefaultval = $doc->createAttribute("defaultval");
+        $itemresprocoutcdecvardefaultval->value = "0";
+        $itemresprocoutcdecvar->setAttributeNode($itemresprocoutcdecvardefaultval);
+        $itemresprocoutcdecvarmaxvalue = $doc->createAttribute("maxvalue");
+        $itemresprocoutcdecvar->setAttribute('vartype', 'Integer');
+        $itemresprocoutcdecvarmaxvalue->value = $pluspoint;
+        $itemresprocoutcdecvar->setAttributeNode($itemresprocoutcdecvarmaxvalue);
+        $itemresprocoutcdecvarminvalue = $doc->createAttribute("minvalue");
+        $itemresprocoutcdecvar->setAttribute('vartype', 'Integer');
+        $itemresprocoutcdecvarminvalue->value = $minuspoint;
+        $itemresprocoutcdecvar->setAttributeNode($itemresprocoutcdecvarminvalue);
+        $itemresprocoutcdecvarvarname = $doc->createAttribute("varname");
+        $itemresprocoutcdecvarvarname->value = "SCORE";
+        $itemresprocoutcdecvar->setAttributeNode($itemresprocoutcdecvarvarname);
+        $itemresprocoutcdecvarvartype = $doc->createAttribute("vartype");
+        $itemresprocoutcdecvarvartype->value = "Integer";
+        $itemresprocoutcdecvar->setAttributeNode($itemresprocoutcdecvarvartype);
+        $itemresprocoutc->appendChild($itemresprocoutcdecvar);
+
+
+        $abcdario = 'A';
+
+        for ($abc = 0; $abc < 26; $abc++)
+        {
+            $itemresprrespc = $doc->CreateElement("respcondition");
+            $itemresprrespccontinue = $doc->CreateAttribute("continue");
+            if ($abc > 3) $itemresprrespccontinue->value = ("Yes");
+            else $itemresprrespccontinue->value = ("No");
+            if ($titl == "Multiple Correct") $itemresprrespccontinue->value = ("Yes");
+            $itemresprrespc->setAttributeNode($itemresprrespccontinue);
+            $itemresproc->appendChild($itemresprrespc);
+
+            $itemresprrespccondvar = $doc->CreateElement("conditionvar");
+            $itemresprrespc->appendChild($itemresprrespccondvar);
+
+            $itemresprrespccondvarvareq = $doc->CreateElement("varequal");
+            $itemresprrespccondvarvareqcase = $doc->CreateAttribute("case");
+            $itemresprrespccondvarvareqcase->value = ("Yes");
+            $itemresprrespccondvarvareq->setAttributeNode($itemresprrespccondvarvareqcase);
+            $itemresprrespccondvarvareqrespident = $doc->CreateAttribute("respident");
+            if ($titl == "Multiple Correct") $itemresprrespccondvarvareqrespident->value = ("LID01");
+            else $itemresprrespccondvarvareqrespident->value = ("MCSC");
+            $itemresprrespccondvarvareq->setAttributeNode($itemresprrespccondvarvareqrespident);
+            $itemresprrespccondvarvareq->nodeValue = $abcdario;
+            $itemresprrespccondvar->appendChild($itemresprrespccondvarvareq);
+
+            $itemresprrespcsetvar = $doc->CreateElement("setvar");
+            $itemresprrespcsetvaraction = $doc->CreateAttribute("action");
+            $itemresprrespcsetvaraction->value = ("Add");
+            $itemresprrespcsetvar->setAttributeNode($itemresprrespcsetvaraction);
+            $itemresprrespcsetvarvarname = $doc->CreateAttribute("varname");
+            $itemresprrespcsetvarvarname->value = ("SCORE");
+            $itemresprrespcsetvar->setAttributeNode($itemresprrespcsetvarvarname);
+            $itemresprrespcsetvar->nodeValue = "0";
+            $itemresprrespc->appendChild($itemresprrespcsetvar);
+
+            $itemresprrespcdispfeed = $doc->CreateElement("displayfeedback");
+            $itemresprrespcdispfeedfeedbacktype = $doc->CreateAttribute("feedbacktype");
+            $itemresprrespcdispfeedfeedbacktype->value = ("Response");
+            $itemresprrespcdispfeed->setAttributeNode($itemresprrespcdispfeedfeedbacktype);
+            $itemresprrespcdispfeedlinkrefid = $doc->CreateAttribute("linkrefid");
+            if ($tableau[$abc]=="rc") $itemresprrespcdispfeedlinkrefid->value = "Correct";
+            else $itemresprrespcdispfeedlinkrefid->value = "InCorrect";
+            $itemresprrespcdispfeed->setAttributeNode($itemresprrespcdispfeedlinkrefid);
+            $itemresprrespc->appendChild($itemresprrespcdispfeed);
+
+            $itemresprrespcdispfeed2 = $doc->CreateElement("displayfeedback");
+            $itemresprrespcdispfeed2feedbacktype = $doc->CreateAttribute("feedbacktype");
+            $itemresprrespcdispfeed2feedbacktype->value = ("Response");
+            $itemresprrespcdispfeed2->setAttributeNode($itemresprrespcdispfeed2feedbacktype);
+            $itemresprrespcdispfeed2linkrefid = $doc->CreateAttribute("linkrefid");
+            if ($abc > 3)
+            {
+                $auxcharresp = 'D';
+                $itemresprrespcdispfeed2linkrefid->value = $auxcharresp."1";
+            }
+            else
+            {
+                $itemresprrespcdispfeed2linkrefid->value = $abcdario."1";
+                if ($titl == "Multiple Correct")
+                    $itemresprrespcdispfeed2linkrefid->value = "AnswerFeedback";
+            }
+            $itemresprrespcdispfeed2->setAttributeNode($itemresprrespcdispfeed2linkrefid);
+
+            if (($titl == "Multiple Correct")
+                && ($abc < 4-$question_counter))
+            {
+                $itemresprrespcdispfeed2cdata = $doc->CreateCDataSection("");
+                $itemresprrespcdispfeed2->appendChild($itemresprrespcdispfeed2cdata);
+            }
+
+            $itemresprrespc->appendChild($itemresprrespcdispfeed2);
+
+            $abcdario++;
+        }
+        $auxcharitemfeed = 'A';
+//point de repere
+        for ($nn = 0; $nn < 6; $nn++)
+        {
+            $itemresprocitfeed = $doc->CreateElement("itemfeedback");
+            $itemresprocitfeedident = $doc->CreateAttribute("ident");
+            $itemresprocitfeedid = $auxcharitemfeed."1";
+            $itemresprocitfeedident->value = $itemresprocitfeedid;
+            if ($nn == 4) $itemresprocitfeedident->value = "Correct";
+            if ($nn == 5) $itemresprocitfeedident->value = "Incorrect";
+            $itemresprocitfeed->setAttributeNode($itemresprocitfeedident);
+            $itemresprocitfeedview = $doc->CreateAttribute("view");
+            $itemresprocitfeedview->value = ("All");
+            $itemresprocitfeed->setAttributeNode($itemresprocitfeedview);
+            $item->appendChild($itemresprocitfeed);
+
+            $itemresprocitfeedflmat = $doc->CreateElement("flow_mat");
+            $itemresprocitfeedflmatclass = $doc->CreateAttribute("class");
+            $itemresprocitfeedflmatclass->value = ("Block");
+            $itemresprocitfeedflmat->setAttributeNode($itemresprocitfeedflmatclass);
+            $itemresprocitfeed->appendChild($itemresprocitfeedflmat);
+
+            $itemresprocitfeedflmatmat1 = $doc->CreateElement("material");
+            $itemresprocitfeedflmat->appendChild($itemresprocitfeedflmatmat1);
+
+            include ("mattext.php");
+            $itemresprocitfeedflmatmat1->appendChild($mattext);
+
+            $itemresprocitfeedflmatmat2 = $doc->CreateElement("material");
+            $itemresprocitfeedflmat->appendChild($itemresprocitfeedflmatmat2);
+
+            include ("matimage.php");
+            $itemresprocitfeedflmatmat2->appendChild($matimage);
+
+            $auxcharitemfeed++;
+        }
     }else{
         
         $itpresflflresplidrendchoresp = $doc->CreateElement("response_label");
@@ -72,35 +210,28 @@
         $material = $doc->CreateElement("material");
         $itpresflflresplidrendchoresp->appendChild($material);
 
-        $itpresflflresplidrendchorespmat1matt = $doc->CreateElement("mattext");
-        $itpresflflresplidrendchorespmat1mattch = $doc->CreateAttribute("charset");
-        $itpresflflresplidrendchorespmat1mattch->value = ("ascii-us");
-        $itpresflflresplidrendchorespmat1matt->setAttributeNode($itpresflflresplidrendchorespmat1mattch);
-        $itpresflflresplidrendchorespmat1matttt = $doc->CreateAttribute("texttype");
-        $itpresflflresplidrendchorespmat1matttt->value = ("text/plain");
-        $itpresflflresplidrendchorespmat1matt->setAttributeNode($itpresflflresplidrendchorespmat1matttt);
-        $itpresflflresplidrendchorespmat1mattxs = $doc->CreateAttribute("xml:space");
-        $itpresflflresplidrendchorespmat1mattxs->value = ("default");
-        $itpresflflresplidrendchorespmat1matt->setAttributeNode($itpresflflresplidrendchorespmat1mattxs);
+        include ("mattext.php");
 
         $line[$x] = str_replace("&lt;op&gt;", "", $line[$x]);
+        $line[$x] = str_replace("&lt;rc&gt;", "", $line[$x]);
         $auxresptest = $line[$x];
         $auxresptest2 = $line[$x];
+
         if (substr_compare($auxresptest, '<br>', -strlen('<br>')) === 0) {
             $auxresptest = substr($auxresptest2, 0, -strlen('<br>'));
         }
-
         $itpresflflresplidrendchorespmat1mattcd = $doc->CreateCDataSection($auxresptest2);
-        $itpresflflresplidrendchorespmat1matt->appendChild($itpresflflresplidrendchorespmat1mattcd);
-        $material->appendChild($itpresflflresplidrendchorespmat1matt);
-        if ($compteur > 0)
+        $mattext->appendChild($itpresflflresplidrendchorespmat1mattcd);
+        $material->appendChild($mattext);
+        if ($question_counter > 0)
         {
             $material = $doc->CreateElement("material");
             $itpresflflresplidrendchoresp->appendChild($material);
             include ("matimage.php");
             $material->appendChild($matimage);
         }
-        $compteur--;
+        $question_counter--;
+        
     }
 
 

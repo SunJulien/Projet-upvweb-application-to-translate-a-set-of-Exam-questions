@@ -1,12 +1,24 @@
 <?php
 
-    $titl = "Multiple Choice";
     $line_decode = htmlspecialchars_decode($line[$x]);
-    $compteur = 0;
+    $debut = "<";
+    $fin = ">";
+    // Caractères spécifiques
+    $debut = "<M";
+    $fin = ">";
+    // Expression régulière pour correspondre aux caractères spécifiques et tout ce qui se trouve entre eux
+    $expressionReguliere = '/' . preg_quote($debut, '/') . '(.*?)' . preg_quote($fin, '/') . '/';
+    // Remplacer les occurrences de l'expression régulière par une chaîne vide
+    $line_decode = preg_replace($expressionReguliere, '', $line_decode);
+
+    $compteurbisRC = 0;
 
     if(strpos($line[$x], "&lt;op&gt;")!== false || strpos($line[$x], "&lt;/Q&gt;")!== false){
         include ("OP.php");
     }else{
+        // boucler à travers les lettres de A à Z
+        $titl = "Multiple Choice";
+        $tableau = array();
         $letraresp = 'A';
         $ident_value++;
         $item = $doc->CreateElement("item");
@@ -14,11 +26,14 @@
         $itemident->value = $ident_value;
         $item->setAttributeNode($itemident);
         $itemtitle = $doc->CreateAttribute("title");
-        for ($y=0; $y<4 ;$y++){
-            if (strpos($line[$x+$y], "&lt;op&gt;")!== false){
-                $compteur++;
+        for ($y=1; $y<5 ;$y++){
+            if (strpos($line[$x+$y], "<rc>")!== false){
+                $tableau[] = "rc";
+                $compteurbisRC++;
+            }else{
+                $tableau[] = "op";
             }
-            if ($compteur>1){
+            if ($compteurbisRC>1){
                 $itemtitle->value = "Multiple Correct";
                 $titl = "Multiple Correct";
                 break;
@@ -45,9 +60,8 @@
         $fieldlabelqmditemtype->appendChild($fieldlabelqmditemtypetext);
         $qtimetafieldqmditemtype->appendChild($fieldlabelqmditemtype);
         $fieldentryqmditemtype = $doc->CreateElement("fieldentry");
-        if (strpos($line[$x], "&lt;rc&gt;")!== false){
-            $fieldentryqmditemtypetext = $doc->CreateTextNode("Multiple Correct");
-            $titl = "Multiple Correct";
+        if ($titl == "Multiple Correct"){
+            $fieldentryqmditemtypetext = $doc->CreateTextNode("Multiple Correct Answer");
         }else{
             $fieldentryqmditemtypetext = $doc->CreateTextNode("Multiple Choice");
         }
@@ -69,7 +83,8 @@
         $fieldentryhasrational->appendChild($fieldentryhasrationaltext);
         $qtimetafieldhasrational->appendChild($fieldentryhasrational);
         //if NFM
-        if ($titl == "Multiple Correct") {
+        if ($titl == "Multiple Choice") {
+
             $qtimetafieldpartialcredi = $doc->CreateElement("qtimetadatafield");
             $qtimeta->appendChild($qtimetafieldpartialcredi);
             $fieldlabelpartialcredi = $doc->CreateElement("fieldlabel");

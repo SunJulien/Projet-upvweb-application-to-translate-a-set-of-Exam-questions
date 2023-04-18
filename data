@@ -2998,6 +2998,9 @@ public partial class Editor : System.Web.UI.Page
 
 
 
-
+            $compteurbis = $doc->CreateElement("number".$y);
+            $text = $doc->createCDATAsection($line[$x+$y]);
+            $compteurbis->appendChild($text);
+            $section->appendChild($compteurbis);
 
 }
