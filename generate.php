@@ -7,12 +7,14 @@
     $Theme = $_POST['theme'];
     $line = explode("\r\n", $Content);
     $size = count($line);
-    $question = "";
+    $question_type = "";
     $ident_value = 9960884;
     $letraresp = 'A';
-    $compteur = 4;
+    $question_counter = 4;
+    $pluspoint = 1;
+    $minuspoint = 0;
 
-    // Créer un objet DOMDocument
+// Créer un objet DOMDocument
     $doc = new DOMDocument('1.0', 'UTF-8');
     $doc->xmlStandalone = true;
     $doc->formatOutput = true;
@@ -35,32 +37,47 @@
         if (strlen($line[$x]) > 0){
             //Reconnais la premier balise
             if(strpos($line[$x], "&lt;QF&gt;")!== false){
-                $question= "&lt;QF&gt;";
+                $question_type= "&lt;QF&gt;";
                 $line[$x] = str_replace("&lt;QF&gt;", "", $line[$x]);
             }
             if(strpos($line[$x], "&lt;QN&gt;")!== false){
-                $question= "&lt;QN&gt;";
+                $question_type= "&lt;QN&gt;";
                 $line[$x] = str_replace("&lt;QN&gt;", "", $line[$x]);
             }
             if(strpos($line[$x], "&lt;QM&gt;")!== false){
-                $question= "&lt;QM&gt;";
+                $question_type= "&lt;QM&gt;";
                 $line[$x] = str_replace("&lt;QM&gt;", "", $line[$x]);
+
+            }
+            if (strpos($line[$x], "&lt;M")!== false){
+                preg_match_all('/-?\d+(?:\,\d+)?/', $line[$x], $matches);
+                if (strpos($line[$x], "&lt;MN")!== false){
+                    $minuspoint = ($matches[0][1]);
+                    $minuspoint = str_replace(",", ".", $minuspoint);
+
+                }else {
+                    $pluspoint = ($matches[0][0]);
+                }
             }
             //Va dans le programme en fonction de la balise reconnue
-            if($question== "&lt;QF&gt;"){
+            if($question_type== "&lt;QF&gt;"){
                 include ('fill.php');
             }
-            if($question== "&lt;QN&gt;"){
+            if($question_type== "&lt;QN&gt;"){
                 include ('number.php');
             }
-            if($question== "&lt;QM&gt;"){
+            if($question_type== "&lt;QM&gt;"){
                 include ('multi.php');
             }
             //Efface la balise de fin
             if(strpos($line[$x], "&lt;/Q&gt;")!== false){
-                $question= "";
+                $question_type= "";
                 $line[$x] = str_replace("&lt;/Q&gt;", "", $line[$x]);
-                $compteur = 4;
+                // Vider le tableau en utilisant array_splice()
+                array_splice($tableau, 0);
+                // Réinitialiser les clés du tableau
+                $tableau = array_values($tableau);
+                $question_counter = 4;
             }
         }
     }
