@@ -1,5 +1,5 @@
 <?php
-    if(strpos($line[$x], "&lt;/Q&gt;")!== false){
+    if(strpos($line_encode[$x], "&lt;/Q&gt;")!== false){
         for ($i = 0; $i < $question_counter; $i++) {
             $itpresflflresplidrendchoresp = $doc->CreateElement("response_label");
             $itpresflflresplidrendchorespid = $doc->CreateAttribute("ident");
@@ -28,7 +28,6 @@
             include ("matimage.php");
 
             $material2->appendChild($matimage);
-
 
             $letraresp++;
         }
@@ -77,7 +76,6 @@
         $itemresprocoutcdecvar->setAttributeNode($itemresprocoutcdecvarvartype);
         $itemresprocoutc->appendChild($itemresprocoutcdecvar);
 
-
         $abcdario = 'A';
 
         for ($abc = 0; $abc < 26; $abc++)
@@ -86,7 +84,7 @@
             $itemresprrespccontinue = $doc->CreateAttribute("continue");
             if ($abc > 3) $itemresprrespccontinue->value = ("Yes");
             else $itemresprrespccontinue->value = ("No");
-            if ($titl == "Multiple Correct") $itemresprrespccontinue->value = ("Yes");
+            if ($titl == "Multiple Correct Answer") $itemresprrespccontinue->value = ("Yes");
             $itemresprrespc->setAttributeNode($itemresprrespccontinue);
             $itemresproc->appendChild($itemresprrespc);
 
@@ -98,7 +96,7 @@
             $itemresprrespccondvarvareqcase->value = ("Yes");
             $itemresprrespccondvarvareq->setAttributeNode($itemresprrespccondvarvareqcase);
             $itemresprrespccondvarvareqrespident = $doc->CreateAttribute("respident");
-            if ($titl == "Multiple Correct") $itemresprrespccondvarvareqrespident->value = ("LID01");
+            if ($titl == "Multiple Correct Answer") $itemresprrespccondvarvareqrespident->value = ("LID01");
             else $itemresprrespccondvarvareqrespident->value = ("MCSC");
             $itemresprrespccondvarvareq->setAttributeNode($itemresprrespccondvarvareqrespident);
             $itemresprrespccondvarvareq->nodeValue = $abcdario;
@@ -137,12 +135,12 @@
             else
             {
                 $itemresprrespcdispfeed2linkrefid->value = $abcdario."1";
-                if ($titl == "Multiple Correct")
+                if ($titl == "Multiple Correct Answer")
                     $itemresprrespcdispfeed2linkrefid->value = "AnswerFeedback";
             }
             $itemresprrespcdispfeed2->setAttributeNode($itemresprrespcdispfeed2linkrefid);
 
-            if (($titl == "Multiple Correct")
+            if (($titl == "Multiple Correct Answer")
                 && ($abc < 4-$question_counter))
             {
                 $itemresprrespcdispfeed2cdata = $doc->CreateCDataSection("");
@@ -154,7 +152,7 @@
             $abcdario++;
         }
         $auxcharitemfeed = 'A';
-//point de repere
+
         for ($nn = 0; $nn < 6; $nn++)
         {
             $itemresprocitfeed = $doc->CreateElement("itemfeedback");
@@ -212,15 +210,16 @@
 
         include ("mattext.php");
 
-        $line[$x] = str_replace("&lt;op&gt;", "", $line[$x]);
-        $line[$x] = str_replace("&lt;rc&gt;", "", $line[$x]);
-        $auxresptest = $line[$x];
-        $auxresptest2 = $line[$x];
+        /*$line_encode[$x] = str_replace("&lt;op&gt;", "", $line_encode[$x]);
+        $line_encode[$x] = str_replace("&lt;rc&gt;", "", $line_encode[$x]);
+        $auxresptest = $line_encode[$x];
+        $auxresptest2 = $line_encode[$x];
 
         if (substr_compare($auxresptest, '<br>', -strlen('<br>')) === 0) {
             $auxresptest = substr($auxresptest2, 0, -strlen('<br>'));
-        }
-        $itpresflflresplidrendchorespmat1mattcd = $doc->CreateCDataSection($auxresptest2);
+        }*/
+        $auxresptest = $line_decode;
+        $itpresflflresplidrendchorespmat1mattcd = $doc->CreateCDataSection($auxresptest);
         $mattext->appendChild($itpresflflresplidrendchorespmat1mattcd);
         $material->appendChild($mattext);
         if ($question_counter > 0)

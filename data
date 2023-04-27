@@ -1,4 +1,4 @@
- 
+
 //using MySql.Data.MySqlClient;
 using System;
 using System.Collections;
@@ -2994,8 +2994,6 @@ public partial class Editor : System.Web.UI.Page
 
 
     } //fin crearXml
-
-
 
 
             $compteurbis = $doc->CreateElement("number".$y);

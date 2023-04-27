@@ -1,16 +1,4 @@
-    <?php
-
-    if (strpos($line_encode[$x], "&lt;/Q&gt;") === false) {
-        $k = 1;
-        while($line_encode[$x + $k] != ""){
-
-        //while (strpos($line_encode[$x + $k], "&lt;/Q&gt;") === false) {
-        $line_encode[$x] = $line_encode[$x] . "&lt;br&gt;" . $line_encode[$x + $k];
-        $line_encode[$x + $k] = "";
-        $k++;
-
-        }
-    }
+<?php
     if (strpos($line_encode[$x], "&lt;M")!== false){
         //find all number and add it in $matches
         preg_match_all('/-?\d+(?:\,\d+)?/', $line_encode[$x], $matches);
@@ -45,11 +33,9 @@
         $resultats[] = $correspondance;
     }
     // Remplacer les occurrences de l'expression régulière par une chaîne vide
-    $line_decode = preg_replace($expressionReguliere, 'CUT', $line_decode);
-    $line_decode = str_replace("</Q>", "", $line_decode);
-
-    $Numeric_question = explode("CUT", $line_decode);
-
+    $line_decode = preg_replace($expressionReguliere, '<>', $line_decode);
+    $line_decode = preg_replace( '</Q>',"", $line_decode);
+    $Numeric_question = explode("<>", $line_decode);
     $counter_id = 0;
 
     $ident_value++;
@@ -59,7 +45,7 @@
     $item->setAttributeNode($itemident);
     $itemtitle = $doc->CreateAttribute("title");
 
-    $itemtitle->value = "Fill in Blank";
+    $itemtitle->value = "Numeric Response";
     $item->setAttributeNode($itemtitle);
     $section->appendChild($item);
 
@@ -79,7 +65,7 @@
     $fieldlabelqmditemtype->appendChild($fieldlabelqmditemtypetext);
     $qtimetafieldqmditemtype->appendChild($fieldlabelqmditemtype);
     $fieldentryqmditemtype = $doc->CreateElement("fieldentry");
-    $fieldentryqmditemtypetext = $doc->CreateTextNode("Fill In the Blank");
+    $fieldentryqmditemtypetext = $doc->CreateTextNode("Numeric Response");
     $fieldentryqmditemtype->appendChild($fieldentryqmditemtypetext);
     $qtimetafieldqmditemtype->appendChild($fieldentryqmditemtype);
 
@@ -93,40 +79,6 @@
     $fieldentrytextformattext = $doc->CreateTextNode("HTML");
     $fieldentrytextformat->appendChild($fieldentrytextformattext);
     $qtimetafieldtextformat->appendChild($fieldentrytextformat);
-
-    $qtimetafieldmutualexclus = $doc->CreateElement("qtimetadatafield");
-    $qtimeta->appendChild($qtimetafieldmutualexclus);
-    $fieldlabelmutualexclus = $doc->CreateElement("fieldlabel");
-    $fieldlabelmutualexclustext = $doc->CreateTextNode("MUTUALLY_EXCLUSIVE");
-    $fieldlabelmutualexclus->appendChild($fieldlabelmutualexclustext);
-    $qtimetafieldmutualexclus->appendChild($fieldlabelmutualexclus);
-    $fieldentrymutualexclus = $doc->CreateElement("fieldentry");
-    $fieldentrymutualexclustext = $doc->CreateTextNode("false");
-    $fieldentrymutualexclus->appendChild($fieldentrymutualexclustext);
-    $qtimetafieldmutualexclus->appendChild($fieldentrymutualexclus);
-
-    $qtimetafieldcasesensit = $doc->CreateElement("qtimetadatafield");
-    $qtimeta->appendChild($qtimetafieldcasesensit);
-    $fieldlabelcasesensit = $doc->CreateElement("fieldlabel");
-    $fieldlabelcasesensittext = $doc->CreateTextNode("CASE_SENSITIVE");
-    $fieldlabelcasesensit->appendChild($fieldlabelcasesensittext);
-    $qtimetafieldcasesensit->appendChild($fieldlabelcasesensit);
-    $fieldentrycasesensit = $doc->CreateElement("fieldentry");
-    $fieldentrycasesensittext = $doc->CreateTextNode("false");
-    $fieldentrycasesensit->appendChild($fieldentrycasesensittext);
-    $qtimetafieldcasesensit->appendChild($fieldentrycasesensit);
-
-
-    $qtimetafieldignorespaces = $doc->CreateElement("qtimetadatafield");
-    $qtimeta->appendChild($qtimetafieldignorespaces);
-    $fieldlabelignorespaces = $doc->CreateElement("fieldlabel");
-    $fieldlabelignorespacestext = $doc->CreateTextNode("IGNORE_SPACES");
-    $fieldlabelignorespaces->appendChild($fieldlabelignorespacestext);
-    $qtimetafieldignorespaces->appendChild($fieldlabelignorespaces);
-    $fieldentryignorespaces = $doc->CreateElement("fieldentry");
-    $fieldentryignorespacestext = $doc->CreateTextNode("true");
-    $fieldentryignorespaces->appendChild($fieldentryignorespacestext);
-    $qtimetafieldignorespaces->appendChild($fieldentryignorespaces);
 
     $qtimetafielditemobjective = $doc->CreateElement("qtimetadatafield");
     $qtimeta->appendChild($qtimetafielditemobjective);
@@ -178,7 +130,7 @@
     //if NFM
     $itempresentation = $doc->CreateElement("presentation");
     $itempresentationlabel = $doc->CreateAttribute("label");
-    $itempresentationlabel->value = "FIB";
+    $itempresentationlabel->value = "FIN";
     $itempresentation->setAttributeNode($itempresentationlabel);
     $item->appendChild($itempresentation);
 
@@ -223,6 +175,7 @@
             $itpresflflmattextxmlspace2->value = "default";
             $itpresflflmattext2->setAttributeNode($itpresflflmattextxmlspace2);
             $itpresflflmaterial2->appendChild($itpresflflmattext2);
+            //if ($i != count($Numeric_question) | $Numeric_question[$i+1] !="")
             if ($Numeric_question[$i+1] !="")
             {
                 $itpresflflmattextcdata2 = $doc->CreateCDataSection($Numeric_question[$i+1]);
@@ -243,30 +196,50 @@
             $itpresflflresponsestr->setAttributeNode($itpresflflresponsestrrtiming);
             $itpresflowflow->appendChild($itpresflflresponsestr);
 
-            $itpresflflresprenderfib = $doc->CreateElement("render_fib");
-            $itpresflflresprenderfibcharset = $doc->CreateAttribute("charset");
-            $itpresflflresprenderfibcharset->value = "ascii-us";
-            $itpresflflresprenderfib->setAttributeNode($itpresflflresprenderfibcharset);
-            $itpresflflresprenderfibcolumns = $doc->CreateAttribute("columns");
-            $itpresflflresprenderfibcolumns->value = "5";
-            $itpresflflresprenderfib->setAttributeNode($itpresflflresprenderfibcolumns);
-            $itpresflflresprenderfibencoding = $doc->CreateAttribute("encoding");
-            $itpresflflresprenderfibencoding->value = "UTF_8";
-            $itpresflflresprenderfib->setAttributeNode($itpresflflresprenderfibencoding);
-            $itpresflflresprenderfibfibtype = $doc->CreateAttribute("fibtype");
-            $itpresflflresprenderfibfibtype->value = "String";
-            $itpresflflresprenderfib->setAttributeNode($itpresflflresprenderfibfibtype);
-            $itpresflflresprenderfibprompt = $doc->CreateAttribute("prompt");
-            $itpresflflresprenderfibprompt->value = "Box";
-            $itpresflflresprenderfib->setAttributeNode($itpresflflresprenderfibprompt);
-            $itpresflflresprenderfibrows = $doc->CreateAttribute("rows");
-            $itpresflflresprenderfibrows->value = "1";
-            $itpresflflresprenderfib->setAttributeNode($itpresflflresprenderfibrows);
-            $itpresflflresponsestr->appendChild($itpresflflresprenderfib);
+            $itpresflflresprenderfin = $doc->CreateElement("render_fin");
+            $itpresflflresprenderfincolumns = $doc->CreateAttribute("columns");
+            $itpresflflresprenderfincolumns->value = "5";
+            $itpresflflresprenderfin->setAttributeNode($itpresflflresprenderfincolumns);
+            $itpresflflresprenderfinfintype = $doc->CreateAttribute("fintype");
+            $itpresflflresprenderfinfintype->value = "String";
+            $itpresflflresprenderfin->setAttributeNode($itpresflflresprenderfinfintype);
+            $itpresflflresprenderfinprompt = $doc->CreateAttribute("prompt");
+            $itpresflflresprenderfinprompt->value = "Box";
+            $itpresflflresprenderfin->setAttributeNode($itpresflflresprenderfinprompt);
+            $itpresflflresprenderfinrows = $doc->CreateAttribute("rows");
+            $itpresflflresprenderfinrows->value = "1";
+            $itpresflflresprenderfin->setAttributeNode($itpresflflresprenderfinrows);
+            $itpresflflresponsestr->appendChild($itpresflflresprenderfin);
+
+            /* for fill question
+            else
+            {
+                $itpresflflresprenderfib = $doc->CreateElement("render_fib");
+                $itpresflflresprenderfibcharset = $doc->CreateAttribute("charset");
+                $itpresflflresprenderfibcharset->value = "ascii-us";
+                $itpresflflresprenderfib->setAttributeNode($itpresflflresprenderfibcharset);
+                $itpresflflresprenderfibcolumns = $doc->CreateAttribute("columns");
+                $itpresflflresprenderfibcolumns->value = "5";
+                $itpresflflresprenderfib->setAttributeNode($itpresflflresprenderfibcolumns);
+                $itpresflflresprenderfibencoding = $doc->CreateAttribute("encoding");
+                $itpresflflresprenderfibencoding->value = "UTF_8";
+                $itpresflflresprenderfib->setAttributeNode($itpresflflresprenderfibencoding);
+                $itpresflflresprenderfibfibtype = $doc->CreateAttribute("fibtype");
+                $itpresflflresprenderfibfibtype->value = "String";
+                $itpresflflresprenderfib->setAttributeNode($itpresflflresprenderfibfibtype);
+                $itpresflflresprenderfibprompt = $doc->CreateAttribute("prompt");
+                $itpresflflresprenderfibprompt->value = "Box";
+                $itpresflflresprenderfib->setAttributeNode($itpresflflresprenderfibprompt);
+                $itpresflflresprenderfibrows = $doc->CreateAttribute("rows");
+                $itpresflflresprenderfibrows->value = "1";
+                $itpresflflresprenderfib->setAttributeNode($itpresflflresprenderfibrows);
+                $itpresflflresponsestr->appendChild($itpresflflresprenderfib);
+            }
+            */
 
         } // fin if($counter_id<respuestas.Count)
     }
-
+    
     if (!$insertadomaterialsincdata)
     {
         $itpresflflmaterial3 = $doc->CreateElement("material");
@@ -430,5 +403,4 @@
     $itfeediflmaterimag->setAttributeNode($itfeediflmaterimaguri);
     $itfeediflmateri->appendChild($itfeediflmaterimag);
 
-    ?>
-
+?>

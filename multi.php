@@ -1,46 +1,56 @@
 <?php
+    if (strpos($line_encode[$x], "&lt;M")!== false){
+        //find all number and add it in $matches
+        preg_match_all('/-?\d+(?:\,\d+)?/', $line_encode[$x], $matches);
+        if (strpos($line_encode[$x], "&lt;MN")!== false){
+            $minuspoint = ($matches[0][1]);
+            $minuspoint = str_replace(".", ",", $minuspoint);
 
-    $line_decode = htmlspecialchars_decode($line[$x]);
-    $debut = "<";
-    $fin = ">";
-    // Caractères spécifiques
-    $debut = "<M";
-    $fin = ">";
-    // Expression régulière pour correspondre aux caractères spécifiques et tout ce qui se trouve entre eux
-    $expressionReguliere = '/' . preg_quote($debut, '/') . '(.*?)' . preg_quote($fin, '/') . '/';
-    // Remplacer les occurrences de l'expression régulière par une chaîne vide
-    $line_decode = preg_replace($expressionReguliere, '', $line_decode);
+        }
+        $pluspoint = ($matches[0][0]);
+        // Caractères spécifiques
+        $debut = "&lt;M";
+        $fin = "&gt;";
+        // Expression régulière pour correspondre aux caractères spécifiques et tout ce qui se trouve entre eux
+        $expressionReguliere = '/' . preg_quote($debut, '/') . '(.*?)' . preg_quote($fin, '/') . '/';
+        // Remplacer les occurrences de l'expression régulière par une chaîne vide
+        $line_encode = preg_replace($expressionReguliere, '', $line_encode);
+    }
 
-    $compteurbisRC = 0;
+    $line_decode = htmlspecialchars_decode($line_encode[$x]);
 
-    if(strpos($line[$x], "&lt;op&gt;")!== false || strpos($line[$x], "&lt;/Q&gt;")!== false){
+    $letraresp = 'A';
+    $tableau = array();
+    for ($y=1; $y<5 ;$y++){
+        if (strpos($line_encode[$x+$y], "&lt;rc&gt;")!== false){
+            $tableau[] = "rc";
+            $compteurbisRC++;
+        }else{
+            $tableau[] = "op";
+        }
+        if ($compteurbisRC>1){
+            $titl = "Multiple Correct Answer";
+            break;
+        }else{
+            $titl = "Multiple Choice";
+        }
+    }
+    $line_decode = str_replace("<rc>", "", $line_decode);
+    $line_decode = str_replace("<op>", "", $line_decode);
+
+
+    if(strpos($line_encode[$x], "&lt;op&gt;")!== false || strpos($line_encode[$x], "&lt;/Q&gt;")!== false){
         include ("OP.php");
     }else{
-        // boucler à travers les lettres de A à Z
-        $titl = "Multiple Choice";
-        $tableau = array();
-        $letraresp = 'A';
+
         $ident_value++;
         $item = $doc->CreateElement("item");
         $itemident = $doc->CreateAttribute("ident");
         $itemident->value = $ident_value;
         $item->setAttributeNode($itemident);
         $itemtitle = $doc->CreateAttribute("title");
-        for ($y=1; $y<5 ;$y++){
-            if (strpos($line[$x+$y], "<rc>")!== false){
-                $tableau[] = "rc";
-                $compteurbisRC++;
-            }else{
-                $tableau[] = "op";
-            }
-            if ($compteurbisRC>1){
-                $itemtitle->value = "Multiple Correct";
-                $titl = "Multiple Correct";
-                break;
-            }else{
-                $itemtitle->value = "Multiple Choice";
-            }
-        }
+
+        $itemtitle->value = $titl;
         $item->setAttributeNode($itemtitle);
         $section->appendChild($item);
 
@@ -60,16 +70,54 @@
         $fieldlabelqmditemtype->appendChild($fieldlabelqmditemtypetext);
         $qtimetafieldqmditemtype->appendChild($fieldlabelqmditemtype);
         $fieldentryqmditemtype = $doc->CreateElement("fieldentry");
-        if ($titl == "Multiple Correct"){
-            $fieldentryqmditemtypetext = $doc->CreateTextNode("Multiple Correct Answer");
-        }else{
-            $fieldentryqmditemtypetext = $doc->CreateTextNode("Multiple Choice");
-        }
-        $fieldlabelqmditemtype->appendChild($fieldlabelqmditemtypetext);
+        // $titl
+        $fieldentryqmditemtypetext = $doc->CreateTextNode($titl);
+
         $fieldentryqmditemtype->appendChild($fieldentryqmditemtypetext);
         $qtimetafieldqmditemtype->appendChild($fieldentryqmditemtype);
 
-        include ("qtimetadatafield.php");
+        $qtimetafieldtextformat = $doc->CreateElement("qtimetadatafield");
+        $qtimeta->appendChild($qtimetafieldtextformat);
+        $fieldlabeltextformat = $doc->CreateElement("fieldlabel");
+        $fieldlabeltextformattext = $doc->CreateTextNode("TEXT_FORMAT");
+        $fieldlabeltextformat->appendChild($fieldlabeltextformattext);
+        $qtimetafieldtextformat->appendChild($fieldlabeltextformat);
+        $fieldentrytextformat = $doc->CreateElement("fieldentry");
+        $fieldentrytextformattext = $doc->CreateTextNode("HTML");
+        $fieldentrytextformat->appendChild($fieldentrytextformattext);
+        $qtimetafieldtextformat->appendChild($fieldentrytextformat);
+
+        $qtimetafielditemobjective = $doc->CreateElement("qtimetadatafield");
+        $qtimeta->appendChild($qtimetafielditemobjective);
+        $fieldlabelitemobjective = $doc->CreateElement("fieldlabel");
+        $fieldlabelitemobjectivetext = $doc->CreateTextNode("ITEM_OBJECTIVE");
+        $fieldlabelitemobjective->appendChild($fieldlabelitemobjectivetext);
+        $qtimetafielditemobjective->appendChild($fieldlabelitemobjective);
+        $qtimetafielditemobjective->appendChild($doc->CreateElement("fieldentry"));
+
+        $qtimetafielditemkeyword = $doc->CreateElement("qtimetadatafield");
+        $qtimeta->appendChild($qtimetafielditemkeyword);
+        $fieldlabelitemkeyword = $doc->CreateElement("fieldlabel");
+        $fieldlabelitemkeywordtext = $doc->CreateTextNode("ITEM_KEYWORD");
+        $fieldlabelitemkeyword->appendChild($fieldlabelitemkeywordtext);
+        $qtimetafielditemkeyword->appendChild($fieldlabelitemkeyword);
+        $qtimetafielditemkeyword->appendChild($doc->CreateElement("fieldentry"));
+
+        $qtimetafielditemrubric = $doc->CreateElement("qtimetadatafield");
+        $qtimeta->appendChild($qtimetafielditemrubric);
+        $fieldlabelitemrubric = $doc->CreateElement("fieldlabel");
+        $fieldlabelitemrubrictext = $doc->CreateTextNode("ITEM_RUBRIC");
+        $fieldlabelitemrubric->appendChild($fieldlabelitemrubrictext);
+        $qtimetafielditemrubric->appendChild($fieldlabelitemrubric);
+        $qtimetafielditemrubric->appendChild($doc->CreateElement("fieldentry"));
+
+        $qtimetafieldattach = $doc->CreateElement("qtimetadatafield");
+        $qtimeta->appendChild($qtimetafieldattach);
+        $fieldlabelattach = $doc->CreateElement("fieldlabel");
+        $fieldlabelattachtext = $doc->CreateTextNode("ATTACHMENT");
+        $fieldlabelattach->appendChild($fieldlabelattachtext);
+        $qtimetafieldattach->appendChild($fieldlabelattach);
+        $qtimetafieldattach->appendChild($doc->CreateElement("fieldentry"));
 
         //if NFM
         $qtimetafieldhasrational = $doc->CreateElement("qtimetadatafield");
@@ -82,6 +130,7 @@
         $fieldentryhasrationaltext = $doc->CreateTextNode("false");
         $fieldentryhasrational->appendChild($fieldentryhasrationaltext);
         $qtimetafieldhasrational->appendChild($fieldentryhasrational);
+
         //if NFM
         if ($titl == "Multiple Choice") {
 
@@ -104,7 +153,7 @@
         $fieldlabelrandomiz->appendChild($fieldlabelrandomiztext);
         $qtimetafieldrandomiz->appendChild($fieldlabelrandomiz);
         $fieldentryrandomiz = $doc->CreateElement("fieldentry");
-        $fieldentryrandomiztext = $doc->CreateTextNode("true");  //Toni
+        $fieldentryrandomiztext = $doc->CreateTextNode("true");
         $fieldentryrandomiz->appendChild($fieldentryrandomiztext);
         $qtimetafieldrandomiz->appendChild($fieldentryrandomiz);
 

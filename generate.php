@@ -5,16 +5,17 @@
     $Content = $_POST['TextArea1'];
     $Filename = $_POST['filename']. ".xml";
     $Theme = $_POST['theme'];
+
     $line = explode("\r\n", $Content);
+    $line_encode = array_map('htmlspecialchars', $line);
+
     $size = count($line);
-    $question_type = "";
     $ident_value = 9960884;
-    $letraresp = 'A';
     $question_counter = 4;
     $pluspoint = 1;
     $minuspoint = 0;
 
-// Créer un objet DOMDocument
+    // Créer un objet DOMDocument
     $doc = new DOMDocument('1.0', 'UTF-8');
     $doc->xmlStandalone = true;
     $doc->formatOutput = true;
@@ -23,60 +24,47 @@
     $questestinterop = $doc->createElement('questestinterop');
     $doc->appendChild($questestinterop);
 
-
-    // Ajouter des éléments
-    $assessment = $doc->createElement("assessment");
-    $assessment->setAttribute('ident', '333283');
-    $assessment->setAttribute('title', $Theme);
-
     include ('xmlgeneral.php');
 
-    // Parcourir les lignes et les afficher
+    // Parcourir les lignes
     for ($x = 0; $x <= $size; $x++) {
-        $line[$x] = htmlspecialchars($line[$x]);
-        if (strlen($line[$x]) > 0){
+        $compteurbisRC = 0;
+        if (strlen($line_encode[$x]) > 0){
             //Reconnais la premier balise
-            if(strpos($line[$x], "&lt;QF&gt;")!== false){
+            if(strpos($line_encode[$x], "&lt;QF&gt;")!== false){
                 $question_type= "&lt;QF&gt;";
-                $line[$x] = str_replace("&lt;QF&gt;", "", $line[$x]);
+                $line_encode[$x] = str_replace("&lt;QF&gt;", "", $line_encode[$x]);
+                $pluspoint = 1;
+                $minuspoint = 0;
             }
-            if(strpos($line[$x], "&lt;QN&gt;")!== false){
+            if(strpos($line_encode[$x], "&lt;QN&gt;")!== false){
                 $question_type= "&lt;QN&gt;";
-                $line[$x] = str_replace("&lt;QN&gt;", "", $line[$x]);
+                $line_encode[$x] = str_replace("&lt;QN&gt;", "", $line_encode[$x]);
+                $pluspoint = 1;
+                $minuspoint = 0;
             }
-            if(strpos($line[$x], "&lt;QM&gt;")!== false){
+            if(strpos($line_encode[$x], "&lt;QM&gt;")!== false){
                 $question_type= "&lt;QM&gt;";
-                $line[$x] = str_replace("&lt;QM&gt;", "", $line[$x]);
-
+                $line_encode[$x] = str_replace("&lt;QM&gt;", "", $line_encode[$x]);
+                $pluspoint = 1;
+                $minuspoint = 0;
             }
-            if (strpos($line[$x], "&lt;M")!== false){
-                preg_match_all('/-?\d+(?:\,\d+)?/', $line[$x], $matches);
-                if (strpos($line[$x], "&lt;MN")!== false){
-                    $minuspoint = ($matches[0][1]);
-                    $minuspoint = str_replace(",", ".", $minuspoint);
 
-                }else {
-                    $pluspoint = ($matches[0][0]);
-                }
-            }
-            //Va dans le programme en fonction de la balise reconnue
             if($question_type== "&lt;QF&gt;"){
                 include ('fill.php');
             }
             if($question_type== "&lt;QN&gt;"){
-                include ('number.php');
+                include ('numeric.php');
             }
             if($question_type== "&lt;QM&gt;"){
                 include ('multi.php');
             }
             //Efface la balise de fin
-            if(strpos($line[$x], "&lt;/Q&gt;")!== false){
+            if(strpos($line_encode[$x], "&lt;/Q&gt;")!== false){
                 $question_type= "";
-                $line[$x] = str_replace("&lt;/Q&gt;", "", $line[$x]);
-                // Vider le tableau en utilisant array_splice()
-                array_splice($tableau, 0);
-                // Réinitialiser les clés du tableau
-                $tableau = array_values($tableau);
+                $line_encode[$x] = str_replace("&lt;/Q&gt;", "", $line_encode[$x]);
+                // Vider le tableau
+                $tableau = array();
                 $question_counter = 4;
             }
         }

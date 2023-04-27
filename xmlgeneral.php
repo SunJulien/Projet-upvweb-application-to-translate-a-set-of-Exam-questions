@@ -1,4 +1,10 @@
 <?php
+
+    // Ajouter des éléments
+    $assessment = $doc->createElement("assessment");
+    $assessment->setAttribute('ident', '333283');
+    $assessment->setAttribute('title', $Theme);
+
     $qticomment = $doc->CreateElement("qticomment");
     $assessment->appendChild($qticomment);
     
