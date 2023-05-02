@@ -1,4 +1,15 @@
 <?php
+
+    if (strpos($line_encode[$x], "&lt;/Q&gt;") === false) {
+        $k = 1;
+        while($line_encode[$x + $k] != ""){
+
+            //while (strpos($line_encode[$x + $k], "&lt;/Q&gt;") === false) {
+            $line_encode[$x] = $line_encode[$x] . "&lt;br&gt;" . $line_encode[$x + $k];
+            $line_encode[$x + $k] = "";
+            $k++;
+        }
+    }
     if (strpos($line_encode[$x], "&lt;M")!== false){
         //find all number and add it in $matches
         preg_match_all('/-?\d+(?:\,\d+)?/', $line_encode[$x], $matches);
@@ -15,7 +26,7 @@
         // Expression régulière pour correspondre aux caractères spécifiques et tout ce qui se trouve entre eux
         $expressionReguliere = '/' . preg_quote($debut, '/') . '(.*?)' . preg_quote($fin, '/') . '/';
         // Remplacer les occurrences de l'expression régulière par une chaîne vide
-        $line_encode = preg_replace($expressionReguliere, '', $line_encode);
+        $line_encode[$x] = preg_replace($expressionReguliere, '', $line_encode[$x]);
     }
 
     $line_decode = htmlspecialchars_decode($line_encode[$x]);

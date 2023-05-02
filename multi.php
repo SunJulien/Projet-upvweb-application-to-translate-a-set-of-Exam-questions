@@ -1,48 +1,44 @@
 <?php
     if (strpos($line_encode[$x], "&lt;M")!== false){
-        //find all number and add it in $matches
+        // Trouver tous les nombres et les ajouter à $matches
         preg_match_all('/-?\d+(?:\,\d+)?/', $line_encode[$x], $matches);
         if (strpos($line_encode[$x], "&lt;MN")!== false){
-            $minuspoint = ($matches[0][1]);
-            $minuspoint = str_replace(".", ",", $minuspoint);
-
+            $minuspoint = $matches[0][1];
+            $minuspoint = str_replace(",", ".", $minuspoint);
         }
-        $pluspoint = ($matches[0][0]);
-        // Caractères spécifiques
+        $pluspoint = $matches[0][0];
+        // Caractères spéciaux
         $debut = "&lt;M";
         $fin = "&gt;";
-        // Expression régulière pour correspondre aux caractères spécifiques et tout ce qui se trouve entre eux
+        // Expression régulière pour trouver les caractères spéciaux et tout ce qui se trouve entre eux
         $expressionReguliere = '/' . preg_quote($debut, '/') . '(.*?)' . preg_quote($fin, '/') . '/';
-        // Remplacer les occurrences de l'expression régulière par une chaîne vide
-        $line_encode = preg_replace($expressionReguliere, '', $line_encode);
+        // Remplacer toutes les occurrences de l'expression régulière par une chaîne vide
+        $line_encode[$x] = preg_replace($expressionReguliere, '', $line_encode[$x]);
     }
-
     $line_decode = htmlspecialchars_decode($line_encode[$x]);
-
-    $letraresp = 'A';
-    $tableau = array();
-    for ($y=1; $y<5 ;$y++){
-        if (strpos($line_encode[$x+$y], "&lt;rc&gt;")!== false){
-            $tableau[] = "rc";
-            $compteurbisRC++;
-        }else{
-            $tableau[] = "op";
-        }
-        if ($compteurbisRC>1){
-            $titl = "Multiple Correct Answer";
-            break;
-        }else{
-            $titl = "Multiple Choice";
-        }
-    }
-    $line_decode = str_replace("<rc>", "", $line_decode);
-    $line_decode = str_replace("<op>", "", $line_decode);
-
-
-    if(strpos($line_encode[$x], "&lt;op&gt;")!== false || strpos($line_encode[$x], "&lt;/Q&gt;")!== false){
+    $line_decode = str_replace("<RC>", "", $line_decode);
+    $line_decode = str_replace("<OP>", "", $line_decode);
+    if(strpos($line_encode[$x], "&lt;OP&gt;")!== false || strpos($line_encode[$x], "&lt;/Q&gt;")!== false){
         include ("OP.php");
     }else{
+        $compteurbisRC = 0;
+        $tableau = array();
+        for ($y=1; $y<5 ;$y++){
+            if (strpos($line_encode[$x+$y], "&lt;RC&gt;")!== false){
+                $tableau[] = "rc";
+                $compteurbisRC++;
+            }else{
+                $tableau[] = "op";
+            }
+            if ($compteurbisRC>1){
+                $titl = "Multiple Correct Answer";
+                break;
+            }else{
+                $titl = "Multiple Choice";
+            }
+        }
 
+        $letraresp = 'A';
         $ident_value++;
         $item = $doc->CreateElement("item");
         $itemident = $doc->CreateAttribute("ident");

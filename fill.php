@@ -8,26 +8,25 @@
         $line_encode[$x] = $line_encode[$x] . "&lt;br&gt;" . $line_encode[$x + $k];
         $line_encode[$x + $k] = "";
         $k++;
-
         }
     }
     if (strpos($line_encode[$x], "&lt;M")!== false){
-        //find all number and add it in $matches
+        // Trouver tous les nombres et les ajouter à $matches
         preg_match_all('/-?\d+(?:\,\d+)?/', $line_encode[$x], $matches);
         if (strpos($line_encode[$x], "&lt;MN")!== false){
-            $minuspoint = ($matches[0][1]);
+            $minuspoint = $matches[0][1];
             $minuspoint = str_replace(",", ".", $minuspoint);
         }
-        $pluspoint = ($matches[0][0]);
+        $pluspoint = $matches[0][0];
         $pluspoint = str_replace(",", ".", $pluspoint);
 
-        // Caractères spécifiques
+        // Caractères spéciaux
         $debut = "&lt;M";
         $fin = "&gt;";
-        // Expression régulière pour correspondre aux caractères spécifiques et tout ce qui se trouve entre eux
+        // Expression régulière pour trouver les caractères spéciaux et tout ce qui se trouve entre eux
         $expressionReguliere = '/' . preg_quote($debut, '/') . '(.*?)' . preg_quote($fin, '/') . '/';
-        // Remplacer les occurrences de l'expression régulière par une chaîne vide
-        $line_encode = preg_replace($expressionReguliere, '', $line_encode);
+        // Remplacer toutes les occurrences de l'expression régulière par une chaîne vide
+        $line_encode[$x] = preg_replace($expressionReguliere, '', $line_encode[$x]);
     }
 
     $line_decode = htmlspecialchars_decode($line_encode[$x]);
@@ -47,6 +46,7 @@
     // Remplacer les occurrences de l'expression régulière par une chaîne vide
     $line_decode = preg_replace($expressionReguliere, 'CUT', $line_decode);
     $line_decode = str_replace("</Q>", "", $line_decode);
+    $question_type= "";
 
     $Numeric_question = explode("CUT", $line_decode);
 

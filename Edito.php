@@ -18,7 +18,7 @@
 
             if (file_name_split[1] != "txt"){
                 // Affichage de l'extension
-                alert("L'extension du fichier doit etre en .txt celui que vous avez choisie est en : ." + file_name_split[1]);
+                alert("L'extension du fichier doit etre en :\t.txt \nCelui que vous avez choisie est en : ." + file_name_split[1]);
             }else{
                 reader.readAsText(file);
 
@@ -36,10 +36,6 @@
                 console.log(reader.error);
             };
         }
-        function clearBox() {
-            const input = document.getElementById("TextArea1");
-            input.value = "";
-        }
     </script>
     <div class="container">
         <div id="nav-placeholder"></div>
@@ -55,7 +51,6 @@
                 <p>
                     Usa el formulario de la derecha para traducir y descargar los documentos.<br>
                     Dale nombre al fichero (sin extensión) y a la batería (NECESARIO).<br>
-                    Luego pulsa el botón ReadFile.
                 </p>
                 <p>
                     <img src="Icon/man.png" alt="man icon" width="31" height="34">
@@ -71,10 +66,7 @@
                 </p>
             </div>
             <div class="col-sm-auto">
-                <input type="file" id="file" name="file">
-                <input type="submit" id="clearbox" name="clearbox" value="Clear" onclick="clearBox()" style="float: right">
-                <input type="submit" id="readfile" name="readfile" value="Readfile" onclick="loadFile()" style="float: right">
-
+                <input type="file" id="file" name="file" onchange="loadFile()">
                 <form id="monFormulate" action="generate.php" method="POST" style="padding-top: 0.1em">
                     <textarea id="TextArea1" name="TextArea1" cols="55" rows="15" placeholder="Código de batería en lenguaje de marcas&#10;Puede escribir o importar un documento .txt&#10;Luego léalo con el botón readfile"></textarea><br><br>
                     <input type="text" id="filename" name="filename" style="width: 100%" placeholder="Nombre del archivo a generar"><br><br>

@@ -6,14 +6,20 @@
     $Filename = $_POST['filename']. ".xml";
     $Theme = $_POST['theme'];
 
+    // Expression régulière pour trouver les caractères entre les balises
+    $expressionReguliere = '/(?<=<)([^<>]+)(?=>)/';
+    // Remplacer toutes les occurrences de l'expression régulière par le texte en majuscules
+    $Content = preg_replace_callback($expressionReguliere, function($match) {
+        return strtoupper($match[1]);
+    }, $Content);
+
+
     $line = explode("\r\n", $Content);
     $line_encode = array_map('htmlspecialchars', $line);
 
     $size = count($line);
     $ident_value = 9960884;
     $question_counter = 4;
-    $pluspoint = 1;
-    $minuspoint = 0;
 
     // Créer un objet DOMDocument
     $doc = new DOMDocument('1.0', 'UTF-8');
@@ -28,7 +34,6 @@
 
     // Parcourir les lignes
     for ($x = 0; $x <= $size; $x++) {
-        $compteurbisRC = 0;
         if (strlen($line_encode[$x]) > 0){
             //Reconnais la premier balise
             if(strpos($line_encode[$x], "&lt;QF&gt;")!== false){
@@ -64,7 +69,6 @@
                 $question_type= "";
                 $line_encode[$x] = str_replace("&lt;/Q&gt;", "", $line_encode[$x]);
                 // Vider le tableau
-                $tableau = array();
                 $question_counter = 4;
             }
         }
