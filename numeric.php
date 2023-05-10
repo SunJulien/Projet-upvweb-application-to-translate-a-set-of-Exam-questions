@@ -170,8 +170,7 @@
 
     for ($i = 0; $i <= count($Numeric_question); $i++) {
 
-        if ($counter_id < count($resultats))
-        {
+        if ($counter_id < count($resultats)) {
             $itpresflflmaterial2 = $doc->CreateElement("material");
             $itpresflowflow->appendChild($itpresflflmaterial2);
 
@@ -186,13 +185,10 @@
             $itpresflflmattextxmlspace2->value = "default";
             $itpresflflmattext2->setAttributeNode($itpresflflmattextxmlspace2);
             $itpresflflmaterial2->appendChild($itpresflflmattext2);
-            //if ($i != count($Numeric_question) | $Numeric_question[$i+1] !="")
-            if ($Numeric_question[$i+1] !="")
-            {
-                $itpresflflmattextcdata2 = $doc->CreateCDataSection($Numeric_question[$i+1]);
+            if ($Numeric_question[$i + 1] != "") {
+                $itpresflflmattextcdata2 = $doc->CreateCDataSection($Numeric_question[$i + 1]);
                 $itpresflflmattext2->appendChild($itpresflflmattextcdata2);
-            }
-            else $insertadomaterialsincdata = true;
+            } else $insertadomaterialsincdata = true;
 
             $itpresflflresponsestr = $doc->CreateElement("response_str");
             $itpresflflresponsestrident = $doc->CreateAttribute("ident");
@@ -221,36 +217,9 @@
             $itpresflflresprenderfinrows->value = "1";
             $itpresflflresprenderfin->setAttributeNode($itpresflflresprenderfinrows);
             $itpresflflresponsestr->appendChild($itpresflflresprenderfin);
-
-            /* for fill question
-            else
-            {
-                $itpresflflresprenderfib = $doc->CreateElement("render_fib");
-                $itpresflflresprenderfibcharset = $doc->CreateAttribute("charset");
-                $itpresflflresprenderfibcharset->value = "ascii-us";
-                $itpresflflresprenderfib->setAttributeNode($itpresflflresprenderfibcharset);
-                $itpresflflresprenderfibcolumns = $doc->CreateAttribute("columns");
-                $itpresflflresprenderfibcolumns->value = "5";
-                $itpresflflresprenderfib->setAttributeNode($itpresflflresprenderfibcolumns);
-                $itpresflflresprenderfibencoding = $doc->CreateAttribute("encoding");
-                $itpresflflresprenderfibencoding->value = "UTF_8";
-                $itpresflflresprenderfib->setAttributeNode($itpresflflresprenderfibencoding);
-                $itpresflflresprenderfibfibtype = $doc->CreateAttribute("fibtype");
-                $itpresflflresprenderfibfibtype->value = "String";
-                $itpresflflresprenderfib->setAttributeNode($itpresflflresprenderfibfibtype);
-                $itpresflflresprenderfibprompt = $doc->CreateAttribute("prompt");
-                $itpresflflresprenderfibprompt->value = "Box";
-                $itpresflflresprenderfib->setAttributeNode($itpresflflresprenderfibprompt);
-                $itpresflflresprenderfibrows = $doc->CreateAttribute("rows");
-                $itpresflflresprenderfibrows->value = "1";
-                $itpresflflresprenderfib->setAttributeNode($itpresflflresprenderfibrows);
-                $itpresflflresponsestr->appendChild($itpresflflresprenderfib);
-            }
-            */
-
-        } // fin if($counter_id<respuestas.Count)
+        }
     }
-    
+
     if (!$insertadomaterialsincdata)
     {
         $itpresflflmaterial3 = $doc->CreateElement("material");

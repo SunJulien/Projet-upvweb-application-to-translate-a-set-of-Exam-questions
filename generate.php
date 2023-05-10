@@ -1,41 +1,59 @@
 <?php
+
+    /**
+    @file
+    This file contains a PHP script for generating an XML file from form inputs.
+    PHP version 7.4
+    @author Sun Julien
+     */
+
+    // Enable error reporting for debugging
     ini_set('display_errors', 1);
     error_reporting(E_ALL);
+
+    // Start output buffering
     ob_start();
+
+    // Get form inputs from POST request
     $Content = $_POST['TextArea1'];
     $Filename = $_POST['filename']. ".xml";
     $Theme = $_POST['theme'];
 
-    // Expression régulière pour trouver les caractères entre les balises
+    // Regular expression to match text between XML tags
     $expressionReguliere = '/(?<=<)([^<>]+)(?=>)/';
-    // Remplacer toutes les occurrences de l'expression régulière par le texte en majuscules
+    // Replace all occurrences of the regular expression with the text in uppercase
     $Content = preg_replace_callback($expressionReguliere, function($match) {
         return strtoupper($match[1]);
     }, $Content);
 
-
+    // Split the input into an array of lines
     $line = explode("\r\n", $Content);
+    // Encode special characters in each line
     $line_encode = array_map('htmlspecialchars', $line);
 
+    // Get the number of lines in the input
     $size = count($line);
+    // Set initial values for some variables
     $ident_value = 9960884;
     $question_counter = 4;
 
-    // Créer un objet DOMDocument
+    // Create a new DOMDocument object
     $doc = new DOMDocument('1.0', 'UTF-8');
+    // Set some options for the document
     $doc->xmlStandalone = true;
     $doc->formatOutput = true;
 
-    // Créer l'élément racine du document
+    // Create the root element of the document
     $questestinterop = $doc->createElement('questestinterop');
     $doc->appendChild($questestinterop);
 
+    // Include some general XML elements
     include ('xmlgeneral.php');
 
-    // Parcourir les lignes
+    // Loop through each line of the input
     for ($x = 0; $x <= $size; $x++) {
         if (strlen($line_encode[$x]) > 0){
-            //Reconnais la premier balise
+            // Check if the line contains the start tag for a question type
             if(strpos($line_encode[$x], "&lt;QF&gt;")!== false){
                 $question_type= "&lt;QF&gt;";
                 $line_encode[$x] = str_replace("&lt;QF&gt;", "", $line_encode[$x]);
@@ -55,6 +73,7 @@
                 $minuspoint = 0;
             }
 
+            // Include the appropriate file for the question type
             if($question_type== "&lt;QF&gt;"){
                 include ('fill.php');
             }
@@ -64,11 +83,11 @@
             if($question_type== "&lt;QM&gt;"){
                 include ('multi.php');
             }
-            //Efface la balise de fin
+
+            // Check if the line contains the end tag for a question
             if(strpos($line_encode[$x], "&lt;/Q&gt;")!== false){
                 $question_type= "";
                 $line_encode[$x] = str_replace("&lt;/Q&gt;", "", $line_encode[$x]);
-                // Vider le tableau
                 $question_counter = 4;
             }
         }

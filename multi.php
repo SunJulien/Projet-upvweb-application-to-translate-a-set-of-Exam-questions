@@ -145,11 +145,17 @@
         $qtimetafieldrandomiz = $doc->CreateElement("qtimetadatafield");
         $qtimeta->appendChild($qtimetafieldrandomiz);
         $fieldlabelrandomiz = $doc->CreateElement("fieldlabel");
+
         $fieldlabelrandomiztext = $doc->CreateTextNode("RANDOMIZE");
         $fieldlabelrandomiz->appendChild($fieldlabelrandomiztext);
         $qtimetafieldrandomiz->appendChild($fieldlabelrandomiz);
         $fieldentryrandomiz = $doc->CreateElement("fieldentry");
-        $fieldentryrandomiztext = $doc->CreateTextNode("true");
+        if (strpos($line_encode[$x], "&lt;NR&gt;")!== false) {
+            $fieldentryrandomiztext = $doc->CreateTextNode("false");
+
+        }else{
+            $fieldentryrandomiztext = $doc->CreateTextNode("true");
+        }
         $fieldentryrandomiz->appendChild($fieldentryrandomiztext);
         $qtimetafieldrandomiz->appendChild($fieldentryrandomiz);
 

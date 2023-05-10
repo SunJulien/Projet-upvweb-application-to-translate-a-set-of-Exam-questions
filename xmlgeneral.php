@@ -1407,15 +1407,13 @@ $flowmatpmmaterialmattextcdata = $doc->createCDATAsection(" ");
 
     include ('mattext.php');
     $material->appendChild($mattext);
-
-
-$material = $doc->CreateElement("material");
+    $material = $doc->CreateElement("material");
     $sectionpmflowmat->appendChild($material);
 
     include ("matimage.php");
     $material->appendChild($matimage);
 
-$selectionordering = $doc->CreateElement("selection_ordering");
+    $selectionordering = $doc->CreateElement("selection_ordering");
     $selectionorderingsequencetype = $doc->CreateAttribute("sequence_type");
     $selectionorderingsequencetype->value = "Normal";
     $selectionordering->setAttributeNode($selectionorderingsequencetype);
