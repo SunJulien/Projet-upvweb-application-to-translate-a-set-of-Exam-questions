@@ -31,6 +31,7 @@
 
             $letraresp++;
         }
+
         for ($i = 0; $i < 4; $i++) {
             $itpresflflresplidrendchorespvacio = $doc->CreateElement("response_label");
             $itpresflflresplidrendchoresprareav = $doc->CreateAttribute("rarea");
@@ -78,7 +79,12 @@
 
         $abcdario = 'A';
 
-        for ($abc = 0; $abc < 26; $abc++)
+        if ($answer_number < 27){
+            $number = 26;
+        }else{
+            $number = $answer_number-1;
+        }
+        for ($abc = 0; $abc < $number; $abc++)
         {
             $itemresprrespc = $doc->CreateElement("respcondition");
             $itemresprrespccontinue = $doc->CreateAttribute("continue");
@@ -127,7 +133,7 @@
             $itemresprrespcdispfeed2feedbacktype->value = ("Response");
             $itemresprrespcdispfeed2->setAttributeNode($itemresprrespcdispfeed2feedbacktype);
             $itemresprrespcdispfeed2linkrefid = $doc->CreateAttribute("linkrefid");
-            if ($abc > 3)
+            if ($abc > 3-$question_counter)
             {
                 $auxcharresp = 'D';
                 $itemresprrespcdispfeed2linkrefid->value = $auxcharresp."1";
@@ -210,14 +216,6 @@
 
         include ("mattext.php");
 
-        /*$line_encode[$x] = str_replace("&lt;op&gt;", "", $line_encode[$x]);
-        $line_encode[$x] = str_replace("&lt;rc&gt;", "", $line_encode[$x]);
-        $auxresptest = $line_encode[$x];
-        $auxresptest2 = $line_encode[$x];
-
-        if (substr_compare($auxresptest, '<br>', -strlen('<br>')) === 0) {
-            $auxresptest = substr($auxresptest2, 0, -strlen('<br>'));
-        }*/
         $auxresptest = $line_decode;
         $itpresflflresplidrendchorespmat1mattcd = $doc->CreateCDataSection($auxresptest);
         $mattext->appendChild($itpresflflresplidrendchorespmat1mattcd);

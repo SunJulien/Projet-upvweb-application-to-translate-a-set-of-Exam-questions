@@ -23,19 +23,20 @@
     }else{
         $compteurbisRC = 0;
         $tableau = array();
-        for ($y=1; $y<5 ;$y++){
-            if (strpos($line_encode[$x+$y], "&lt;RC&gt;")!== false){
+        $answer_number=1;
+        while(strpos($line_encode[$x+$answer_number], "&lt;OP&gt;")!== false){
+            if (strpos($line_encode[$x+$answer_number], "&lt;RC&gt;")!== false){
                 $tableau[] = "rc";
                 $compteurbisRC++;
             }else{
                 $tableau[] = "op";
             }
-            if ($compteurbisRC>1){
-                $titl = "Multiple Correct Answer";
-                break;
-            }else{
-                $titl = "Multiple Choice";
-            }
+            $answer_number++;
+        }
+        if ($compteurbisRC>1){
+            $titl = "Multiple Correct Answer";
+        }else{
+            $titl = "Multiple Choice";
         }
 
         $letraresp = 'A';

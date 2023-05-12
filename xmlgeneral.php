@@ -423,7 +423,7 @@
     $fieldlabellatehandling->appendChild($fieldlabellatehandlingtext);
     $qtimetadatafieldlatehandling->appendChild($fieldlabellatehandling);
     $fieldentrylatehandling = $doc->CreateElement("fieldentry");
-    $fieldentrylatehandlingtext = $doc->CreateTextNode("False");
+    $fieldentrylatehandlingtext = $doc->CreateTextNode("True");
     $fieldentrylatehandling->appendChild($fieldentrylatehandlingtext);
     $qtimetadatafieldlatehandling->appendChild($fieldentrylatehandling);
     
@@ -1080,8 +1080,6 @@
     $fieldlabelautosubminstructedit->appendChild($fieldlabelautosubminstructedittext);
     $qtimetadatafieldautosubminstructedit->appendChild($fieldlabelautosubminstructedit);
     $fieldentryautosubminstructedit = $doc->CreateElement("fieldentry");
-    $fieldentryautosubminstructedittext = $doc->CreateTextNode("true");
-    $fieldentryautosubminstructedit->appendChild($fieldentryautosubminstructedittext);
     $qtimetadatafieldautosubminstructedit->appendChild($fieldentryautosubminstructedit);
     
     $qtimetadatafieldautosaveinstructedit = $doc->CreateElement("qtimetadatafield");
