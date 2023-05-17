@@ -7,6 +7,13 @@
 <body style="background-color: #f7f7f7">
 
 <div class="container">
+    <div id="nav-placeholder"></div>
+    <script src="//code.jquery.com/jquery.min.js"></script>
+    <script>
+        $.get("menu.php", function(data){
+            $("#nav-placeholder").replaceWith(data);
+        });
+    </script>
     <div class="row justify-content-md-center" style="padding-top: 7em">
         <div class="col-sm">
             <img src="Icon/QTIlogo.png" alt="QTI Logo">

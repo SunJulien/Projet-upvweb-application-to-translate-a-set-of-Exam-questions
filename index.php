@@ -19,9 +19,9 @@
                     TFG realizado por Sun Julien <br>
                     Tutor: Antonio Martí Campoy (amarti@disca.upv.es)<br>
                 </p>
-                <a href="/Edito.php" role="button" class="btn btn-secondary" style="font-size:2em;">Editor online</a>
-                <a href="/help.php" role="button" class="btn btn-secondary" style="font-size:2em;">Help</a>
-                <a href="/Register.php" role="button" class="btn btn-secondary" style="font-size:2em;">Login</a>
+                <a href="Edito.php" role="button" class="btn btn-secondary" style="font-size:2em;">Editor online</a>
+                <a href="help.php" role="button" class="btn btn-secondary" style="font-size:2em;">Help</a>
+                <a href="Register.php" role="button" class="btn btn-secondary" style="font-size:2em;">Login</a>
             </div>
         </div>
     </div>
