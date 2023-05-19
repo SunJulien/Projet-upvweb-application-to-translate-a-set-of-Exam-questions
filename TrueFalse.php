@@ -200,54 +200,53 @@
     $itpresflflresprenderfin->setAttributeNode($itpresflflresprenderfincolumns);
     $itpresflflresponsestr->appendChild($itpresflflresprenderfin);
 
-        $itpresflflresponsestrA = $doc->CreateElement("response_label");
-        $itpresflflresponsestrident = $doc->CreateAttribute("ident");
-        $itpresflflresponsestrident->value = "A";
-        $itpresflflresponsestrA->setAttributeNode($itpresflflresponsestrident);
-        $itpresflflresponsestrrcardinality = $doc->CreateAttribute("rarea");
-        $itpresflflresponsestrrcardinality->value = "Ellipse";
-        $itpresflflresponsestrA->setAttributeNode($itpresflflresponsestrrcardinality);
-        $itpresflflresponsestrrtiming = $doc->CreateAttribute("rrange");
-        $itpresflflresponsestrrtiming->value = "Exact";
-        $itpresflflresponsestrA->setAttributeNode($itpresflflresponsestrrtiming);
-        $itpresflflresponsestrrtiming = $doc->CreateAttribute("rshuffle");
-        $itpresflflresponsestrrtiming->value = "Yes";
-        $itpresflflresponsestrA->setAttributeNode($itpresflflresponsestrrtiming);
-        $itpresflflresprenderfin->appendChild($itpresflflresponsestrA);
+    $itpresflflresponsestrA = $doc->CreateElement("response_label");
+    $itpresflflresponsestrident = $doc->CreateAttribute("ident");
+    $itpresflflresponsestrident->value = "A";
+    $itpresflflresponsestrA->setAttributeNode($itpresflflresponsestrident);
+    $itpresflflresponsestrrcardinality = $doc->CreateAttribute("rarea");
+    $itpresflflresponsestrrcardinality->value = "Ellipse";
+    $itpresflflresponsestrA->setAttributeNode($itpresflflresponsestrrcardinality);
+    $itpresflflresponsestrrtiming = $doc->CreateAttribute("rrange");
+    $itpresflflresponsestrrtiming->value = "Exact";
+    $itpresflflresponsestrA->setAttributeNode($itpresflflresponsestrrtiming);
+    $itpresflflresponsestrrtiming = $doc->CreateAttribute("rshuffle");
+    $itpresflflresponsestrrtiming->value = "Yes";
+    $itpresflflresponsestrA->setAttributeNode($itpresflflresponsestrrtiming);
+    $itpresflflresprenderfin->appendChild($itpresflflresponsestrA);
 
-        $material = $doc->CreateElement("material");
-        $itpresflflresponsestrA->appendChild($material);
+    $material = $doc->CreateElement("material");
+    $itpresflflresponsestrA->appendChild($material);
 
-        include ('mattext.php');
+    include ('mattext.php');
 
-        $textNodeA = $doc->createTextNode('True');
-        $mattext->appendChild($textNodeA);
-        $material->appendChild($mattext);
+    $textNodeA = $doc->createTextNode('True');
+    $mattext->appendChild($textNodeA);
+    $material->appendChild($mattext);
 
-        $itpresflflresponsestrB = $doc->CreateElement("response_label");
-        $itpresflflresponsestrident = $doc->CreateAttribute("ident");
-        $itpresflflresponsestrident->value = "B";
-        $itpresflflresponsestrB->setAttributeNode($itpresflflresponsestrident);
-        $itpresflflresponsestrrcardinality = $doc->CreateAttribute("rarea");
-        $itpresflflresponsestrrcardinality->value = "Ellipse";
-        $itpresflflresponsestrB->setAttributeNode($itpresflflresponsestrrcardinality);
-        $itpresflflresponsestrrtiming = $doc->CreateAttribute("rrange");
-        $itpresflflresponsestrrtiming->value = "Exact";
-        $itpresflflresponsestrB->setAttributeNode($itpresflflresponsestrrtiming);
-        $itpresflflresponsestrrtiming = $doc->CreateAttribute("rshuffle");
-        $itpresflflresponsestrrtiming->value = "Yes";
-        $itpresflflresponsestrB->setAttributeNode($itpresflflresponsestrrtiming);
-        $itpresflflresprenderfin->appendChild($itpresflflresponsestrB);
+    $itpresflflresponsestrB = $doc->CreateElement("response_label");
+    $itpresflflresponsestrident = $doc->CreateAttribute("ident");
+    $itpresflflresponsestrident->value = "B";
+    $itpresflflresponsestrB->setAttributeNode($itpresflflresponsestrident);
+    $itpresflflresponsestrrcardinality = $doc->CreateAttribute("rarea");
+    $itpresflflresponsestrrcardinality->value = "Ellipse";
+    $itpresflflresponsestrB->setAttributeNode($itpresflflresponsestrrcardinality);
+    $itpresflflresponsestrrtiming = $doc->CreateAttribute("rrange");
+    $itpresflflresponsestrrtiming->value = "Exact";
+    $itpresflflresponsestrB->setAttributeNode($itpresflflresponsestrrtiming);
+    $itpresflflresponsestrrtiming = $doc->CreateAttribute("rshuffle");
+    $itpresflflresponsestrrtiming->value = "Yes";
+    $itpresflflresponsestrB->setAttributeNode($itpresflflresponsestrrtiming);
+    $itpresflflresprenderfin->appendChild($itpresflflresponsestrB);
 
-        $material = $doc->CreateElement("material");
-        $itpresflflresponsestrB->appendChild($material);
+    $material = $doc->CreateElement("material");
+    $itpresflflresponsestrB->appendChild($material);
 
-        include ('mattext.php');
+    include ('mattext.php');
 
-        $textNodeB = $doc->createTextNode('False');
-        $mattext->appendChild($textNodeB);
-        $material->appendChild($mattext);
-
+    $textNodeB = $doc->createTextNode('False');
+    $mattext->appendChild($textNodeB);
+    $material->appendChild($mattext);
 
     $itemresprocout = $doc->CreateElement("resprocessing");
     $item->appendChild($itemresprocout);
@@ -273,109 +272,109 @@
     $itemresprocoutcdecvar->setAttributeNode($itemresprocoutcdecvartype);
     $itemresprocoutcomes->appendChild($itemresprocoutcdecvar);
 
-        $itemresprocrespcondition = $doc->CreateElement("respcondition");
-        $itemresprocrespcondcontinue = $doc->CreateAttribute("continue");
-        $itemresprocrespcondcontinue->value = "No";
-        $itemresprocrespcondition->setAttributeNode($itemresprocrespcondcontinue);
-        $itemresprocrespcondtitle = $doc->CreateAttribute("title");
-        if ($anwser == "True"){
-            $itemresprocrespcondtitle->value = 'Correct';
-        }else{
-            $itemresprocrespcondtitle->value = 'InCorrect';
-        }
-        $itemresprocrespcondition->setAttributeNode($itemresprocrespcondtitle);
+    $itemresprocrespcondition = $doc->CreateElement("respcondition");
+    $itemresprocrespcondcontinue = $doc->CreateAttribute("continue");
+    $itemresprocrespcondcontinue->value = "No";
+    $itemresprocrespcondition->setAttributeNode($itemresprocrespcondcontinue);
+    $itemresprocrespcondtitle = $doc->CreateAttribute("title");
+    if ($anwser == "True"){
+        $itemresprocrespcondtitle->value = 'Correct';
+    }else{
+        $itemresprocrespcondtitle->value = 'InCorrect';
+    }
+    $itemresprocrespcondition->setAttributeNode($itemresprocrespcondtitle);
 
-        $itemresprocout->appendChild($itemresprocrespcondition);
+    $itemresprocout->appendChild($itemresprocrespcondition);
 
-        $itemresprocrespcondvar = $doc->CreateElement("conditionvar");
-        $itemresprocrespcondition->appendChild($itemresprocrespcondvar);
+    $itemresprocrespcondvar = $doc->CreateElement("conditionvar");
+    $itemresprocrespcondition->appendChild($itemresprocrespcondvar);
 
-        $itemresprocrespcondvaroreq = $doc->CreateElement("varequal");
-        $itemresprocrespcondvaroreqcase = $doc->CreateAttribute("case");
-        $itemresprocrespcondvaroreqcase->value = "Yes";
-        $itemresprocrespcondvaroreq->setAttributeNode($itemresprocrespcondvaroreqcase);
-        $itemresprocrespcondvaroreqrpid = $doc->CreateAttribute("respident");
-        $itemresprocrespcondvaroreqrpid->value = "TF02";
-        $itemresprocrespcondvaroreq->setAttributeNode($itemresprocrespcondvaroreqrpid);
-        $itemresprocrespcondvaroreqcdata = $doc->CreateTextNode("A");
-        $itemresprocrespcondvaroreq->appendChild($itemresprocrespcondvaroreqcdata);
-        $itemresprocrespcondvar->appendChild($itemresprocrespcondvaroreq);
+    $itemresprocrespcondvaroreq = $doc->CreateElement("varequal");
+    $itemresprocrespcondvaroreqcase = $doc->CreateAttribute("case");
+    $itemresprocrespcondvaroreqcase->value = "Yes";
+    $itemresprocrespcondvaroreq->setAttributeNode($itemresprocrespcondvaroreqcase);
+    $itemresprocrespcondvaroreqrpid = $doc->CreateAttribute("respident");
+    $itemresprocrespcondvaroreqrpid->value = "TF02";
+    $itemresprocrespcondvaroreq->setAttributeNode($itemresprocrespcondvaroreqrpid);
+    $itemresprocrespcondvaroreqcdata = $doc->CreateTextNode("A");
+    $itemresprocrespcondvaroreq->appendChild($itemresprocrespcondvaroreqcdata);
+    $itemresprocrespcondvar->appendChild($itemresprocrespcondvaroreq);
 
-        $itemresprocrespcondvarsetvar = $doc->CreateElement("setvar");
-        $itemresprocrespcondvarsetvaraction = $doc->CreateAttribute("action");
-        $itemresprocrespcondvarsetvaraction->value = "Add";
-        $itemresprocrespcondvarsetvar->setAttributeNode($itemresprocrespcondvarsetvaraction);
-        $itemresprocrespcondvarsetvarvarname = $doc->CreateAttribute("varname");
-        $itemresprocrespcondvarsetvarvarname->value = "SCORE";
-        $itemresprocrespcondvarsetvar->setAttributeNode($itemresprocrespcondvarsetvarvarname);
-        $itemresprocrespcondvarsetvartext = $doc->CreateTextNode("0");
-        $itemresprocrespcondvarsetvar->appendChild($itemresprocrespcondvarsetvartext);
-        $itemresprocrespcondition->appendChild($itemresprocrespcondvarsetvar);
+    $itemresprocrespcondvarsetvar = $doc->CreateElement("setvar");
+    $itemresprocrespcondvarsetvaraction = $doc->CreateAttribute("action");
+    $itemresprocrespcondvarsetvaraction->value = "Add";
+    $itemresprocrespcondvarsetvar->setAttributeNode($itemresprocrespcondvarsetvaraction);
+    $itemresprocrespcondvarsetvarvarname = $doc->CreateAttribute("varname");
+    $itemresprocrespcondvarsetvarvarname->value = "SCORE";
+    $itemresprocrespcondvarsetvar->setAttributeNode($itemresprocrespcondvarsetvarvarname);
+    $itemresprocrespcondvarsetvartext = $doc->CreateTextNode("0");
+    $itemresprocrespcondvarsetvar->appendChild($itemresprocrespcondvarsetvartext);
+    $itemresprocrespcondition->appendChild($itemresprocrespcondvarsetvar);
 
-        $itemresprocrespdispfeedback = $doc->CreateElement("displayfeedback");
-        $itemresprocrespfeedbacktype = $doc->CreateAttribute("feedbacktype");
-        $itemresprocrespfeedbacktype->value = "Response";
-        $itemresprocrespdispfeedback->setAttributeNode($itemresprocrespfeedbacktype);
-        $itemresprocresplinkrefid = $doc->CreateAttribute("linkrefid");
-        if ($anwser == "True"){
-            $itemresprocresplinkrefid->value = 'Correct';
-        }else{
-            $itemresprocresplinkrefid->value = 'InCorrect';
-        }
-        $itemresprocrespdispfeedback->setAttributeNode($itemresprocresplinkrefid);
-        $itemresprocrespcondition->appendChild($itemresprocrespdispfeedback);
+    $itemresprocrespdispfeedback = $doc->CreateElement("displayfeedback");
+    $itemresprocrespfeedbacktype = $doc->CreateAttribute("feedbacktype");
+    $itemresprocrespfeedbacktype->value = "Response";
+    $itemresprocrespdispfeedback->setAttributeNode($itemresprocrespfeedbacktype);
+    $itemresprocresplinkrefid = $doc->CreateAttribute("linkrefid");
+    if ($anwser == "True"){
+        $itemresprocresplinkrefid->value = 'Correct';
+    }else{
+        $itemresprocresplinkrefid->value = 'InCorrect';
+    }
+    $itemresprocrespdispfeedback->setAttributeNode($itemresprocresplinkrefid);
+    $itemresprocrespcondition->appendChild($itemresprocrespdispfeedback);
 
-        $itemresprocrespcondition = $doc->CreateElement("respcondition");
-        $itemresprocrespcondcontinue = $doc->CreateAttribute("continue");
-        $itemresprocrespcondcontinue->value = "No";
-        $itemresprocrespcondition->setAttributeNode($itemresprocrespcondcontinue);
-        $itemresprocrespcondtitle = $doc->CreateAttribute("title");
-        if ($anwser == "True"){
-            $itemresprocrespcondtitle->value = 'InCorrect';
-        }else{
-            $itemresprocrespcondtitle->value = 'Correct';
-        }
-        $itemresprocrespcondition->setAttributeNode($itemresprocrespcondtitle);
+    $itemresprocrespcondition = $doc->CreateElement("respcondition");
+    $itemresprocrespcondcontinue = $doc->CreateAttribute("continue");
+    $itemresprocrespcondcontinue->value = "No";
+    $itemresprocrespcondition->setAttributeNode($itemresprocrespcondcontinue);
+    $itemresprocrespcondtitle = $doc->CreateAttribute("title");
+    if ($anwser == "True"){
+        $itemresprocrespcondtitle->value = 'InCorrect';
+    }else{
+        $itemresprocrespcondtitle->value = 'Correct';
+    }
+    $itemresprocrespcondition->setAttributeNode($itemresprocrespcondtitle);
 
-        $itemresprocout->appendChild($itemresprocrespcondition);
+    $itemresprocout->appendChild($itemresprocrespcondition);
 
-        $itemresprocrespcondvar = $doc->CreateElement("conditionvar");
-        $itemresprocrespcondition->appendChild($itemresprocrespcondvar);
+    $itemresprocrespcondvar = $doc->CreateElement("conditionvar");
+    $itemresprocrespcondition->appendChild($itemresprocrespcondvar);
 
-        $itemresprocrespcondvaroreq = $doc->CreateElement("varequal");
-        $itemresprocrespcondvaroreqcase = $doc->CreateAttribute("case");
-        $itemresprocrespcondvaroreqcase->value = "Yes";
-        $itemresprocrespcondvaroreq->setAttributeNode($itemresprocrespcondvaroreqcase);
-        $itemresprocrespcondvaroreqrpid = $doc->CreateAttribute("respident");
-        $itemresprocrespcondvaroreqrpid->value = "TF02";
-        $itemresprocrespcondvaroreq->setAttributeNode($itemresprocrespcondvaroreqrpid);
-        $itemresprocrespcondvaroreqcdata = $doc->CreateTextNode("B");
-        $itemresprocrespcondvaroreq->appendChild($itemresprocrespcondvaroreqcdata);
-        $itemresprocrespcondvar->appendChild($itemresprocrespcondvaroreq);
+    $itemresprocrespcondvaroreq = $doc->CreateElement("varequal");
+    $itemresprocrespcondvaroreqcase = $doc->CreateAttribute("case");
+    $itemresprocrespcondvaroreqcase->value = "Yes";
+    $itemresprocrespcondvaroreq->setAttributeNode($itemresprocrespcondvaroreqcase);
+    $itemresprocrespcondvaroreqrpid = $doc->CreateAttribute("respident");
+    $itemresprocrespcondvaroreqrpid->value = "TF02";
+    $itemresprocrespcondvaroreq->setAttributeNode($itemresprocrespcondvaroreqrpid);
+    $itemresprocrespcondvaroreqcdata = $doc->CreateTextNode("B");
+    $itemresprocrespcondvaroreq->appendChild($itemresprocrespcondvaroreqcdata);
+    $itemresprocrespcondvar->appendChild($itemresprocrespcondvaroreq);
 
-        $itemresprocrespcondvarsetvar = $doc->CreateElement("setvar");
-        $itemresprocrespcondvarsetvaraction = $doc->CreateAttribute("action");
-        $itemresprocrespcondvarsetvaraction->value = "Add";
-        $itemresprocrespcondvarsetvar->setAttributeNode($itemresprocrespcondvarsetvaraction);
-        $itemresprocrespcondvarsetvarvarname = $doc->CreateAttribute("varname");
-        $itemresprocrespcondvarsetvarvarname->value = "SCORE";
-        $itemresprocrespcondvarsetvar->setAttributeNode($itemresprocrespcondvarsetvarvarname);
-        $itemresprocrespcondvarsetvartext = $doc->CreateTextNode("0");
-        $itemresprocrespcondvarsetvar->appendChild($itemresprocrespcondvarsetvartext);
-        $itemresprocrespcondition->appendChild($itemresprocrespcondvarsetvar);
+    $itemresprocrespcondvarsetvar = $doc->CreateElement("setvar");
+    $itemresprocrespcondvarsetvaraction = $doc->CreateAttribute("action");
+    $itemresprocrespcondvarsetvaraction->value = "Add";
+    $itemresprocrespcondvarsetvar->setAttributeNode($itemresprocrespcondvarsetvaraction);
+    $itemresprocrespcondvarsetvarvarname = $doc->CreateAttribute("varname");
+    $itemresprocrespcondvarsetvarvarname->value = "SCORE";
+    $itemresprocrespcondvarsetvar->setAttributeNode($itemresprocrespcondvarsetvarvarname);
+    $itemresprocrespcondvarsetvartext = $doc->CreateTextNode("0");
+    $itemresprocrespcondvarsetvar->appendChild($itemresprocrespcondvarsetvartext);
+    $itemresprocrespcondition->appendChild($itemresprocrespcondvarsetvar);
 
-        $itemresprocrespdispfeedback = $doc->CreateElement("displayfeedback");
-        $itemresprocrespfeedbacktype = $doc->CreateAttribute("feedbacktype");
-        $itemresprocrespfeedbacktype->value = "Response";
-        $itemresprocrespdispfeedback->setAttributeNode($itemresprocrespfeedbacktype);
-        $itemresprocresplinkrefid = $doc->CreateAttribute("linkrefid");
-        if ($anwser == "True"){
-            $itemresprocresplinkrefid->value = 'InCorrect';
-        }else{
-            $itemresprocresplinkrefid->value = 'Correct';
-        }
-        $itemresprocrespdispfeedback->setAttributeNode($itemresprocresplinkrefid);
-        $itemresprocrespcondition->appendChild($itemresprocrespdispfeedback);
+    $itemresprocrespdispfeedback = $doc->CreateElement("displayfeedback");
+    $itemresprocrespfeedbacktype = $doc->CreateAttribute("feedbacktype");
+    $itemresprocrespfeedbacktype->value = "Response";
+    $itemresprocrespdispfeedback->setAttributeNode($itemresprocrespfeedbacktype);
+    $itemresprocresplinkrefid = $doc->CreateAttribute("linkrefid");
+    if ($anwser == "True"){
+        $itemresprocresplinkrefid->value = 'InCorrect';
+    }else{
+        $itemresprocresplinkrefid->value = 'Correct';
+    }
+    $itemresprocrespdispfeedback->setAttributeNode($itemresprocresplinkrefid);
+    $itemresprocrespcondition->appendChild($itemresprocrespdispfeedback);
 
     $itemfeedback = $doc->CreateElement("itemfeedback");
     $itemfeedbackident = $doc->CreateAttribute("ident");

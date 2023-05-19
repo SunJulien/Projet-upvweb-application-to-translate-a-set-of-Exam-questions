@@ -117,16 +117,21 @@
         $qtimetafieldattach->appendChild($doc->CreateElement("fieldentry"));
 
         //if NFM
-        $qtimetafieldhasrational = $doc->CreateElement("qtimetadatafield");
-        $qtimeta->appendChild($qtimetafieldhasrational);
-        $fieldlabelhasrational = $doc->CreateElement("fieldlabel");
-        $fieldlabelhasrationaltext = $doc->CreateTextNode("hasRationale");
-        $fieldlabelhasrational->appendChild($fieldlabelhasrationaltext);
-        $qtimetafieldhasrational->appendChild($fieldlabelhasrational);
-        $fieldentryhasrational = $doc->CreateElement("fieldentry");
-        $fieldentryhasrationaltext = $doc->CreateTextNode("false");
-        $fieldentryhasrational->appendChild($fieldentryhasrationaltext);
-        $qtimetafieldhasrational->appendChild($fieldentryhasrational);
+        $qtimetafieldattach = $doc->CreateElement("qtimetadatafield");
+        $qtimeta->appendChild($qtimetafieldattach);
+        $fieldlabelattach = $doc->CreateElement("fieldlabel");
+        $fieldlabelattachtext = $doc->CreateTextNode("hasRationale");
+        $fieldlabelattach->appendChild($fieldlabelattachtext);
+        $qtimetafieldattach->appendChild($fieldlabelattach);
+        $fieldentryformattext = $doc->CreateElement("fieldentry");
+        if (strpos($line_encode[$x], "&lt;RA&gt;")!== false){
+            $fieldentrytextformattext = $doc->CreateTextNode("True");
+            $line_decode = preg_replace( '/<RA>/',"", $line_decode);
+        }else {
+            $fieldentrytextformattext = $doc->CreateTextNode("false");
+        }
+        $fieldentryformattext->appendChild($fieldentrytextformattext);
+        $qtimetafieldattach->appendChild($fieldentryformattext);
 
         //if NFM
         if ($titl == "Multiple Choice") {
