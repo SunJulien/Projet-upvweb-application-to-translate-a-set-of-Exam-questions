@@ -46,7 +46,7 @@
     }
     // Remplacer les occurrences de l'expression régulière par une chaîne vide
     $line_decode = preg_replace($expressionReguliere, '<>', $line_decode);
-    $line_decode = preg_replace( '</Q>',"", $line_decode);
+    $line_decode = preg_replace( '/<\/Q>/',"", $line_decode);
     $Numeric_question = explode("<>", $line_decode);
     $counter_id = 0;
 
