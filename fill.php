@@ -48,10 +48,28 @@
     $line_decode = preg_replace($expressionReguliere, 'CUT', $line_decode);
     $line_decode = str_replace("</Q>", "", $line_decode);
     $question_type= "";
-
     $Numeric_question = explode("CUT", $line_decode);
-
     $counter_id = 0;
+
+    if (strpos($line_encode[$x], "&lt;CAF&gt;")!== false){
+        $debut = "&lt;CAF&gt;";
+        $fin = "&lt;/CAF&gt;";
+        // Expression régulière pour correspondre aux caractères spécifiques et tout ce qui se trouve entre eux
+        $expressionReguliere = '/' . preg_quote($debut, '/') . '(.*?)' . preg_quote($fin, '/') . '/';
+        // Remplacer les occurrences de l'expression régulière par une chaîne vide
+        preg_match($expressionReguliere, $line_encode[$x], $correctawnserfeedback);
+        $line_encode[$x] = preg_replace($expressionReguliere, '', $line_encode[$x]);
+    }
+
+    if (strpos($line_encode[$x], "&lt;IAF&gt;")!== false){
+        $debut = "&lt;IAF&gt;";
+        $fin = "&lt;/IAF&gt;";
+        // Expression régulière pour correspondre aux caractères spécifiques et tout ce qui se trouve entre eux
+        $expressionReguliere = '/' . preg_quote($debut, '/') . '(.*?)' . preg_quote($fin, '/') . '/';
+        // Remplacer les occurrences de l'expression régulière par une chaîne vide
+        preg_match($expressionReguliere, $line_encode[$x], $incorrectawnserfeedback);
+        $line_encode[$x] = preg_replace($expressionReguliere, '', $line_encode[$x]);
+    }
 
     $ident_value++;
     $item = $doc->CreateElement("item");
@@ -431,5 +449,67 @@
     $itfeediflmaterimag->setAttributeNode($itfeediflmaterimaguri);
     $itfeediflmateri->appendChild($itfeediflmaterimag);
 
+    $itemfeedback = $doc->CreateElement("itemfeedback");
+    $itemfeedbackident = $doc->CreateAttribute("ident");
+    $itemfeedbackident->value = "Correct";
+    $itemfeedback->setAttributeNode($itemfeedbackident);
+    $itemfeedbackview = $doc->CreateAttribute("view");
+    $itemfeedbackview->value = "All";
+    $itemfeedback->setAttributeNode($itemfeedbackview);
+    $item->appendChild($itemfeedback);
+
+    $itfeedflowmat = $doc->CreateElement("flow_mat");
+    $itfeedflowmatclass = $doc->CreateAttribute("class");
+    $itfeedflowmatclass->value = "Block";
+    $itfeedflowmat->setAttributeNode($itfeedflowmatclass);
+    $itemfeedback->appendChild($itfeedflowmat);
+
+    $material = $doc->CreateElement("material");
+    $itfeedflowmat->appendChild($material);
+
+    include ('mattext.php');
+
+    $itpresflflmattextcdata = $doc->CreateCDataSection($correctawnserfeedback[1]);
+    $mattext->appendChild($itpresflflmattextcdata);
+    $material->appendChild($mattext);
+
+    $material = $doc->CreateElement("material");
+    $itfeedflowmat->appendChild($material);
+
+    include ("matimage.php");
+    $material->appendChild($matimage);
+
+    $itemfeedbacki = $doc->CreateElement("itemfeedback");
+    $itemfeedbackiident = $doc->CreateAttribute("ident");
+    $itemfeedbackiident->value = "InCorrect";
+    $itemfeedbacki->setAttributeNode($itemfeedbackiident);
+    $itemfeedbackiview = $doc->CreateAttribute("view");
+    $itemfeedbackiview->value = "All";
+    $itemfeedbacki->setAttributeNode($itemfeedbackiview);
+    $item->appendChild($itemfeedbacki);
+
+    $itfeediflowmat = $doc->CreateElement("flow_mat");
+    $itfeediflowmatclass = $doc->CreateAttribute("class");
+    $itfeediflowmatclass->value = "Block";
+    $itfeediflowmat->setAttributeNode($itfeediflowmatclass);
+    $itemfeedbacki->appendChild($itfeediflowmat);
+
+    $itfeediflmater = $doc->CreateElement("material");
+    $itfeediflowmat->appendChild($itfeediflmater);
+
+    $material = $doc->CreateElement("material");
+    $itfeediflowmat->appendChild($material);
+
+    include ('mattext.php');
+
+    $itpresflflmattextcdata = $doc->CreateCDataSection($incorrectawnserfeedback[1]);
+    $mattext->appendChild($itpresflflmattextcdata);
+    $material->appendChild($mattext);
+
+    $material = $doc->CreateElement("material");
+    $itfeediflowmat->appendChild($material);
+
+    include ("matimage.php");
+    $material->appendChild($matimage);
     ?>
 

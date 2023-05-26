@@ -98,6 +98,10 @@
                 $question_type= "";
                 $line_encode[$x] = str_replace("&lt;/Q&gt;", "", $line_encode[$x]);
                 $question_counter = 4;
+                unset($correctawnserfeedback);
+                $correctawnserfeedback = [];
+                unset($incorrectawnserfeedback);
+                $incorrectawnserfeedback = [];
             }
         }
     }

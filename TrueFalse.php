@@ -29,6 +29,26 @@
         $line_encode[$x] = preg_replace($expressionReguliere, '', $line_encode[$x]);
     }
 
+    if (strpos($line_encode[$x], "&lt;CAF&gt;")!== false){
+        $debut = "&lt;CAF&gt;";
+        $fin = "&lt;/CAF&gt;";
+        // Expression régulière pour correspondre aux caractères spécifiques et tout ce qui se trouve entre eux
+        $expressionReguliere = '/' . preg_quote($debut, '/') . '(.*?)' . preg_quote($fin, '/') . '/';
+        // Remplacer les occurrences de l'expression régulière par une chaîne vide
+        preg_match($expressionReguliere, $line_encode[$x], $correctawnserfeedback);
+        $line_encode[$x] = preg_replace($expressionReguliere, '', $line_encode[$x]);
+    }
+
+    if (strpos($line_encode[$x], "&lt;IAF&gt;")!== false){
+        $debut = "&lt;IAF&gt;";
+        $fin = "&lt;/IAF&gt;";
+        // Expression régulière pour correspondre aux caractères spécifiques et tout ce qui se trouve entre eux
+        $expressionReguliere = '/' . preg_quote($debut, '/') . '(.*?)' . preg_quote($fin, '/') . '/';
+        // Remplacer les occurrences de l'expression régulière par une chaîne vide
+        preg_match($expressionReguliere, $line_encode[$x], $incorrectawnserfeedback);
+        $line_encode[$x] = preg_replace($expressionReguliere, '', $line_encode[$x]);
+    }
+
     if (strpos($line_encode[$x], "&lt;RCT&gt;")!== false){
         $anwser = 'True';
         $line_encode[$x] = str_replace( '&lt;RCT&gt;',"", $line_encode[$x]);
@@ -172,7 +192,6 @@
     $itpresflflmattextcdata = $doc->CreateCDataSection($line_decode);
     $mattext->appendChild($itpresflflmattextcdata);
     $material->appendChild($mattext);
-
 
     $material = $doc->CreateElement("material");
     $itpresflow->appendChild($material);
@@ -396,7 +415,7 @@
 
     include ('mattext.php');
 
-    $itpresflflmattextcdata = $doc->CreateCDataSection("");
+    $itpresflflmattextcdata = $doc->CreateCDataSection($correctawnserfeedback[1]);
     $mattext->appendChild($itpresflflmattextcdata);
     $material->appendChild($mattext);
 
@@ -429,7 +448,7 @@
 
     include ('mattext.php');
 
-    $itpresflflmattextcdata = $doc->CreateCDataSection("");
+    $itpresflflmattextcdata = $doc->CreateCDataSection($incorrectawnserfeedback[1]);
     $mattext->appendChild($itpresflflmattextcdata);
     $material->appendChild($mattext);
 
