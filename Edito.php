@@ -10,17 +10,12 @@
             const input = document.getElementById("file");
             const file = input.files[0];
             const reader = new FileReader();
-            // Récupération du nom du fichier
             let file_name = input.files[0].name;
-            // Récupération de l'extension du fichier
             const file_name_split = file_name.split('.');
-
             if (file_name_split[1] != "txt") {
-                // Affichage de l'extension
                 alert("L'extension du fichier doit être en : \t.txt \nCelui que vous avez choisi est en : ." + file_name_split[1]);
             } else {
                 reader.readAsArrayBuffer(file);
-
                 reader.onload = function () {
                     const buffer = reader.result;
                     const codification = document.getElementById("inputGroupSelect01");
