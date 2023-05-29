@@ -6,7 +6,6 @@
 </head>
 <body style="background-color: #f7f7f7">
     <script>
-
         function loadFile() {
             const input = document.getElementById("file");
             const file = input.files[0];
@@ -14,16 +13,19 @@
             // Récupération du nom du fichier
             let file_name = input.files[0].name;
             // Récupération de l'extension du fichier
-            const file_name_split= file_name.split('.');
+            const file_name_split = file_name.split('.');
 
-            if (file_name_split[1] != "txt"){
+            if (file_name_split[1] != "txt") {
                 // Affichage de l'extension
-                alert("L'extension du fichier doit etre en :\t.txt \nCelui que vous avez choisie est en : ." + file_name_split[1]);
-            }else{
-                reader.readAsText(file);
+                alert("L'extension du fichier doit être en : \t.txt \nCelui que vous avez choisi est en : ." + file_name_split[1]);
+            } else {
+                reader.readAsArrayBuffer(file);
 
                 reader.onload = function () {
-                    const text = reader.result;
+                    const buffer = reader.result;
+                    const codification = document.getElementById("inputGroupSelect01");
+                    const decoder = new TextDecoder(codification.value);
+                    const text = decoder.decode(buffer);
                     const TextArea1 = document.getElementById("TextArea1");
                     const filename = document.getElementById("filename");
                     const theme = document.getElementById("theme");
@@ -67,6 +69,12 @@
             </div>
             <div class="col-sm-auto">
                 <input type="file" id="file" name="file" onchange="loadFile()">
+                <select class="custom-select float-end" id="inputGroupSelect01">
+                    <option value="UTF-8" selected>UTF-8</option>
+                    <option value="UTF-16">UTF-16</option>
+                    <option value="ISO-8859-1">ISO-8859-1</option>
+                    <option value="Windows-1252">Windows-1252</option>
+                </select>
                 <form id="monFormulate" action="generate.php" method="POST" style="padding-top: 0.1em">
                     <textarea id="TextArea1" name="TextArea1" cols="55" rows="15" placeholder="Código de batería en lenguaje de marcas&#10;Puede escribir o importar un documento .txt&#10;Luego léalo con el botón readfile"></textarea><br><br>
                     <input type="text" id="filename" name="filename" style="width: 100%" placeholder="Nombre del archivo a generar"><br><br>
