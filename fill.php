@@ -48,7 +48,7 @@
     $line_decode = preg_replace($expressionReguliere, 'CUT', $line_decode);
     $line_decode = str_replace("</Q>", "", $line_decode);
     $question_type= "";
-    $Numeric_question = explode("CUT", $line_decode);
+    $fill_question = explode("CUT", $line_decode);
     $counter_id = 0;
 
     if (strpos($line_encode[$x], "&lt;CAF&gt;")!== false){
@@ -218,13 +218,13 @@
 
     include ('mattext.php');
 
-    $itpresflflmattextcdata = $doc->CreateCDataSection($Numeric_question[0]);
+    $itpresflflmattextcdata = $doc->CreateCDataSection($fill_question[0]);
     $mattext->appendChild($itpresflflmattextcdata);
     $material->appendChild($mattext);
 
     $insertadomaterialsincdata = false;
 
-    for ($i = 0; $i <= count($Numeric_question); $i++) {
+    for ($i = 0; $i <= count($fill_question); $i++) {
 
         if ($counter_id < count($resultats))
         {
@@ -242,9 +242,9 @@
             $itpresflflmattextxmlspace2->value = "default";
             $itpresflflmattext2->setAttributeNode($itpresflflmattextxmlspace2);
             $itpresflflmaterial2->appendChild($itpresflflmattext2);
-            if ($Numeric_question[$i+1] !="")
+            if ($fill_question[$i+1] !="")
             {
-                $itpresflflmattextcdata2 = $doc->CreateCDataSection($Numeric_question[$i+1]);
+                $itpresflflmattextcdata2 = $doc->CreateCDataSection($fill_question[$i+1]);
                 $itpresflflmattext2->appendChild($itpresflflmattextcdata2);
             }
             else $insertadomaterialsincdata = true;

@@ -78,6 +78,12 @@
                 $pluspoint = 1;
                 $minuspoint = 0;
             }
+            if(strpos($line_encode[$x], "&lt;QSM&gt;")!== false){
+                $question_type= "&lt;QSM&gt;";
+                $line_encode[$x] = str_replace("&lt;QSM&gt;", "", $line_encode[$x]);
+                $pluspoint = 1;
+                $minuspoint = 0;
+            }
 
             // Include the appropriate file for the question type
             if($question_type== "&lt;QF&gt;"){
@@ -92,7 +98,9 @@
             if($question_type== "&lt;QTF&gt;"){
                 include ('TrueFalse.php');
             }
-
+            if($question_type== "&lt;QSM&gt;"){
+                include ('matrice.php');
+            }
             // Check if the line contains the end tag for a question
             if(strpos($line_encode[$x], "&lt;/Q&gt;")!== false){
                 $question_type= "";

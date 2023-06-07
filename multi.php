@@ -156,7 +156,7 @@
         $fieldlabelrandomiz->appendChild($fieldlabelrandomiztext);
         $qtimetafieldrandomiz->appendChild($fieldlabelrandomiz);
         $fieldentryrandomiz = $doc->CreateElement("fieldentry");
-        if (strpos($line_encode[$x], "&lt;NR&gt;")!== false) {
+        if (strpos($line_encode[$x], "&lt;NRA&gt;")!== false) {
             $fieldentryrandomiztext = $doc->CreateTextNode("false");
 
         }else{
