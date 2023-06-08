@@ -1,4 +1,33 @@
 <?php
+    $answer_number=1;
+    $tableau = array();
+    while(strpos($line_encode[$x+$answer_number], "&lt;OP&gt;")!== false){
+        if (strpos($line_encode[$x+$answer_number], "&lt;RC&gt;")!== false){
+            $tableau[] = "rc";
+            $compteurbisRC++;
+        }else{
+            $tableau[] = "op";
+        }
+        $answer_number++;
+    }
+    if ($compteurbisRC>1){
+        $titl = "Multiple Correct Answer";
+    }else{
+        $titl = "Multiple Choice";
+    }
+
+    if (strpos($line_encode[$x], "&lt;/Q&gt;") === false) {
+        $k = 1;
+        while($line_encode[$x + $k] != ""){
+            $line_encode[$x] = $line_encode[$x] . $line_encode[$x + $k];
+            $line_encode[$x + $k] = "";
+            if (strpos($line_encode[$x], "&lt;/Q&gt;") !== false){
+                break;
+            }
+            $k++;
+        }
+    }
+
     if (strpos($line_encode[$x], "&lt;M")!== false){
         // Trouver tous les nombres et les ajouter à $matches
         preg_match_all('/-?\d+(?:\,\d+)?/', $line_encode[$x], $matches);
@@ -15,228 +44,524 @@
         // Remplacer toutes les occurrences de l'expression régulière par une chaîne vide
         $line_encode[$x] = preg_replace($expressionReguliere, '', $line_encode[$x]);
     }
+
+    if (strpos($line_encode[$x], "&lt;CAF&gt;")!== false){
+        $debut = "&lt;CAF&gt;";
+        $fin = "&lt;/CAF&gt;";
+        // Expression régulière pour correspondre aux caractères spécifiques et tout ce qui se trouve entre eux
+        $expressionReguliere = '/' . preg_quote($debut, '/') . '(.*?)' . preg_quote($fin, '/') . '/';
+        // Remplacer les occurrences de l'expression régulière par une chaîne vide
+        preg_match($expressionReguliere, $line_encode[$x], $correctawnserfeedback);
+        $line_encode[$x] = preg_replace($expressionReguliere, '', $line_encode[$x]);
+    }
+    if (strpos($line_encode[$x], "&lt;IAF&gt;")!== false){
+        $debut = "&lt;IAF&gt;";
+        $fin = "&lt;/IAF&gt;";
+        // Expression régulière pour correspondre aux caractères spécifiques et tout ce qui se trouve entre eux
+        $expressionReguliere = '/' . preg_quote($debut, '/') . '(.*?)' . preg_quote($fin, '/') . '/';
+        // Remplacer les occurrences de l'expression régulière par une chaîne vide
+        preg_match($expressionReguliere, $line_encode[$x], $incorrectawnserfeedback);
+        $line_encode[$x] = preg_replace($expressionReguliere, '', $line_encode[$x]);
+    }
+
     $line_decode = htmlspecialchars_decode($line_encode[$x]);
     $line_decode = str_replace("<RC>", "", $line_decode);
-    $line_decode = str_replace("<OP>", "", $line_decode);
-    if(strpos($line_encode[$x], "&lt;OP&gt;")!== false || strpos($line_encode[$x], "&lt;/Q&gt;")!== false){
-        include ("OP.php");
+    $line_decode = str_replace("</Q>", "", $line_decode);
+    $option = explode("<OP>", $line_decode);
+
+    $compteurbisRC = 0;
+    $letraresp = 'A';
+    $ident_value++;
+    $item = $doc->CreateElement("item");
+    $itemident = $doc->CreateAttribute("ident");
+    $itemident->value = $ident_value;
+    $item->setAttributeNode($itemident);
+    $itemtitle = $doc->CreateAttribute("title");
+
+    $itemtitle->value = $titl;
+    $item->setAttributeNode($itemtitle);
+    $section->appendChild($item);
+
+    $durat = $doc->CreateElement("duration");
+    $item->appendChild($durat);
+
+    $itemmetadata = $doc->CreateElement("itemmetadata");
+    $item->appendChild($itemmetadata);
+
+    $qtimeta = $doc->CreateElement("qtimetadata");
+    $itemmetadata->appendChild($qtimeta);
+
+    $qtimetafieldqmditemtype = $doc->CreateElement("qtimetadatafield");
+    $qtimeta->appendChild($qtimetafieldqmditemtype);
+    $fieldlabelqmditemtype = $doc->CreateElement("fieldlabel");
+    $fieldlabelqmditemtypetext = $doc->CreateTextNode("qmd_itemtype");
+    $fieldlabelqmditemtype->appendChild($fieldlabelqmditemtypetext);
+    $qtimetafieldqmditemtype->appendChild($fieldlabelqmditemtype);
+    $fieldentryqmditemtype = $doc->CreateElement("fieldentry");
+    // $titl
+    $fieldentryqmditemtypetext = $doc->CreateTextNode($titl);
+
+    $fieldentryqmditemtype->appendChild($fieldentryqmditemtypetext);
+    $qtimetafieldqmditemtype->appendChild($fieldentryqmditemtype);
+
+    $qtimetafieldtextformat = $doc->CreateElement("qtimetadatafield");
+    $qtimeta->appendChild($qtimetafieldtextformat);
+    $fieldlabeltextformat = $doc->CreateElement("fieldlabel");
+    $fieldlabeltextformattext = $doc->CreateTextNode("TEXT_FORMAT");
+    $fieldlabeltextformat->appendChild($fieldlabeltextformattext);
+    $qtimetafieldtextformat->appendChild($fieldlabeltextformat);
+    $fieldentrytextformat = $doc->CreateElement("fieldentry");
+    $fieldentrytextformattext = $doc->CreateTextNode("HTML");
+    $fieldentrytextformat->appendChild($fieldentrytextformattext);
+    $qtimetafieldtextformat->appendChild($fieldentrytextformat);
+
+    $qtimetafielditemobjective = $doc->CreateElement("qtimetadatafield");
+    $qtimeta->appendChild($qtimetafielditemobjective);
+    $fieldlabelitemobjective = $doc->CreateElement("fieldlabel");
+    $fieldlabelitemobjectivetext = $doc->CreateTextNode("ITEM_OBJECTIVE");
+    $fieldlabelitemobjective->appendChild($fieldlabelitemobjectivetext);
+    $qtimetafielditemobjective->appendChild($fieldlabelitemobjective);
+    $qtimetafielditemobjective->appendChild($doc->CreateElement("fieldentry"));
+
+    $qtimetafielditemkeyword = $doc->CreateElement("qtimetadatafield");
+    $qtimeta->appendChild($qtimetafielditemkeyword);
+    $fieldlabelitemkeyword = $doc->CreateElement("fieldlabel");
+    $fieldlabelitemkeywordtext = $doc->CreateTextNode("ITEM_KEYWORD");
+    $fieldlabelitemkeyword->appendChild($fieldlabelitemkeywordtext);
+    $qtimetafielditemkeyword->appendChild($fieldlabelitemkeyword);
+    $qtimetafielditemkeyword->appendChild($doc->CreateElement("fieldentry"));
+
+    $qtimetafielditemrubric = $doc->CreateElement("qtimetadatafield");
+    $qtimeta->appendChild($qtimetafielditemrubric);
+    $fieldlabelitemrubric = $doc->CreateElement("fieldlabel");
+    $fieldlabelitemrubrictext = $doc->CreateTextNode("ITEM_RUBRIC");
+    $fieldlabelitemrubric->appendChild($fieldlabelitemrubrictext);
+    $qtimetafielditemrubric->appendChild($fieldlabelitemrubric);
+    $qtimetafielditemrubric->appendChild($doc->CreateElement("fieldentry"));
+
+    $qtimetafieldattach = $doc->CreateElement("qtimetadatafield");
+    $qtimeta->appendChild($qtimetafieldattach);
+    $fieldlabelattach = $doc->CreateElement("fieldlabel");
+    $fieldlabelattachtext = $doc->CreateTextNode("ATTACHMENT");
+    $fieldlabelattach->appendChild($fieldlabelattachtext);
+    $qtimetafieldattach->appendChild($fieldlabelattach);
+    $qtimetafieldattach->appendChild($doc->CreateElement("fieldentry"));
+
+    //if NFM
+    $qtimetafieldattach = $doc->CreateElement("qtimetadatafield");
+    $qtimeta->appendChild($qtimetafieldattach);
+    $fieldlabelattach = $doc->CreateElement("fieldlabel");
+    $fieldlabelattachtext = $doc->CreateTextNode("hasRationale");
+    $fieldlabelattach->appendChild($fieldlabelattachtext);
+    $qtimetafieldattach->appendChild($fieldlabelattach);
+    $fieldentryformattext = $doc->CreateElement("fieldentry");
+    if (strpos($line_encode[$x], "&lt;RA&gt;")!== false){
+        $fieldentrytextformattext = $doc->CreateTextNode("True");
+        $line_decode = preg_replace( '/<RA>/',"", $line_decode);
+    }else {
+        $fieldentrytextformattext = $doc->CreateTextNode("false");
+    }
+    $fieldentryformattext->appendChild($fieldentrytextformattext);
+    $qtimetafieldattach->appendChild($fieldentryformattext);
+
+    //if NFM
+    if ($titl == "Multiple Choice") {
+
+        $qtimetafieldpartialcredi = $doc->CreateElement("qtimetadatafield");
+        $qtimeta->appendChild($qtimetafieldpartialcredi);
+        $fieldlabelpartialcredi = $doc->CreateElement("fieldlabel");
+        $fieldlabelpartialcreditext = $doc->CreateTextNode("PARTIAL_CREDIT");
+        $fieldlabelpartialcredi->appendChild($fieldlabelpartialcreditext);
+        $qtimetafieldpartialcredi->appendChild($fieldlabelpartialcredi);
+        $fieldentrypartialcredi = $doc->CreateElement("fieldentry");
+        $fieldentrypartialcreditext = $doc->CreateTextNode("FALSE");
+        $fieldentrypartialcredi->appendChild($fieldentrypartialcreditext);
+        $qtimetafieldpartialcredi->appendChild($fieldentrypartialcredi);
+    }
+    //if NFM
+    $qtimetafieldrandomiz = $doc->CreateElement("qtimetadatafield");
+    $qtimeta->appendChild($qtimetafieldrandomiz);
+    $fieldlabelrandomiz = $doc->CreateElement("fieldlabel");
+
+    $fieldlabelrandomiztext = $doc->CreateTextNode("RANDOMIZE");
+    $fieldlabelrandomiz->appendChild($fieldlabelrandomiztext);
+    $qtimetafieldrandomiz->appendChild($fieldlabelrandomiz);
+    $fieldentryrandomiz = $doc->CreateElement("fieldentry");
+    if (strpos($line_encode[$x], "&lt;NRA&gt;")!== false) {
+        $fieldentryrandomiztext = $doc->CreateTextNode("false");
+
     }else{
-        $compteurbisRC = 0;
-        $tableau = array();
-        $answer_number=1;
-        while(strpos($line_encode[$x+$answer_number], "&lt;OP&gt;")!== false){
-            if (strpos($line_encode[$x+$answer_number], "&lt;RC&gt;")!== false){
-                $tableau[] = "rc";
-                $compteurbisRC++;
-            }else{
-                $tableau[] = "op";
-            }
-            $answer_number++;
-        }
-        if ($compteurbisRC>1){
-            $titl = "Multiple Correct Answer";
-        }else{
-            $titl = "Multiple Choice";
-        }
+        $fieldentryrandomiztext = $doc->CreateTextNode("true");
+    }
+    $fieldentryrandomiz->appendChild($fieldentryrandomiztext);
+    $qtimetafieldrandomiz->appendChild($fieldentryrandomiz);
 
-        $letraresp = 'A';
-        $ident_value++;
-        $item = $doc->CreateElement("item");
-        $itemident = $doc->CreateAttribute("ident");
-        $itemident->value = $ident_value;
-        $item->setAttributeNode($itemident);
-        $itemtitle = $doc->CreateAttribute("title");
+    $itemrubric = $doc->CreateElement("rubric");
+    $itemrubricview = $doc->CreateAttribute("view");
+    $itemrubricview->value = "All";
+    $itemrubric->setAttributeNode($itemrubricview);
+    $item->appendChild($itemrubric);
 
-        $itemtitle->value = $titl;
-        $item->setAttributeNode($itemtitle);
-        $section->appendChild($item);
+    $material = $doc->CreateElement("material");
+    $itemrubric->appendChild($material);
 
-        $durat = $doc->CreateElement("duration");
-        $item->appendChild($durat);
+    include ("mattext.php");
+    $material->appendChild($mattext);
 
-        $itemmetadata = $doc->CreateElement("itemmetadata");
-        $item->appendChild($itemmetadata);
+    $itempresentation = $doc->CreateElement("presentation");
+    $fieldentryrandomizitempresentationlabel = $doc->CreateAttribute("label");
 
-        $qtimeta = $doc->CreateElement("qtimetadata");
-        $itemmetadata->appendChild($qtimeta);
+    //if NFM
+    $itempresentation = $doc->CreateElement("presentation");
+    $itempresentationlabel = $doc->CreateAttribute("label");
+    $itempresentationlabel->value = "Resp003";
+    $itempresentation->setAttributeNode($itempresentationlabel);
+    $item->appendChild($itempresentation);
 
-        $qtimetafieldqmditemtype = $doc->CreateElement("qtimetadatafield");
-        $qtimeta->appendChild($qtimetafieldqmditemtype);
-        $fieldlabelqmditemtype = $doc->CreateElement("fieldlabel");
-        $fieldlabelqmditemtypetext = $doc->CreateTextNode("qmd_itemtype");
-        $fieldlabelqmditemtype->appendChild($fieldlabelqmditemtypetext);
-        $qtimetafieldqmditemtype->appendChild($fieldlabelqmditemtype);
-        $fieldentryqmditemtype = $doc->CreateElement("fieldentry");
-        // $titl
-        $fieldentryqmditemtypetext = $doc->CreateTextNode($titl);
+    //if NFM
+    $itpresflowflow = $doc->CreateElement("flow");
+    $itpresflowflowclass = $doc->CreateAttribute("class");
+    $itpresflowflowclass->value = "Block";
+    $itpresflowflow->setAttributeNode($itpresflowflowclass);
+    $itempresentation->appendChild($itpresflowflow);
 
-        $fieldentryqmditemtype->appendChild($fieldentryqmditemtypetext);
-        $qtimetafieldqmditemtype->appendChild($fieldentryqmditemtype);
+    $material = $doc->CreateElement("material");
+    $itpresflowflow->appendChild($material);
 
-        $qtimetafieldtextformat = $doc->CreateElement("qtimetadatafield");
-        $qtimeta->appendChild($qtimetafieldtextformat);
-        $fieldlabeltextformat = $doc->CreateElement("fieldlabel");
-        $fieldlabeltextformattext = $doc->CreateTextNode("TEXT_FORMAT");
-        $fieldlabeltextformat->appendChild($fieldlabeltextformattext);
-        $qtimetafieldtextformat->appendChild($fieldlabeltextformat);
-        $fieldentrytextformat = $doc->CreateElement("fieldentry");
-        $fieldentrytextformattext = $doc->CreateTextNode("HTML");
-        $fieldentrytextformat->appendChild($fieldentrytextformattext);
-        $qtimetafieldtextformat->appendChild($fieldentrytextformat);
+    include ('mattext.php');
 
-        $qtimetafielditemobjective = $doc->CreateElement("qtimetadatafield");
-        $qtimeta->appendChild($qtimetafielditemobjective);
-        $fieldlabelitemobjective = $doc->CreateElement("fieldlabel");
-        $fieldlabelitemobjectivetext = $doc->CreateTextNode("ITEM_OBJECTIVE");
-        $fieldlabelitemobjective->appendChild($fieldlabelitemobjectivetext);
-        $qtimetafielditemobjective->appendChild($fieldlabelitemobjective);
-        $qtimetafielditemobjective->appendChild($doc->CreateElement("fieldentry"));
+    $itpresflflmattextcdata = $doc->createCDATAsection($line_decode);
+    $mattext->appendChild($itpresflflmattextcdata);
+    $material->appendChild($mattext);
 
-        $qtimetafielditemkeyword = $doc->CreateElement("qtimetadatafield");
-        $qtimeta->appendChild($qtimetafielditemkeyword);
-        $fieldlabelitemkeyword = $doc->CreateElement("fieldlabel");
-        $fieldlabelitemkeywordtext = $doc->CreateTextNode("ITEM_KEYWORD");
-        $fieldlabelitemkeyword->appendChild($fieldlabelitemkeywordtext);
-        $qtimetafielditemkeyword->appendChild($fieldlabelitemkeyword);
-        $qtimetafielditemkeyword->appendChild($doc->CreateElement("fieldentry"));
 
-        $qtimetafielditemrubric = $doc->CreateElement("qtimetadatafield");
-        $qtimeta->appendChild($qtimetafielditemrubric);
-        $fieldlabelitemrubric = $doc->CreateElement("fieldlabel");
-        $fieldlabelitemrubrictext = $doc->CreateTextNode("ITEM_RUBRIC");
-        $fieldlabelitemrubric->appendChild($fieldlabelitemrubrictext);
-        $qtimetafielditemrubric->appendChild($fieldlabelitemrubric);
-        $qtimetafielditemrubric->appendChild($doc->CreateElement("fieldentry"));
+    $material = $doc->CreateElement("material");
+    $itpresflowflow->appendChild($material);
 
-        $qtimetafieldattach = $doc->CreateElement("qtimetadatafield");
-        $qtimeta->appendChild($qtimetafieldattach);
-        $fieldlabelattach = $doc->CreateElement("fieldlabel");
-        $fieldlabelattachtext = $doc->CreateTextNode("ATTACHMENT");
-        $fieldlabelattach->appendChild($fieldlabelattachtext);
-        $qtimetafieldattach->appendChild($fieldlabelattach);
-        $qtimetafieldattach->appendChild($doc->CreateElement("fieldentry"));
+    include ("matimage.php");
+    $material->appendChild($matimage);
 
-        //if NFM
-        $qtimetafieldattach = $doc->CreateElement("qtimetadatafield");
-        $qtimeta->appendChild($qtimetafieldattach);
-        $fieldlabelattach = $doc->CreateElement("fieldlabel");
-        $fieldlabelattachtext = $doc->CreateTextNode("hasRationale");
-        $fieldlabelattach->appendChild($fieldlabelattachtext);
-        $qtimetafieldattach->appendChild($fieldlabelattach);
-        $fieldentryformattext = $doc->CreateElement("fieldentry");
-        if (strpos($line_encode[$x], "&lt;RA&gt;")!== false){
-            $fieldentrytextformattext = $doc->CreateTextNode("True");
-            $line_decode = preg_replace( '/<RA>/',"", $line_decode);
-        }else {
-            $fieldentrytextformattext = $doc->CreateTextNode("false");
-        }
-        $fieldentryformattext->appendChild($fieldentrytextformattext);
-        $qtimetafieldattach->appendChild($fieldentryformattext);
 
-        //if NFM
-        if ($titl == "Multiple Choice") {
+    $itpresflflresplid = $doc->CreateElement("response_lid");
+    $itpresflflresplidid = $doc->CreateAttribute("ident");
+    if ($titl == "Multiple Choice") {
+        $itpresflflresplidid->value = "MCSC";
+    }
+    else {
+        $itpresflflresplidid->value = "LID01";
+    }
+    $itpresflflresplid->setAttributeNode($itpresflflresplidid);
+    $itpresflflresplidrcardin = $doc->CreateAttribute("rcardinality");
+    if ($titl == "Multiple Choice") {
+        $itpresflflresplidrcardin->value = "Single";
+    }
+    else {
+        $itpresflflresplidrcardin->value = "Multiple";
+    }
+    $itpresflflresplid->setAttributeNode($itpresflflresplidrcardin);
+    $itpresflflresplidrtim = $doc->CreateAttribute("rtiming");
+    $itpresflflresplidrtim->value = "No";
+    $itpresflflresplid->setAttributeNode($itpresflflresplidrtim);
+    $itpresflowflow->appendChild($itpresflflresplid);
 
-            $qtimetafieldpartialcredi = $doc->CreateElement("qtimetadatafield");
-            $qtimeta->appendChild($qtimetafieldpartialcredi);
-            $fieldlabelpartialcredi = $doc->CreateElement("fieldlabel");
-            $fieldlabelpartialcreditext = $doc->CreateTextNode("PARTIAL_CREDIT");
-            $fieldlabelpartialcredi->appendChild($fieldlabelpartialcreditext);
-            $qtimetafieldpartialcredi->appendChild($fieldlabelpartialcredi);
-            $fieldentrypartialcredi = $doc->CreateElement("fieldentry");
-            $fieldentrypartialcreditext = $doc->CreateTextNode("FALSE");
-            $fieldentrypartialcredi->appendChild($fieldentrypartialcreditext);
-            $qtimetafieldpartialcredi->appendChild($fieldentrypartialcredi);
-        }
-        //if NFM
-        $qtimetafieldrandomiz = $doc->CreateElement("qtimetadatafield");
-        $qtimeta->appendChild($qtimetafieldrandomiz);
-        $fieldlabelrandomiz = $doc->CreateElement("fieldlabel");
+    $itpresflflresplidrendcho = $doc->CreateElement("render_choice");
+    $itpresflflresplidrendchoshuf = $doc->CreateAttribute("shuffle");
+    $itpresflflresplidrendchoshuf->value = "No";
+    $itpresflflresplidrendcho->setAttributeNode($itpresflflresplidrendchoshuf);
+    $itpresflflresplid->appendChild($itpresflflresplidrendcho);
 
-        $fieldlabelrandomiztext = $doc->CreateTextNode("RANDOMIZE");
-        $fieldlabelrandomiz->appendChild($fieldlabelrandomiztext);
-        $qtimetafieldrandomiz->appendChild($fieldlabelrandomiz);
-        $fieldentryrandomiz = $doc->CreateElement("fieldentry");
-        if (strpos($line_encode[$x], "&lt;NRA&gt;")!== false) {
-            $fieldentryrandomiztext = $doc->CreateTextNode("false");
-
-        }else{
-            $fieldentryrandomiztext = $doc->CreateTextNode("true");
-        }
-        $fieldentryrandomiz->appendChild($fieldentryrandomiztext);
-        $qtimetafieldrandomiz->appendChild($fieldentryrandomiz);
-
-        $itemrubric = $doc->CreateElement("rubric");
-        $itemrubricview = $doc->CreateAttribute("view");
-        $itemrubricview->value = "All";
-        $itemrubric->setAttributeNode($itemrubricview);
-        $item->appendChild($itemrubric);
+    for($z=1;$z<count($option);$z++)
+    {
+        $itpresflflresplidrendchoresp = $doc->CreateElement("response_label");
+        $itpresflflresplidrendchorespid = $doc->CreateAttribute("ident");
+        $itpresflflresplidrendchorespid->value = $letraresp;
+        $letraresp++;
+        $itpresflflresplidrendchoresp->setAttributeNode($itpresflflresplidrendchorespid);
+        $itpresflflresplidrendchoresprarea = $doc->CreateAttribute("rarea");
+        $itpresflflresplidrendchoresprarea->value = ("Ellipse");
+        $itpresflflresplidrendchoresp->setAttributeNode($itpresflflresplidrendchoresprarea);
+        $itpresflflresplidrendchoresprrange = $doc->CreateAttribute("rrange");
+        $itpresflflresplidrendchoresprrange->value = ("Exact");
+        $itpresflflresplidrendchoresp->setAttributeNode($itpresflflresplidrendchoresprrange);
+        $itpresflflresplidrendchoresprshuffle = $doc->CreateAttribute("rshuffle");
+        $itpresflflresplidrendchoresprshuffle->value = ("Yes");
+        $itpresflflresplidrendchoresp->setAttributeNode($itpresflflresplidrendchoresprshuffle);
+        $itpresflflresplidrendcho->appendChild($itpresflflresplidrendchoresp);
 
         $material = $doc->CreateElement("material");
-        $itemrubric->appendChild($material);
+        $itpresflflresplidrendchoresp->appendChild($material);
+
+        include ("mattext.php");
+
+        $auxresptest = $option[$z];
+        $itpresflflresplidrendchorespmat1mattcd = $doc->CreateCDataSection($auxresptest);
+        $mattext->appendChild($itpresflflresplidrendchorespmat1mattcd);
+        $material->appendChild($mattext);
+        if ($question_counter > 0)
+        {
+            $material = $doc->CreateElement("material");
+            $itpresflflresplidrendchoresp->appendChild($material);
+            include ("matimage.php");
+            $material->appendChild($matimage);
+        }
+        $question_counter--;
+    }
+
+    for ($i = 0; $i < $question_counter; $i++) {
+        $itpresflflresplidrendchoresp = $doc->CreateElement("response_label");
+        $itpresflflresplidrendchorespid = $doc->CreateAttribute("ident");
+        $itpresflflresplidrendchorespid->value = $letraresp;
+        $itpresflflresplidrendchoresp->setAttributeNode($itpresflflresplidrendchorespid);
+        $itpresflflresplidrendchoresprarea = $doc->CreateAttribute("rarea");
+        $itpresflflresplidrendchoresprarea->value = ("Ellipse");
+        $itpresflflresplidrendchoresp->setAttributeNode($itpresflflresplidrendchoresprarea);
+        $itpresflflresplidrendchoresprrange = $doc->CreateAttribute("rrange");
+        $itpresflflresplidrendchoresprrange->value = ("Exact");
+        $itpresflflresplidrendchoresp->setAttributeNode($itpresflflresplidrendchoresprrange);
+        $itpresflflresplidrendchoresprshuffle = $doc->CreateAttribute("rshuffle");
+        $itpresflflresplidrendchoresprshuffle->value = ("Yes");
+        $itpresflflresplidrendchoresp->setAttributeNode($itpresflflresplidrendchoresprshuffle);
+        $itpresflflresplidrendcho->appendChild($itpresflflresplidrendchoresp);
+
+        $material = $doc->CreateElement("material");
+        $itpresflflresplidrendchoresp->appendChild($material);
 
         include ("mattext.php");
         $material->appendChild($mattext);
 
-        $itempresentation = $doc->CreateElement("presentation");
-        $fieldentryrandomizitempresentationlabel = $doc->CreateAttribute("label");
-
-        //if NFM
-        $itempresentation = $doc->CreateElement("presentation");
-        $itempresentationlabel = $doc->CreateAttribute("label");
-        $itempresentationlabel->value = "Resp003";
-        $itempresentation->setAttributeNode($itempresentationlabel);
-        $item->appendChild($itempresentation);
-
-        //if NFM
-        $itpresflowflow = $doc->CreateElement("flow");
-        $itpresflowflowclass = $doc->CreateAttribute("class");
-        $itpresflowflowclass->value = "Block";
-        $itpresflowflow->setAttributeNode($itpresflowflowclass);
-        $itempresentation->appendChild($itpresflowflow);
-
-        $material = $doc->CreateElement("material");
-        $itpresflowflow->appendChild($material);
-
-        include ('mattext.php');
-
-        $itpresflflmattextcdata = $doc->createCDATAsection($line_decode);
-        $mattext->appendChild($itpresflflmattextcdata);
-        $material->appendChild($mattext);
-
-
-        $material = $doc->CreateElement("material");
-        $itpresflowflow->appendChild($material);
+        $material2 = $doc->CreateElement("material");
+        $itpresflflresplidrendchoresp->appendChild($material2);
 
         include ("matimage.php");
-        $material->appendChild($matimage);
 
+        $material2->appendChild($matimage);
 
-        $itpresflflresplid = $doc->CreateElement("response_lid");
-        $itpresflflresplidid = $doc->CreateAttribute("ident");
-        if ($titl == "Multiple Choice") {
-            $itpresflflresplidid->value = "MCSC";
-        }
-        else {
-            $itpresflflresplidid->value = "LID01";
-        }
-        $itpresflflresplid->setAttributeNode($itpresflflresplidid);
-        $itpresflflresplidrcardin = $doc->CreateAttribute("rcardinality");
-        if ($titl == "Multiple Choice") {
-            $itpresflflresplidrcardin->value = "Single";
-        }
-        else {
-            $itpresflflresplidrcardin->value = "Multiple";
-        }
-        $itpresflflresplid->setAttributeNode($itpresflflresplidrcardin);
-        $itpresflflresplidrtim = $doc->CreateAttribute("rtiming");
-        $itpresflflresplidrtim->value = "No";
-        $itpresflflresplid->setAttributeNode($itpresflflresplidrtim);
-        $itpresflowflow->appendChild($itpresflflresplid);
-
-        $itpresflflresplidrendcho = $doc->CreateElement("render_choice");
-        $itpresflflresplidrendchoshuf = $doc->CreateAttribute("shuffle");
-        $itpresflflresplidrendchoshuf->value = "No";
-        $itpresflflresplidrendcho->setAttributeNode($itpresflflresplidrendchoshuf);
-        $itpresflflresplid->appendChild($itpresflflresplidrendcho);
+        $letraresp++;
     }
+
+    for ($i = 0; $i < 4; $i++) {
+        $itpresflflresplidrendchorespvacio = $doc->CreateElement("response_label");
+        $itpresflflresplidrendchoresprareav = $doc->CreateAttribute("rarea");
+        $itpresflflresplidrendchoresprareav->value = ("Ellipse");
+        $itpresflflresplidrendchorespvacio->setAttributeNode($itpresflflresplidrendchoresprareav);
+        $itpresflflresplidrendchoresprrangev = $doc->CreateAttribute("rrange");
+        $itpresflflresplidrendchoresprrangev->value = ("Exact");
+        $itpresflflresplidrendchorespvacio->setAttributeNode($itpresflflresplidrendchoresprrangev);
+        $itpresflflresplidrendchoresprshufflev = $doc->CreateAttribute("rshuffle");
+        $itpresflflresplidrendchoresprshufflev->value = ("Yes");
+        $itpresflflresplidrendchorespvacio->setAttributeNode($itpresflflresplidrendchoresprshufflev);
+        $itpresflflresplidrendcho->appendChild($itpresflflresplidrendchorespvacio);
+
+        $material = $doc->CreateElement("material");
+        $itpresflflresplidrendchorespvacio->appendChild($material);
+        include ("mattext.php");
+        $material->appendChild($mattext);
+    }
+
+    $itemresproc = $doc->CreateElement("resprocessing");
+    $item->appendChild($itemresproc);
+
+    $itemresprocoutc = $doc->createElement("outcomes");
+    $itemresproc->appendChild($itemresprocoutc);
+
+    $itemresprocoutcdecvar = $doc->createElement("decvar");
+    $itemresprocoutcdecvardefaultval = $doc->createAttribute("defaultval");
+    $itemresprocoutcdecvardefaultval->value = "0";
+    $itemresprocoutcdecvar->setAttributeNode($itemresprocoutcdecvardefaultval);
+    $itemresprocoutcdecvarmaxvalue = $doc->createAttribute("maxvalue");
+    $itemresprocoutcdecvar->setAttribute('vartype', 'Integer');
+    $itemresprocoutcdecvarmaxvalue->value = $pluspoint;
+    $itemresprocoutcdecvar->setAttributeNode($itemresprocoutcdecvarmaxvalue);
+    $itemresprocoutcdecvarminvalue = $doc->createAttribute("minvalue");
+    $itemresprocoutcdecvar->setAttribute('vartype', 'Integer');
+    $itemresprocoutcdecvarminvalue->value = $minuspoint;
+    $itemresprocoutcdecvar->setAttributeNode($itemresprocoutcdecvarminvalue);
+    $itemresprocoutcdecvarvarname = $doc->createAttribute("varname");
+    $itemresprocoutcdecvarvarname->value = "SCORE";
+    $itemresprocoutcdecvar->setAttributeNode($itemresprocoutcdecvarvarname);
+    $itemresprocoutcdecvarvartype = $doc->createAttribute("vartype");
+    $itemresprocoutcdecvarvartype->value = "Integer";
+    $itemresprocoutcdecvar->setAttributeNode($itemresprocoutcdecvarvartype);
+    $itemresprocoutc->appendChild($itemresprocoutcdecvar);
+
+    $abcdario = 'A';
+
+    if ($answer_number < 27){
+        $number = 26;
+    }else{
+        $number = $answer_number-1;
+    }
+    for ($abc = 0; $abc < $number; $abc++)
+    {
+        $itemresprrespc = $doc->CreateElement("respcondition");
+        $itemresprrespccontinue = $doc->CreateAttribute("continue");
+        if ($abc > 3) $itemresprrespccontinue->value = ("Yes");
+        else $itemresprrespccontinue->value = ("No");
+        if ($titl == "Multiple Correct Answer") $itemresprrespccontinue->value = ("Yes");
+        $itemresprrespc->setAttributeNode($itemresprrespccontinue);
+        $itemresproc->appendChild($itemresprrespc);
+
+        $itemresprrespccondvar = $doc->CreateElement("conditionvar");
+        $itemresprrespc->appendChild($itemresprrespccondvar);
+
+        $itemresprrespccondvarvareq = $doc->CreateElement("varequal");
+        $itemresprrespccondvarvareqcase = $doc->CreateAttribute("case");
+        $itemresprrespccondvarvareqcase->value = ("Yes");
+        $itemresprrespccondvarvareq->setAttributeNode($itemresprrespccondvarvareqcase);
+        $itemresprrespccondvarvareqrespident = $doc->CreateAttribute("respident");
+        if ($titl == "Multiple Correct Answer") $itemresprrespccondvarvareqrespident->value = ("LID01");
+        else $itemresprrespccondvarvareqrespident->value = ("MCSC");
+        $itemresprrespccondvarvareq->setAttributeNode($itemresprrespccondvarvareqrespident);
+        $itemresprrespccondvarvareq->nodeValue = $abcdario;
+        $itemresprrespccondvar->appendChild($itemresprrespccondvarvareq);
+
+        $itemresprrespcsetvar = $doc->CreateElement("setvar");
+        $itemresprrespcsetvaraction = $doc->CreateAttribute("action");
+        $itemresprrespcsetvaraction->value = ("Add");
+        $itemresprrespcsetvar->setAttributeNode($itemresprrespcsetvaraction);
+        $itemresprrespcsetvarvarname = $doc->CreateAttribute("varname");
+        $itemresprrespcsetvarvarname->value = ("SCORE");
+        $itemresprrespcsetvar->setAttributeNode($itemresprrespcsetvarvarname);
+        $itemresprrespcsetvar->nodeValue = "0";
+        $itemresprrespc->appendChild($itemresprrespcsetvar);
+
+        $itemresprrespcdispfeed = $doc->CreateElement("displayfeedback");
+        $itemresprrespcdispfeedfeedbacktype = $doc->CreateAttribute("feedbacktype");
+        $itemresprrespcdispfeedfeedbacktype->value = ("Response");
+        $itemresprrespcdispfeed->setAttributeNode($itemresprrespcdispfeedfeedbacktype);
+        $itemresprrespcdispfeedlinkrefid = $doc->CreateAttribute("linkrefid");
+        if ($tableau[$abc]=="rc") $itemresprrespcdispfeedlinkrefid->value = "Correct";
+        else $itemresprrespcdispfeedlinkrefid->value = "InCorrect";
+        $itemresprrespcdispfeed->setAttributeNode($itemresprrespcdispfeedlinkrefid);
+        $itemresprrespc->appendChild($itemresprrespcdispfeed);
+
+        $itemresprrespcdispfeed2 = $doc->CreateElement("displayfeedback");
+        $itemresprrespcdispfeed2feedbacktype = $doc->CreateAttribute("feedbacktype");
+        $itemresprrespcdispfeed2feedbacktype->value = ("Response");
+        $itemresprrespcdispfeed2->setAttributeNode($itemresprrespcdispfeed2feedbacktype);
+        $itemresprrespcdispfeed2linkrefid = $doc->CreateAttribute("linkrefid");
+        if ($abc > 3-$question_counter)
+        {
+            $auxcharresp = 'D';
+            $itemresprrespcdispfeed2linkrefid->value = $auxcharresp."1";
+        }
+        else
+        {
+            $itemresprrespcdispfeed2linkrefid->value = $abcdario."1";
+            if ($titl == "Multiple Correct Answer")
+                $itemresprrespcdispfeed2linkrefid->value = "AnswerFeedback";
+        }
+        $itemresprrespcdispfeed2->setAttributeNode($itemresprrespcdispfeed2linkrefid);
+
+        if (($titl == "Multiple Correct Answer")
+            && ($abc < 4-$question_counter))
+        {
+            $itemresprrespcdispfeed2cdata = $doc->CreateCDataSection("");
+            $itemresprrespcdispfeed2->appendChild($itemresprrespcdispfeed2cdata);
+        }
+
+        $itemresprrespc->appendChild($itemresprrespcdispfeed2);
+
+        $abcdario++;
+    }
+    $auxcharitemfeed = 'A';
+
+    for ($nn = 0; $nn < 6; $nn++)
+    {
+        $itemresprocitfeed = $doc->CreateElement("itemfeedback");
+        $itemresprocitfeedident = $doc->CreateAttribute("ident");
+        $itemresprocitfeedid = $auxcharitemfeed."1";
+        $itemresprocitfeedident->value = $itemresprocitfeedid;
+        if ($nn == 4) $itemresprocitfeedident->value = "Correct";
+        if ($nn == 5) $itemresprocitfeedident->value = "Incorrect";
+        $itemresprocitfeed->setAttributeNode($itemresprocitfeedident);
+        $itemresprocitfeedview = $doc->CreateAttribute("view");
+        $itemresprocitfeedview->value = ("All");
+        $itemresprocitfeed->setAttributeNode($itemresprocitfeedview);
+        $item->appendChild($itemresprocitfeed);
+
+        $itemresprocitfeedflmat = $doc->CreateElement("flow_mat");
+        $itemresprocitfeedflmatclass = $doc->CreateAttribute("class");
+        $itemresprocitfeedflmatclass->value = ("Block");
+        $itemresprocitfeedflmat->setAttributeNode($itemresprocitfeedflmatclass);
+        $itemresprocitfeed->appendChild($itemresprocitfeedflmat);
+
+        $itemresprocitfeedflmatmat1 = $doc->CreateElement("material");
+        $itemresprocitfeedflmat->appendChild($itemresprocitfeedflmatmat1);
+
+        include ("mattext.php");
+        $itemresprocitfeedflmatmat1->appendChild($mattext);
+
+        $itemresprocitfeedflmatmat2 = $doc->CreateElement("material");
+        $itemresprocitfeedflmat->appendChild($itemresprocitfeedflmatmat2);
+
+        include ("matimage.php");
+        $itemresprocitfeedflmatmat2->appendChild($matimage);
+
+        $auxcharitemfeed++;
+    }
+    $itemfeedback = $doc->CreateElement("itemfeedback");
+    $itemfeedbackident = $doc->CreateAttribute("ident");
+    $itemfeedbackident->value = "Correct";
+    $itemfeedback->setAttributeNode($itemfeedbackident);
+    $itemfeedbackview = $doc->CreateAttribute("view");
+    $itemfeedbackview->value = "All";
+    $itemfeedback->setAttributeNode($itemfeedbackview);
+    $item->appendChild($itemfeedback);
+
+    $itfeedflowmat = $doc->CreateElement("flow_mat");
+    $itfeedflowmatclass = $doc->CreateAttribute("class");
+    $itfeedflowmatclass->value = "Block";
+    $itfeedflowmat->setAttributeNode($itfeedflowmatclass);
+    $itemfeedback->appendChild($itfeedflowmat);
+
+    $material = $doc->CreateElement("material");
+    $itfeedflowmat->appendChild($material);
+
+    include ('mattext.php');
+
+    $itpresflflmattextcdata = $doc->CreateCDataSection($correctawnserfeedback[1]);
+    $mattext->appendChild($itpresflflmattextcdata);
+    $material->appendChild($mattext);
+
+    $material = $doc->CreateElement("material");
+    $itfeedflowmat->appendChild($material);
+
+    include ("matimage.php");
+    $material->appendChild($matimage);
+
+    $itemfeedbacki = $doc->CreateElement("itemfeedback");
+    $itemfeedbackiident = $doc->CreateAttribute("ident");
+    $itemfeedbackiident->value = "InCorrect";
+    $itemfeedbacki->setAttributeNode($itemfeedbackiident);
+    $itemfeedbackiview = $doc->CreateAttribute("view");
+    $itemfeedbackiview->value = "All";
+    $itemfeedbacki->setAttributeNode($itemfeedbackiview);
+    $item->appendChild($itemfeedbacki);
+
+    $itfeediflowmat = $doc->CreateElement("flow_mat");
+    $itfeediflowmatclass = $doc->CreateAttribute("class");
+    $itfeediflowmatclass->value = "Block";
+    $itfeediflowmat->setAttributeNode($itfeediflowmatclass);
+    $itemfeedbacki->appendChild($itfeediflowmat);
+
+    $itfeediflmater = $doc->CreateElement("material");
+    $itfeediflowmat->appendChild($itfeediflmater);
+
+    $material = $doc->CreateElement("material");
+    $itfeediflowmat->appendChild($material);
+
+    include ('mattext.php');
+
+    $itpresflflmattextcdata = $doc->CreateCDataSection($incorrectawnserfeedback[1]);
+    $mattext->appendChild($itpresflflmattextcdata);
+    $material->appendChild($mattext);
+
+    $material = $doc->CreateElement("material");
+    $itfeediflowmat->appendChild($material);
+
+    include ("matimage.php");
+    $material->appendChild($matimage);
+
+
 ?>
