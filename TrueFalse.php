@@ -1,7 +1,7 @@
 <?php
     if (strpos($line_encode[$x], "&lt;/Q&gt;") === false) {
         $k = 1;
-        while($line_encode[$x + $k] != ""){
+        while($line_encode[$x + $k] != "&lt;Q"){
             $line_encode[$x] = $line_encode[$x] . "&lt;br&gt;" . $line_encode[$x + $k];
             $line_encode[$x + $k] = "";
             if (strpos($line_encode[$x], "&lt;/Q&gt;") !== false){

@@ -1,24 +1,8 @@
 <?php
-    $answer_number=1;
-    $tableau = array();
-    while(strpos($line_encode[$x+$answer_number], "&lt;OP&gt;")!== false){
-        if (strpos($line_encode[$x+$answer_number], "&lt;RC&gt;")!== false){
-            $tableau[] = "rc";
-            $compteurbisRC++;
-        }else{
-            $tableau[] = "op";
-        }
-        $answer_number++;
-    }
-    if ($compteurbisRC>1){
-        $titl = "Multiple Correct Answer";
-    }else{
-        $titl = "Multiple Choice";
-    }
 
     if (strpos($line_encode[$x], "&lt;/Q&gt;") === false) {
         $k = 1;
-        while($line_encode[$x + $k] != ""){
+        while($line_encode[$x + $k] != "&lt;Q"){
             $line_encode[$x] = $line_encode[$x] . $line_encode[$x + $k];
             $line_encode[$x + $k] = "";
             if (strpos($line_encode[$x], "&lt;/Q&gt;") !== false){
@@ -65,9 +49,25 @@
     }
 
     $line_decode = htmlspecialchars_decode($line_encode[$x]);
-    $line_decode = str_replace("<RC>", "", $line_decode);
     $line_decode = str_replace("</Q>", "", $line_decode);
     $option = explode("<OP>", $line_decode);
+
+    $tableau = array();
+    for($answer_number=1;$answer_number<count($option);$answer_number++){
+        if (strpos($option[$answer_number], "<RC>")!== false){
+            $tableau[] = "rc";
+            $compteurbisRC++;
+            $option[$answer_number] = str_replace("<RC>", "", $option[$answer_number]);
+        }else{
+            $tableau[] = "op";
+        }
+        $answer_number++;
+    }
+    if ($compteurbisRC>1){
+        $titl = "Multiple Correct Answer";
+    }else{
+        $titl = "Multiple Choice";
+    }
 
     $compteurbisRC = 0;
     $letraresp = 'A';
@@ -157,7 +157,7 @@
     $fieldentryformattext = $doc->CreateElement("fieldentry");
     if (strpos($line_encode[$x], "&lt;RA&gt;")!== false){
         $fieldentrytextformattext = $doc->CreateTextNode("True");
-        $line_decode = preg_replace( '/<RA>/',"", $line_decode);
+        $option[0] = preg_replace( '/<RA>/',"", $option[0]);
     }else {
         $fieldentrytextformattext = $doc->CreateTextNode("false");
     }
@@ -189,7 +189,7 @@
     $fieldentryrandomiz = $doc->CreateElement("fieldentry");
     if (strpos($line_encode[$x], "&lt;NRA&gt;")!== false) {
         $fieldentryrandomiztext = $doc->CreateTextNode("false");
-
+        $option[0] = preg_replace( '/<NRA>/',"", $option[0]);
     }else{
         $fieldentryrandomiztext = $doc->CreateTextNode("true");
     }
@@ -230,7 +230,7 @@
 
     include ('mattext.php');
 
-    $itpresflflmattextcdata = $doc->createCDATAsection($line_decode);
+    $itpresflflmattextcdata = $doc->createCDATAsection($option[0]);
     $mattext->appendChild($itpresflflmattextcdata);
     $material->appendChild($mattext);
 
