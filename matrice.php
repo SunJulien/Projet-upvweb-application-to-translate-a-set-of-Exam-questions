@@ -9,6 +9,13 @@
                 break;
             }
             $k++;
+            while (true) {
+                if (strpos($line_encode[$x], "&lt;br&gt;&lt;br&gt;") !== false){
+                    $line_encode[$x] = str_replace("&lt;br&gt;&lt;br&gt;", "&lt;br&gt;", $line_encode[$x]);
+                } else {
+                    break;
+                }
+            }
         }
     }
     if (strpos($line_encode[$x], "&lt;M")!== false){
@@ -69,40 +76,8 @@
     foreach ($correspondances[1] as $correspondance) {
         $Commentfield[] = $correspondance;
     }
+    $line_encode[$x] = preg_replace($expressionReguliereCol, '', $line_encode[$x]);
 
-    if (strpos($line_encode[$x], "&lt;FB&gt;")!== false) {
-        $debut = "&lt;FB&gt;";
-        $fin = "&lt;/FB&gt;";
-        // Expression régulière pour correspondre aux caractères spécifiques et tout ce qui se trouve entre eux
-        $expressionRegulierefeedback = '/' . preg_quote($debut, '/') . '(.*?)' . preg_quote($fin, '/') . '/';
-        // Récupérer les occurrences de l'expression régulière dans la chaîne
-        preg_match_all($expressionRegulierefeedback, $line_encode[$x], $correspondances);
-        // Récupérer les caractères situés entre les chaînes spécifiques
-        $feedback = array();
-        foreach ($correspondances[1] as $correspondance) {
-            $feedback[] = $correspondance;
-        }
-    }
-
-    if (strpos($line_encode[$x], "&lt;CAF&gt;")!== false){
-        
-        $debut = "&lt;CAF&gt;";
-        $fin = "&lt;/CAF&gt;";
-        // Expression régulière pour correspondre aux caractères spécifiques et tout ce qui se trouve entre eux
-        $expressionReguliere = '/' . preg_quote($debut, '/') . '(.*?)' . preg_quote($fin, '/') . '/';
-        // Remplacer les occurrences de l'expression régulière par une chaîne vide
-        preg_match($expressionReguliere, $line_encode[$x], $correctawnserfeedback);
-        $line_encode[$x] = preg_replace($expressionReguliere, '', $line_encode[$x]);
-    }
-    if (strpos($line_encode[$x], "&lt;IAF&gt;")!== false){
-        $debut = "&lt;IAF&gt;";
-        $fin = "&lt;/IAF&gt;";
-        // Expression régulière pour correspondre aux caractères spécifiques et tout ce qui se trouve entre eux
-        $expressionReguliere = '/' . preg_quote($debut, '/') . '(.*?)' . preg_quote($fin, '/') . '/';
-        // Remplacer les occurrences de l'expression régulière par une chaîne vide
-        preg_match($expressionReguliere, $line_encode[$x], $incorrectawnserfeedback);
-        $line_encode[$x] = preg_replace($expressionReguliere, '', $line_encode[$x]);
-    }
 
     $line_decode = htmlspecialchars_decode($line_encode[$x]);
     $line_decode = preg_replace( '/<\/Q>/',"", $line_decode);
@@ -199,7 +174,7 @@
     $fieldentryranking = $doc->CreateElement("fieldentry");
     if (strpos($line_encode[$x], "&lt;FR&gt;")!== false){
         $fieldentryrankingtext = $doc->CreateTextNode("True");
-        $line_decode = preg_replace( '<FR>',"", $line_decode);
+        $line_decode = preg_replace( '/<FR>/',"", $line_decode);
     }else {
         $fieldentryrankingtext = $doc->CreateTextNode("false");
     }
@@ -215,7 +190,7 @@
     $fieldentrycommentmatrix = $doc->CreateElement("fieldentry");
     if (strpos($line_encode[$x], "&lt;CF&gt;")!== false){
         $fieldentrycommentmatrixtext = $doc->CreateTextNode("True");
-        $line_decode = preg_replace( '<CF>',"", $line_decode);
+        $line_decode = preg_replace( '/<CF>/',"", $line_decode);
     }else {
         $fieldentrycommentmatrixtext = $doc->CreateTextNode("false");
     }
@@ -231,7 +206,7 @@
         $qtimetafieldcommentfield->appendChild($fieldlabelcommentfield);
         $fieldentrycommentfield = $doc->CreateElement("fieldentry");
         $fieldentrycommentfieldtext = $doc->CreateTextNode($Commentfield[0]);
-        $line_decode = preg_replace('</CF>', "", $line_decode);
+        $line_decode = preg_replace('/<\/CF>/', "", $line_decode);
         $fieldentrycommentfield->appendChild($fieldentrycommentfieldtext);
         $qtimetafieldcommentfield->appendChild($fieldentrycommentfield);
     }
@@ -399,7 +374,7 @@
     $itemresprocoutcdecvar->setAttributeNode($itemresprocoutcdecvartype);
     $itemresprocoutcomes->appendChild($itemresprocoutcdecvar);
 
-    if (strpos($line_encode[$x], "&lt;FB&gt;")!== false) {
+    if (strpos($line_encode[$x], "&lt;CF&gt;")!== false){
         for ($y = 0; $y < count($row); $y++) {
             $itemfeedback = $doc->CreateElement("itemfeedback");
             $itemfeedbackident = $doc->CreateAttribute("ident");
@@ -421,7 +396,7 @@
 
             include('mattext.php');
 
-            $itpresflflmattextcdata = $doc->CreateCDataSection($feedback[0]);
+            $itpresflflmattextcdata = $doc->CreateCDataSection("");
             $mattext->appendChild($itpresflflmattextcdata);
             $material->appendChild($mattext);
 

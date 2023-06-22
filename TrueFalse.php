@@ -8,6 +8,13 @@
                 break;
             }
             $k++;
+            while (true) {
+                if (strpos($line_encode[$x], "&lt;br&gt;&lt;br&gt;") !== false){
+                    $line_encode[$x] = str_replace("&lt;br&gt;&lt;br&gt;", "&lt;br&gt;", $line_encode[$x]);
+                } else {
+                    break;
+                }
+            }
         }
     }
     if (strpos($line_encode[$x], "&lt;M")!== false){

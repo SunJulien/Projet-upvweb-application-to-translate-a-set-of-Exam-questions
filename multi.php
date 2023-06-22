@@ -9,6 +9,13 @@
                 break;
             }
             $k++;
+            while (true) {
+                if (strpos($line_encode[$x], "&lt;br&gt;&lt;br&gt;") !== false){
+                    $line_encode[$x] = str_replace("&lt;br&gt;&lt;br&gt;", "&lt;br&gt;", $line_encode[$x]);
+                } else {
+                    break;
+                }
+            }
         }
     }
 
@@ -49,6 +56,22 @@
     }
 
     $line_decode = htmlspecialchars_decode($line_encode[$x]);
+
+    // Caractères spécifiques
+    $Start = "<LX>";
+    $Finish = "</LX>";
+    // Expression régulière pour correspondre aux caractères spécifiques et tout ce qui se trouve entre eux
+    $expressionReguliereLatex = '/' . preg_quote($Start, '/') . '(.*?)' . preg_quote($Finish, '/') . '/';
+    // Récupérer les occurrences de l'expression régulière dans la chaîne
+    preg_match_all($expressionReguliereLatex, $line_decode, $correspondances);
+    // Récupérer les caractères situés entre les chaînes spécifiques
+    $resultatsLatex = array();
+    foreach ($correspondances[1] as $correspondance) {
+        $resultatsLatex[] = $correspondance;
+    }
+    $line_decode = preg_replace($expressionReguliereLatex, 'latex', $line_decode);
+    $line_decode = str_replace("latex",$resultatsLatex[0], $line_decode);
+
     $line_decode = str_replace("</Q>", "", $line_decode);
     $option = explode("<OP>", $line_decode);
 

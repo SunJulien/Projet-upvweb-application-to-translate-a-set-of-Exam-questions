@@ -9,6 +9,13 @@
                 break;
             }
             $k++;
+            while (true) {
+                if (strpos($line_encode[$x], "&lt;br&gt;&lt;br&gt;") !== false){
+                    $line_encode[$x] = str_replace("&lt;br&gt;&lt;br&gt;", "&lt;br&gt;", $line_encode[$x]);
+                } else {
+                    break;
+                }
+            }
         }
     }
     if (strpos($line_encode[$x], "&lt;M")!== false){
@@ -30,13 +37,30 @@
         $line_encode[$x] = preg_replace($expressionReguliere, '', $line_encode[$x]);
     }
 
+    // Caractères spécifiques
+    $Start = "<LX>";
+    $Finish = "</LX>";
+    // Expression régulière pour correspondre aux caractères spécifiques et tout ce qui se trouve entre eux
+    $expressionReguliereLatex = '/' . preg_quote($Start, '/') . '(.*?)' . preg_quote($Finish, '/') . '/';
+    // Récupérer les occurrences de l'expression régulière dans la chaîne
+    preg_match_all($expressionReguliereLatex, $line_decode, $correspondances);
+    // Récupérer les caractères situés entre les chaînes spécifiques
+    $resultatsLatex = array();
+    foreach ($correspondances[1] as $correspondance) {
+        $resultatsLatex[] = $correspondance;
+    }
+    $line_decode = preg_replace($expressionReguliereLatex, 'latex', $line_decode);
+
+
     $line_decode = htmlspecialchars_decode($line_encode[$x]);
+    $line_decode = preg_replace("/\\\{/", "sub1", $line_decode);
+    $line_decode = preg_replace("/\\\}/", "sub2", $line_decode);
 
     // Caractères spécifiques
-    $debut = "{";
-    $fin = "}";
+    $Start = "{";
+    $Finish = "}";
     // Expression régulière pour correspondre aux caractères spécifiques et tout ce qui se trouve entre eux
-    $expressionReguliere = '/' . preg_quote($debut, '/') . '(.*?)' . preg_quote($fin, '/') . '/';
+    $expressionReguliere = '/' . preg_quote($Start, '/') . '(.*?)' . preg_quote($Finish, '/') . '/';
     // Récupérer les occurrences de l'expression régulière dans la chaîne
     preg_match_all($expressionReguliere, $line_decode, $correspondances);
     // Récupérer les caractères situés entre les chaînes spécifiques
@@ -46,6 +70,11 @@
     }
     // Remplacer les occurrences de l'expression régulière par une chaîne vide
     $line_decode = preg_replace($expressionReguliere, 'CUT', $line_decode);
+    $line_decode = preg_replace("/sub1/", "{", $line_decode);
+    $line_decode = preg_replace("/sub2/", "}", $line_decode);
+    $line_decode = str_replace("latex",$resultatsLatex[0], $line_decode);
+
+
     $line_decode = str_replace("</Q>", "", $line_decode);
     $question_type= "";
     $fill_question = explode("CUT", $line_decode);
