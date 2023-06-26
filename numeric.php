@@ -55,7 +55,7 @@
     $line_decode = preg_replace($expressionReguliereLatex, 'latex', $line_decode);
 
     $line_decode = preg_replace("/\\\{/", "sub1", $line_decode);
-    $line_decode = preg_replace("/\\\}/", "sub2", $line_decode);
+    //$line_decode = preg_replace("/\\\}/", "sub2", $line_decode);
 
     // Caractères spécifiques
     $Start = "{";
@@ -71,9 +71,9 @@
     }
     // Remplacer les occurrences de l'expression régulière par une chaîne vide
     $line_decode = preg_replace($expressionReguliere, 'CUT', $line_decode);
-    $line_decode = preg_replace("/sub1/", "{", $line_decode);
-    $line_decode = preg_replace("/sub2/", "}", $line_decode);
-    $line_decode = str_replace("latex",$resultatsLatex[0], $line_decode);
+    $line_decode = preg_replace("/sub1/", " &#123 ", $line_decode);
+    $line_decode = preg_replace("/}/", " &#125 ", $line_decode);
+    $line_decode = str_replace("/latex/",$resultatsLatex[0], $line_decode);
 
     $line_decode = preg_replace( "/<\/Q>/","", $line_decode);
     $Numeric_question = explode("CUT", $line_decode);
