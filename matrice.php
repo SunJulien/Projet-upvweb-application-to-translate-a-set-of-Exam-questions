@@ -1,5 +1,10 @@
 <?php
-
+    /**
+     * This function checks if "</Q>" is not present in $line_encode[$x] if that the case the function will add the next line until a line with "</Q>" is met
+     * this ways we can work with all the component of one question and not the other
+     * @param array $line_encode Array of strings
+     * @param int $x Index of the current element in the text
+     */
     if (strpos($line_encode[$x], "&lt;/Q&gt;") === false) {
         $k = 1;
         while($line_encode[$x + $k] != "&lt;Q"){
@@ -18,6 +23,15 @@
             }
         }
     }
+
+    /**
+     * This function checks if "<M>" or "<MN>" is present in $line_encode[$x] if that the case we take the value in the tag and stock in the pluspoint and minuspoint
+     *
+     * @param array $line_encode Array of strings
+     * @param int $x Index of the current element in the text
+     * @param int $minuspoint point deduce if incorrect answer
+     * @param int $pluspoint point deduce if correct answer
+     */
     if (strpos($line_encode[$x], "&lt;M")!== false){
         //find all number and add it in $matches
         preg_match_all('/-?\d+(?:\,\d+)?/', $line_encode[$x], $matches);
@@ -32,51 +46,52 @@
         $debut = "&lt;M";
         $fin = "&gt;";
         // Expression régulière pour correspondre aux caractères spécifiques et tout ce qui se trouve entre eux
-        $expressionReguliere = '/' . preg_quote($debut, '/') . '(.*?)' . preg_quote($fin, '/') . '/';
+        $regularexpression = '/' . preg_quote($debut, '/') . '(.*?)' . preg_quote($fin, '/') . '/';
         // Remplacer les occurrences de l'expression régulière par une chaîne vide
-        $line_encode[$x] = preg_replace($expressionReguliere, '', $line_encode[$x]);
+        $line_encode[$x] = preg_replace($regularexpression, '', $line_encode[$x]);
     }
-    // Caractères spécifiques
+
+    // Specific characters
     $debut = "&lt;ROW&gt;";
     $fin = "&lt;/ROW&gt;";
-    // Expression régulière pour correspondre aux caractères spécifiques et tout ce qui se trouve entre eux
-    $expressionReguliereRow = '/' . preg_quote($debut, '/') . '(.*?)' . preg_quote($fin, '/') . '/';
-    // Récupérer les occurrences de l'expression régulière dans la chaîne
-    preg_match_all($expressionReguliereRow, $line_encode[$x], $correspondances);
-    // Récupérer les caractères situés entre les chaînes spécifiques
+    // Regular expression to match the specific characters and everything in between
+    $regularexpressionRow = '/' . preg_quote($debut, '/') . '(.*?)' . preg_quote($fin, '/') . '/';
+    // Get occurrences of the regular expression in the string
+    preg_match_all($regularexpressionRow, $line_encode[$x], $correspondances);
+    // Get the characters between the specific strings
     $row = array();
     foreach ($correspondances[1] as $correspondance) {
         $row[] = $correspondance;
     }
-    $line_encode[$x] = preg_replace($expressionReguliereRow, '', $line_encode[$x]);
+    $line_encode[$x] = preg_replace($regularexpressionRow, '', $line_encode[$x]);
 
-    // Caractères spécifiques
+    // Specific characters
     $debut = "&lt;COL&gt;";
     $fin = "&lt;/COL&gt;";
-    // Expression régulière pour correspondre aux caractères spécifiques et tout ce qui se trouve entre eux
-    $expressionReguliereCol = '/' . preg_quote($debut, '/') . '(.*?)' . preg_quote($fin, '/') . '/';
-    // Récupérer les occurrences de l'expression régulière dans la chaîne
-    preg_match_all($expressionReguliereCol, $line_encode[$x], $correspondances);
-    // Récupérer les caractères situés entre les chaînes spécifiques
+    // Regular expression to match the specific characters and everything in between
+    $regularexpressionCol = '/' . preg_quote($debut, '/') . '(.*?)' . preg_quote($fin, '/') . '/';
+    // Get occurrences of the regular expression in the string
+    preg_match_all($regularexpressionCol, $line_encode[$x], $correspondances);
+    // Get the characters between the specific strings
     $col = array();
     foreach ($correspondances[1] as $correspondance) {
         $col[] = $correspondance;
     }
-    $line_encode[$x] = preg_replace($expressionReguliereCol, '', $line_encode[$x]);
+    $line_encode[$x] = preg_replace($regularexpressionCol, '', $line_encode[$x]);
 
-    // Caractères spécifiques
+    // Specific characters
     $debut = "&lt;CF&gt;";
     $fin = "&lt;/CF&gt;";
-    // Expression régulière pour correspondre aux caractères spécifiques et tout ce qui se trouve entre eux
-    $expressionReguliereCommentfield = '/' . preg_quote($debut, '/') . '(.*?)' . preg_quote($fin, '/') . '/';
-    // Récupérer les occurrences de l'expression régulière dans la chaîne
-    preg_match_all($expressionReguliereCommentfield, $line_encode[$x], $correspondances);
-    // Récupérer les caractères situés entre les chaînes spécifiques
+    // Regular expression to match the specific characters and everything in between
+    $regularexpressionCommentfield = '/' . preg_quote($debut, '/') . '(.*?)' . preg_quote($fin, '/') . '/';
+    // Get occurrences of the regular expression in the string
+    preg_match_all($regularexpressionCommentfield, $line_encode[$x], $correspondances);
+    // Get the characters between the specific strings
     $Commentfield = array();
     foreach ($correspondances[1] as $correspondance) {
         $Commentfield[] = $correspondance;
     }
-    $line_encode[$x] = preg_replace($expressionReguliereCol, '', $line_encode[$x]);
+    $line_encode[$x] = preg_replace($regularexpressionCol, '', $line_encode[$x]);
 
 
     $line_decode = htmlspecialchars_decode($line_encode[$x]);
@@ -401,7 +416,7 @@
             $material->appendChild($mattext);
 
         }
-        $line_decode = preg_replace($expressionRegulierefeedback, '', $line_decode);
+        $line_decode = preg_replace($regularexpressionfeedback, '', $line_decode);
 
     }
 

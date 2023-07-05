@@ -1,5 +1,10 @@
 <?php
-
+    /**
+     * This function checks if "</Q>" is not present in $line_encode[$x] if that the case the function will add the next line until a line with "</Q>" is met
+     * This ways we can work with all the component of one question and not the other
+     * @param array $line_encode Array of strings
+     * @param int $x Index of the current element in the text
+     */
     if (strpos($line_encode[$x], "&lt;/Q&gt;") === false) {
         $k = 1;
         while($line_encode[$x + $k] != "&lt;Q"){
@@ -18,7 +23,14 @@
             }
         }
     }
-
+    /**
+     * This function checks if "<M>" or "<MN>" is present in $line_encode[$x] if that the case we take the value in the tag and stock in the pluspoint and minuspoint
+     *
+     * @param array $line_encode Array of strings
+     * @param int $x Index of the current element in the text
+     * @param int $minuspoint point deduce if incorrect answer
+     * @param int $pluspoint point deduce if correct answer
+     */
     if (strpos($line_encode[$x], "&lt;M")!== false){
         // Trouver tous les nombres et les ajouter à $matches
         preg_match_all('/-?\d+(?:\,\d+)?/', $line_encode[$x], $matches);
@@ -31,48 +43,66 @@
         $debut = "&lt;M";
         $fin = "&gt;";
         // Expression régulière pour trouver les caractères spéciaux et tout ce qui se trouve entre eux
-        $expressionReguliere = '/' . preg_quote($debut, '/') . '(.*?)' . preg_quote($fin, '/') . '/';
+        $regularexpression = '/' . preg_quote($debut, '/') . '(.*?)' . preg_quote($fin, '/') . '/';
         // Remplacer toutes les occurrences de l'expression régulière par une chaîne vide
-        $line_encode[$x] = preg_replace($expressionReguliere, '', $line_encode[$x]);
+        $line_encode[$x] = preg_replace($regularexpression, '', $line_encode[$x]);
     }
 
-    if (strpos($line_encode[$x], "&lt;CAF&gt;")!== false){
+    if (strpos($line_encode[$x], "&lt;CAF&gt;") !== false) {
         $debut = "&lt;CAF&gt;";
         $fin = "&lt;/CAF&gt;";
-        // Expression régulière pour correspondre aux caractères spécifiques et tout ce qui se trouve entre eux
-        $expressionReguliere = '/' . preg_quote($debut, '/') . '(.*?)' . preg_quote($fin, '/') . '/';
-        // Remplacer les occurrences de l'expression régulière par une chaîne vide
-        preg_match($expressionReguliere, $line_encode[$x], $correctawnserfeedback);
-        $line_encode[$x] = preg_replace($expressionReguliere, '', $line_encode[$x]);
+        // Regular expression to match the specific characters and everything in between
+        $regularexpression = '/' . preg_quote($debut, '/') . '(.*?)' . preg_quote($fin, '/') . '/';
+        // Replace occurrences of the regular expression with an empty string
+        preg_match($regularexpression, $line_encode[$x], $correctawnserfeedback);
+        $line_encode[$x] = preg_replace($regularexpression, '', $line_encode[$x]);
     }
-    if (strpos($line_encode[$x], "&lt;IAF&gt;")!== false){
+
+    if (strpos($line_encode[$x], "&lt;IAF&gt;") !== false) {
         $debut = "&lt;IAF&gt;";
         $fin = "&lt;/IAF&gt;";
-        // Expression régulière pour correspondre aux caractères spécifiques et tout ce qui se trouve entre eux
-        $expressionReguliere = '/' . preg_quote($debut, '/') . '(.*?)' . preg_quote($fin, '/') . '/';
-        // Remplacer les occurrences de l'expression régulière par une chaîne vide
-        preg_match($expressionReguliere, $line_encode[$x], $incorrectawnserfeedback);
-        $line_encode[$x] = preg_replace($expressionReguliere, '', $line_encode[$x]);
+        // Regular expression to match the specific characters and everything in between
+        $regularexpression = '/' . preg_quote($debut, '/') . '(.*?)' . preg_quote($fin, '/') . '/';
+        // Replace occurrences of the regular expression with an empty string
+        preg_match($regularexpression, $line_encode[$x], $incorrectawnserfeedback);
+        $line_encode[$x] = preg_replace($regularexpression, '', $line_encode[$x]);
     }
 
     $line_decode = htmlspecialchars_decode($line_encode[$x]);
 
-    // Caractères spécifiques
+    /**
+     * This function checks if "<LX>" is present in $line_encode[$x] if that the case we take the value and indentifie as a latex equation
+     *
+     * @param array $line_encode Array of strings
+     * @param int $x Index of the current element in the text
+     * @param array $resultLatex Array of all the latex equation
+     */
+
+    // Special characters
     $Start = "<LX>";
     $Finish = "</LX>";
-    // Expression régulière pour correspondre aux caractères spécifiques et tout ce qui se trouve entre eux
-    $expressionReguliereLatex = '/' . preg_quote($Start, '/') . '(.*?)' . preg_quote($Finish, '/') . '/';
-    // Récupérer les occurrences de l'expression régulière dans la chaîne
-    preg_match_all($expressionReguliereLatex, $line_decode, $correspondances);
-    // Récupérer les caractères situés entre les chaînes spécifiques
-    $resultatsLatex = array();
+    // Regular expression to match the special characters and everything in between
+    $regularexpressionLatex = '/' . preg_quote($Start, '/') . '(.*?)' . preg_quote($Finish, '/') . '/';
+    // Get occurrences of the regular expression in the string
+    preg_match_all($regularexpressionLatex, $line_decode, $correspondances);
+    // Get the characters between the specific strings
+    $resultLatex = array();
     foreach ($correspondances[1] as $correspondance) {
-        $resultatsLatex[] = $correspondance;
+        $resultLatex[] = $correspondance;
     }
-    $line_decode = preg_replace($expressionReguliereLatex, 'latex', $line_decode);
-    $line_decode = str_replace("latex",$resultatsLatex[0], $line_decode);
+    $line_decode = preg_replace($regularexpressionLatex, 'latex', $line_decode);
+    $chiffre = 1; // The first number to use for $resultLatex
+    // Iterate through the text to replace the tags
+    while (($pos = strpos($line_decode, 'latex')) !== false) {
+        // Find the position of the closing tag
+        // Replace the tag with the number
+        $line_decode = substr_replace($line_decode, $resultLatex[$chiffre], $pos, strlen('latex'));
 
-    $line_decode = str_replace("</Q>", "", $line_decode);
+        $chiffre++; // Move to the next number
+    }
+
+    $line_decode = preg_replace("/<\/Q>/", "", $line_decode);
+    // Split the line into an array using the 'CUT' delimiter
     $option = explode("<OP>", $line_decode);
 
     $tableau = array();

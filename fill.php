@@ -32,24 +32,24 @@
         $debut = "&lt;M";
         $fin = "&gt;";
         // Expression régulière pour trouver les caractères spéciaux et tout ce qui se trouve entre eux
-        $expressionReguliere = '/' . preg_quote($debut, '/') . '(.*?)' . preg_quote($fin, '/') . '/';
+        $regularexpression = '/' . preg_quote($debut, '/') . '(.*?)' . preg_quote($fin, '/') . '/';
         // Remplacer toutes les occurrences de l'expression régulière par une chaîne vide
-        $line_encode[$x] = preg_replace($expressionReguliere, '', $line_encode[$x]);
+        $line_encode[$x] = preg_replace($regularexpression, '', $line_encode[$x]);
     }
 
     // Caractères spécifiques
     $Start = "<LX>";
     $Finish = "</LX>";
     // Expression régulière pour correspondre aux caractères spécifiques et tout ce qui se trouve entre eux
-    $expressionReguliereLatex = '/' . preg_quote($Start, '/') . '(.*?)' . preg_quote($Finish, '/') . '/';
+    $regularexpressionLatex = '/' . preg_quote($Start, '/') . '(.*?)' . preg_quote($Finish, '/') . '/';
     // Récupérer les occurrences de l'expression régulière dans la chaîne
-    preg_match_all($expressionReguliereLatex, $line_decode, $correspondances);
+    preg_match_all($regularexpressionLatex, $line_decode, $correspondances);
     // Récupérer les caractères situés entre les chaînes spécifiques
-    $resultatsLatex = array();
+    $resultLatex = array();
     foreach ($correspondances[1] as $correspondance) {
-        $resultatsLatex[] = $correspondance;
+        $resultLatex[] = $correspondance;
     }
-    $line_decode = preg_replace($expressionReguliereLatex, 'latex', $line_decode);
+    $line_decode = preg_replace($regularexpressionLatex, 'latex', $line_decode);
 
 
     $line_decode = htmlspecialchars_decode($line_encode[$x]);
@@ -60,44 +60,45 @@
     $Start = "{";
     $Finish = "}";
     // Expression régulière pour correspondre aux caractères spécifiques et tout ce qui se trouve entre eux
-    $expressionReguliere = '/' . preg_quote($Start, '/') . '(.*?)' . preg_quote($Finish, '/') . '/';
+    $regularexpression = '/' . preg_quote($Start, '/') . '(.*?)' . preg_quote($Finish, '/') . '/';
     // Récupérer les occurrences de l'expression régulière dans la chaîne
-    preg_match_all($expressionReguliere, $line_decode, $correspondances);
+    preg_match_all($regularexpression, $line_decode, $correspondances);
     // Récupérer les caractères situés entre les chaînes spécifiques
-    $resultats = array();
+    $result = array();
     foreach ($correspondances[1] as $correspondance) {
-        $resultats[] = $correspondance;
+        $result[] = $correspondance;
     }
     // Remplacer les occurrences de l'expression régulière par une chaîne vide
-    $line_decode = preg_replace($expressionReguliere, 'CUT', $line_decode);
+    $line_decode = preg_replace($regularexpression, 'CUT', $line_decode);
     $line_decode = preg_replace("/sub1/", "{", $line_decode);
     $line_decode = preg_replace("/sub2/", "}", $line_decode);
-    $line_decode = str_replace("latex",$resultatsLatex[0], $line_decode);
+    $line_decode = str_replace("latex",$resultLatex[0], $line_decode);
 
 
-    $line_decode = str_replace("</Q>", "", $line_decode);
-    $question_type= "";
-    $fill_question = explode("CUT", $line_decode);
+    $line_decode = preg_replace("/<\/Q>/", "", $line_decode);
+    // Split the line into an array using the 'CUT' delimiter
+    $Numeric_question = explode("CUT", $line_decode);
     $counter_id = 0;
+    $question_type= "";
 
-    if (strpos($line_encode[$x], "&lt;CAF&gt;")!== false){
+    if (strpos($line_encode[$x], "&lt;CAF&gt;") !== false) {
         $debut = "&lt;CAF&gt;";
         $fin = "&lt;/CAF&gt;";
-        // Expression régulière pour correspondre aux caractères spécifiques et tout ce qui se trouve entre eux
-        $expressionReguliere = '/' . preg_quote($debut, '/') . '(.*?)' . preg_quote($fin, '/') . '/';
-        // Remplacer les occurrences de l'expression régulière par une chaîne vide
-        preg_match($expressionReguliere, $line_encode[$x], $correctawnserfeedback);
-        $line_encode[$x] = preg_replace($expressionReguliere, '', $line_encode[$x]);
+        // Regular expression to match the specific characters and everything in between
+        $regularexpression = '/' . preg_quote($debut, '/') . '(.*?)' . preg_quote($fin, '/') . '/';
+        // Replace occurrences of the regular expression with an empty string
+        preg_match($regularexpression, $line_encode[$x], $correctawnserfeedback);
+        $line_encode[$x] = preg_replace($regularexpression, '', $line_encode[$x]);
     }
 
-    if (strpos($line_encode[$x], "&lt;IAF&gt;")!== false){
+    if (strpos($line_encode[$x], "&lt;IAF&gt;") !== false) {
         $debut = "&lt;IAF&gt;";
         $fin = "&lt;/IAF&gt;";
-        // Expression régulière pour correspondre aux caractères spécifiques et tout ce qui se trouve entre eux
-        $expressionReguliere = '/' . preg_quote($debut, '/') . '(.*?)' . preg_quote($fin, '/') . '/';
-        // Remplacer les occurrences de l'expression régulière par une chaîne vide
-        preg_match($expressionReguliere, $line_encode[$x], $incorrectawnserfeedback);
-        $line_encode[$x] = preg_replace($expressionReguliere, '', $line_encode[$x]);
+        // Regular expression to match the specific characters and everything in between
+        $regularexpression = '/' . preg_quote($debut, '/') . '(.*?)' . preg_quote($fin, '/') . '/';
+        // Replace occurrences of the regular expression with an empty string
+        preg_match($regularexpression, $line_encode[$x], $incorrectawnserfeedback);
+        $line_encode[$x] = preg_replace($regularexpression, '', $line_encode[$x]);
     }
 
     $ident_value++;
@@ -255,7 +256,7 @@
 
     for ($i = 0; $i <= count($fill_question); $i++) {
 
-        if ($counter_id < count($resultats))
+        if ($counter_id < count($result))
         {
             $itpresflflmaterial2 = $doc->CreateElement("material");
             $itpresflowflow->appendChild($itpresflflmaterial2);
@@ -350,7 +351,7 @@
 
     $contadoridentificador = 0;
 
-    for ($i = 0; $i < count($resultats); $i++)
+    for ($i = 0; $i < count($result); $i++)
     {
         $itemresprocrespcondition = $doc->CreateElement("respcondition");
         $itemresprocrespcondcontinue = $doc->CreateAttribute("continue");
@@ -372,7 +373,7 @@
         $itemresprocrespcondvaroreqrpid->value = $itempresentationlabel->value . "0" . $contadoridentificador;
         $contadoridentificador++;
         $itemresprocrespcondvaroreq->setAttributeNode($itemresprocrespcondvaroreqrpid);
-        $itemresprocrespcondvaroreqcdata = $doc->CreateCDataSection($resultats[$i]);
+        $itemresprocrespcondvaroreqcdata = $doc->CreateCDataSection($result[$i]);
         $itemresprocrespcondvaroreq->appendChild($itemresprocrespcondvaroreqcdata);
         $itemresprocrespcondvaror->appendChild($itemresprocrespcondvaroreq);
 

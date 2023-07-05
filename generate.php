@@ -1,10 +1,9 @@
 <?php
-
     /**
-    @file
-    This file contains a PHP script for generating an XML file from form inputs.
-    PHP version 7.4
-    @author Sun Julien
+     * @file
+     * This file contains a PHP script for generating an XML file from form inputs.
+     * PHP version 7.4
+     * @author Sun Julien
      */
 
     // Enable error reporting for debugging
@@ -20,9 +19,9 @@
     $Theme = $_POST['theme'];
 
     // Regular expression to match text between XML tags
-    $expressionReguliere = '/(?<=<)([^<>]+)(?=>)/';
+    $regularexpression = '/(?<=<)([^<>]+)(?=>)/';
     // Replace all occurrences of the regular expression with the text in uppercase
-    $Content = preg_replace_callback($expressionReguliere, function($match) {
+    $Content = preg_replace_callback($regularexpression, function($match) {
         return strtoupper($match[1]);
     }, $Content);
 
@@ -52,33 +51,33 @@
 
     // Loop through each line of the input
     for ($x = 0; $x <= $size; $x++) {
-        if (strlen($line_encode[$x]) > 0){
+        if (strlen($line_encode[$x]) > 0) {
             // Check if the line contains the start tag for a question type
-            if(strpos($line_encode[$x], "&lt;QF&gt;")!== false){
+            if (strpos($line_encode[$x], "&lt;QF&gt;") !== false) {
                 $question_type= "&lt;QF&gt;";
                 $line_encode[$x] = str_replace("&lt;QF&gt;", "", $line_encode[$x]);
                 $pluspoint = 1;
                 $minuspoint = 0;
             }
-            if(strpos($line_encode[$x], "&lt;QN&gt;")!== false){
+            if (strpos($line_encode[$x], "&lt;QN&gt;") !== false) {
                 $question_type= "&lt;QN&gt;";
                 $line_encode[$x] = str_replace("&lt;QN&gt;", "", $line_encode[$x]);
                 $pluspoint = 1;
                 $minuspoint = 0;
             }
-            if(strpos($line_encode[$x], "&lt;QM&gt;")!== false){
+            if (strpos($line_encode[$x], "&lt;QM&gt;") !== false) {
                 $question_type= "&lt;QM&gt;";
                 $line_encode[$x] = str_replace("&lt;QM&gt;", "", $line_encode[$x]);
                 $pluspoint = 1;
                 $minuspoint = 0;
             }
-            if(strpos($line_encode[$x], "&lt;QTF&gt;")!== false){
+            if (strpos($line_encode[$x], "&lt;QTF&gt;") !== false) {
                 $question_type= "&lt;QTF&gt;";
                 $line_encode[$x] = str_replace("&lt;QTF&gt;", "", $line_encode[$x]);
                 $pluspoint = 1;
                 $minuspoint = 0;
             }
-            if(strpos($line_encode[$x], "&lt;QSM&gt;")!== false){
+            if (strpos($line_encode[$x], "&lt;QSM&gt;") !== false) {
                 $question_type= "&lt;QSM&gt;";
                 $line_encode[$x] = str_replace("&lt;QSM&gt;", "", $line_encode[$x]);
                 $pluspoint = 1;
@@ -86,54 +85,53 @@
             }
 
             // Include the appropriate file for the question type
-            if($question_type== "&lt;QF&gt;"){
+            if ($question_type == "&lt;QF&gt;") {
                 include ('fill.php');
             }
-            if($question_type== "&lt;QN&gt;"){
+            if ($question_type == "&lt;QN&gt;") {
                 include ('numeric.php');
             }
-            if($question_type== "&lt;QM&gt;"){
+            if ($question_type == "&lt;QM&gt;") {
                 include ('multi.php');
             }
-            if($question_type== "&lt;QTF&gt;"){
+            if ($question_type == "&lt;QTF&gt;") {
                 include ('TrueFalse.php');
             }
-            if($question_type== "&lt;QSM&gt;"){
+            if ($question_type == "&lt;QSM&gt;") {
                 include ('matrice.php');
             }
-            // Check if the line contains the end tag for a question
-            if(strpos($line_encode[$x], "&lt;/Q&gt;")!== false){
-                $question_type= "";
-                $line_encode[$x] = str_replace("&lt;/Q&gt;", "", $line_encode[$x]);
-                $question_counter = 4;
-                unset($correctawnserfeedback);
-                $correctawnserfeedback = [];
-                unset($incorrectawnserfeedback);
-                $incorrectawnserfeedback = [];
-            }
+            //reset some variable
+            $question_counter = 4;
+            unset($correctawnserfeedback);
+            $correctawnserfeedback = [];
+            unset($incorrectawnserfeedback);
+            $incorrectawnserfeedback = [];
         }
     }
 
     $questestinterop->appendChild($assessment);
 
-    // Générer le fichier XML
-    $doc->formatOutput = true; // Pour formater le document avec des indentations
+    // Generate the XML file
+    $doc->formatOutput = true; // To format the document with indentations
     $doc->save($Filename);
 
-    // chemin absolu du fichier à télécharger
+    // Absolute file path for downloading
     $cheminFichier = '/var/www/upvsun/' . $Filename;
 
     $xml = file_get_contents($Filename);
 
-    // envoi des entêtes HTTP pour indiquer que le fichier doit être téléchargé
+    // Send HTTP headers to indicate that the file should be downloaded
     header('Content-Type: text/xml');
     header('Content-Disposition: attachment; filename="' . basename($Filename) . '"');
+
     while (ob_get_level()) {
         ob_end_clean();
     }
-    // lecture et envoi du contenu du fichier
+
+    // Read and send the file content
     echo $xml;
-    unlink($Filename);
+
+    unlink($Filename); // Delete the temporary XML file
     exit;
 
     ?>
