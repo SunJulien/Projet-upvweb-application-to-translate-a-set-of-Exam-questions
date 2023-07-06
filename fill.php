@@ -1,5 +1,17 @@
     <?php
+    /**
+     * @file
+     * This file contains a PHP script for generating an XML file from form inputs.
+     * PHP version 7.4
+     * @author Sun Julien
+     */
 
+    /**
+     * This function checks if "</Q>" is not present in $line_encode[$x] if that the case the function will add the next line until a line with "</Q>" is met
+     * This ways we can work with all the component of one question and not the other
+     * @param array $line_encode Array of strings
+     * @param int $x Index of the current element in the text
+     */
     if (strpos($line_encode[$x], "&lt;/Q&gt;") === false) {
         $k = 1;
         while($line_encode[$x + $k] != "&lt;Q"){
@@ -18,6 +30,15 @@
             }
         }
     }
+
+    /**
+     * This function checks if "<M>" or "<MN>" is present in $line_encode[$x] if that the case we take the value in the tag and stock in the pluspoint and minuspoint
+     *
+     * @param array $line_encode Array of strings
+     * @param int $x Index of the current element in the text
+     * @param int $minuspoint point deduce if incorrect answer
+     * @param int $pluspoint point deduce if correct answer
+     */
     if (strpos($line_encode[$x], "&lt;M")!== false){
         // Trouver tous les nombres et les ajouter à $matches
         preg_match_all('/-?\d+(?:\,\d+)?/', $line_encode[$x], $matches);

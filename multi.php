@@ -1,5 +1,11 @@
 <?php
     /**
+     * @file
+     * This file contains a PHP script for generating an XML file from form inputs.
+     * PHP version 7.4
+     * @author Sun Julien
+     */
+    /**
      * This function checks if "</Q>" is not present in $line_encode[$x] if that the case the function will add the next line until a line with "</Q>" is met
      * This ways we can work with all the component of one question and not the other
      * @param array $line_encode Array of strings
