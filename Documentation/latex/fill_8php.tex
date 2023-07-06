@@ -1,0 +1,352 @@
+\doxysection{fill.\+php File Reference}
+\hypertarget{fill_8php}{}\label{fill_8php}\index{fill.php@{fill.php}}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+if(strpos( \$line\+\_\+encode\mbox{[} \$x\mbox{]}, \"{}\&lt;/Q\&gt;\"{})===false) if(strpos(\$line\+\_\+encode\mbox{[}\$x\mbox{]}, \"{}\&lt;M\"{})!==false) \mbox{\hyperlink{fill_8php_adb4a02b0919cae6853943866aa589a7d}{\$\+Start}} = \"{}$<$LX$>$\"{}
+\item 
+\Hypertarget{fill_8php_ae1bb46ff4f14dfb3544c6e5d4edeb513}\label{fill_8php_ae1bb46ff4f14dfb3544c6e5d4edeb513} 
+{\bfseries \$\+Finish} = \"{}$<$/LX$>$\"{}
+\item 
+\Hypertarget{fill_8php_a932dd0de68c78888c50f77639a4673b4}\label{fill_8php_a932dd0de68c78888c50f77639a4673b4} 
+{\bfseries \$regularexpression\+Latex} = \textquotesingle{}/\textquotesingle{} . preg\+\_\+quote(\$Start, \textquotesingle{}/\textquotesingle{}) . \textquotesingle{}(.$\ast$?)\textquotesingle{} . preg\+\_\+quote(\$Finish, \textquotesingle{}/\textquotesingle{}) . \textquotesingle{}/\textquotesingle{}
+\item 
+\Hypertarget{fill_8php_aff64fe4c27991fae747ef304f45a64dd}\label{fill_8php_aff64fe4c27991fae747ef304f45a64dd} 
+{\bfseries \$result\+Latex} = array()
+\item 
+\Hypertarget{fill_8php_ac8e13d29e85336108b436756acccebde}\label{fill_8php_ac8e13d29e85336108b436756acccebde} 
+foreach(\$correspondances\mbox{[}1\mbox{]} as \$correspondance) {\bfseries \$line\+\_\+decode} = preg\+\_\+replace(\$regularexpression\+Latex, \textquotesingle{}latex\textquotesingle{}, \$line\+\_\+decode)
+\item 
+\Hypertarget{fill_8php_afb6ff301f2b9db1de492fb38da1b2292}\label{fill_8php_afb6ff301f2b9db1de492fb38da1b2292} 
+{\bfseries \$regularexpression} = \textquotesingle{}/\textquotesingle{} . preg\+\_\+quote(\$Start, \textquotesingle{}/\textquotesingle{}) . \textquotesingle{}(.$\ast$?)\textquotesingle{} . preg\+\_\+quote(\$Finish, \textquotesingle{}/\textquotesingle{}) . \textquotesingle{}/\textquotesingle{}
+\item 
+\Hypertarget{fill_8php_a112ef069ddc0454086e3d1e6d8d55d07}\label{fill_8php_a112ef069ddc0454086e3d1e6d8d55d07} 
+{\bfseries \$result} = array()
+\item 
+\Hypertarget{fill_8php_ae9c54b2ad2815a42bbd80fe4c398abea}\label{fill_8php_ae9c54b2ad2815a42bbd80fe4c398abea} 
+{\bfseries \$\+Numeric\+\_\+question} = explode(\"{}CUT\"{}, \$line\+\_\+decode)
+\item 
+\Hypertarget{fill_8php_a6c250e61298bf7b5c45bbb973eaac4f7}\label{fill_8php_a6c250e61298bf7b5c45bbb973eaac4f7} 
+{\bfseries \$counter\+\_\+id} = 0
+\item 
+\Hypertarget{fill_8php_adc8cc927c67896fa5dadba3d7c3fa845}\label{fill_8php_adc8cc927c67896fa5dadba3d7c3fa845} 
+{\bfseries \$question\+\_\+type} = \"{}\"{}
+\item 
+\Hypertarget{fill_8php_a829999f9f7d906a678a7cce1eabb0bb0}\label{fill_8php_a829999f9f7d906a678a7cce1eabb0bb0} 
+if(strpos( \$line\+\_\+encode\mbox{[} \$x\mbox{]}, \"{}\&lt;CAF\&gt;\"{}) !==false) if(strpos(\$line\+\_\+encode\mbox{[}\$x\mbox{]}, \"{}\&lt;IAF\&gt;\"{}) !==false) {\bfseries \$ident\+\_\+value}
+\item 
+\Hypertarget{fill_8php_aa61b415cee119a7511e05c405ecd0b32}\label{fill_8php_aa61b415cee119a7511e05c405ecd0b32} 
+{\bfseries \$item} = \$doc-\/$>$Create\+Element(\"{}item\"{})
+\item 
+\Hypertarget{fill_8php_ae948819d752105bfa58b6f3e37931025}\label{fill_8php_ae948819d752105bfa58b6f3e37931025} 
+{\bfseries \$itemident} = \$doc-\/$>$Create\+Attribute(\"{}ident\"{})
+\item 
+\Hypertarget{fill_8php_ab97cfb937113c7be3c7cc5f9d3555576}\label{fill_8php_ab97cfb937113c7be3c7cc5f9d3555576} 
+\$itemident {\bfseries value} = \$ident\+\_\+value
+\item 
+\Hypertarget{fill_8php_a6e0b3189e37cc41917a04125cfdb69a0}\label{fill_8php_a6e0b3189e37cc41917a04125cfdb69a0} 
+{\bfseries \$itemtitle} = \$doc-\/$>$Create\+Attribute(\"{}title\"{})
+\item 
+\Hypertarget{fill_8php_a530175402d2bb81c769590af02f7758d}\label{fill_8php_a530175402d2bb81c769590af02f7758d} 
+{\bfseries \$durat} = \$doc-\/$>$Create\+Element(\"{}duration\"{})
+\item 
+\Hypertarget{fill_8php_a81525e0fb08a20e91c54bf79f720728c}\label{fill_8php_a81525e0fb08a20e91c54bf79f720728c} 
+{\bfseries \$itemmetadata} = \$doc-\/$>$Create\+Element(\"{}itemmetadata\"{})
+\item 
+\Hypertarget{fill_8php_a0874f888bbf5fbbe665c9a2fa0669bfd}\label{fill_8php_a0874f888bbf5fbbe665c9a2fa0669bfd} 
+{\bfseries \$qtimeta} = \$doc-\/$>$Create\+Element(\"{}qtimetadata\"{})
+\item 
+\Hypertarget{fill_8php_a4d9ddf467558d557039c72bcf30be403}\label{fill_8php_a4d9ddf467558d557039c72bcf30be403} 
+{\bfseries \$qtimetafieldqmditemtype} = \$doc-\/$>$Create\+Element(\"{}qtimetadatafield\"{})
+\item 
+\Hypertarget{fill_8php_a3fcd10bdd0f36ed95e4d3a17da126f2e}\label{fill_8php_a3fcd10bdd0f36ed95e4d3a17da126f2e} 
+{\bfseries \$fieldlabelqmditemtype} = \$doc-\/$>$Create\+Element(\"{}fieldlabel\"{})
+\item 
+\Hypertarget{fill_8php_a852737b69f0630030719f228162c8185}\label{fill_8php_a852737b69f0630030719f228162c8185} 
+{\bfseries \$fieldlabelqmditemtypetext} = \$doc-\/$>$Create\+Text\+Node(\"{}qmd\+\_\+itemtype\"{})
+\item 
+\Hypertarget{fill_8php_ab3281f12c351e288f0fbb649b71f0278}\label{fill_8php_ab3281f12c351e288f0fbb649b71f0278} 
+{\bfseries \$fieldentryqmditemtype} = \$doc-\/$>$Create\+Element(\"{}fieldentry\"{})
+\item 
+\Hypertarget{fill_8php_a0dbdc97d5cf48e33f60c0d2079572e1a}\label{fill_8php_a0dbdc97d5cf48e33f60c0d2079572e1a} 
+{\bfseries \$fieldentryqmditemtypetext} = \$doc-\/$>$Create\+Text\+Node(\"{}Fill In the Blank\"{})
+\item 
+\Hypertarget{fill_8php_a94b045c1f0ad330a23eecd64e1710456}\label{fill_8php_a94b045c1f0ad330a23eecd64e1710456} 
+{\bfseries \$qtimetafieldtextformat} = \$doc-\/$>$Create\+Element(\"{}qtimetadatafield\"{})
+\item 
+\Hypertarget{fill_8php_a7ecbe8be41f52531645a322cfba64a6f}\label{fill_8php_a7ecbe8be41f52531645a322cfba64a6f} 
+{\bfseries \$fieldlabeltextformat} = \$doc-\/$>$Create\+Element(\"{}fieldlabel\"{})
+\item 
+\Hypertarget{fill_8php_a55c2d853fe530a834e54a3f020b9c3dc}\label{fill_8php_a55c2d853fe530a834e54a3f020b9c3dc} 
+{\bfseries \$fieldlabeltextformattext} = \$doc-\/$>$Create\+Text\+Node(\"{}TEXT\+\_\+\+FORMAT\"{})
+\item 
+\Hypertarget{fill_8php_a0cd602b216f80db722f4a08a6cbbdb27}\label{fill_8php_a0cd602b216f80db722f4a08a6cbbdb27} 
+{\bfseries \$fieldentrytextformat} = \$doc-\/$>$Create\+Element(\"{}fieldentry\"{})
+\item 
+\Hypertarget{fill_8php_a269b67f64b79fb14e60b67f849de15dd}\label{fill_8php_a269b67f64b79fb14e60b67f849de15dd} 
+{\bfseries \$fieldentrytextformattext} = \$doc-\/$>$Create\+Text\+Node(\"{}HTML\"{})
+\item 
+\Hypertarget{fill_8php_af692bcf9ab7bb9e79f739385f45435c2}\label{fill_8php_af692bcf9ab7bb9e79f739385f45435c2} 
+{\bfseries \$qtimetafieldmutualexclus} = \$doc-\/$>$Create\+Element(\"{}qtimetadatafield\"{})
+\item 
+\Hypertarget{fill_8php_a1ff173c1b44ca0cdc5adfea8e4df1673}\label{fill_8php_a1ff173c1b44ca0cdc5adfea8e4df1673} 
+{\bfseries \$fieldlabelmutualexclus} = \$doc-\/$>$Create\+Element(\"{}fieldlabel\"{})
+\item 
+\Hypertarget{fill_8php_a36120d1c4f59e7b75e67f1b4625be060}\label{fill_8php_a36120d1c4f59e7b75e67f1b4625be060} 
+{\bfseries \$fieldlabelmutualexclustext} = \$doc-\/$>$Create\+Text\+Node(\"{}MUTUALLY\+\_\+\+EXCLUSIVE\"{})
+\item 
+\Hypertarget{fill_8php_a52d570eda4b3fb68fed1c204ffa2e89b}\label{fill_8php_a52d570eda4b3fb68fed1c204ffa2e89b} 
+{\bfseries \$fieldentrymutualexclus} = \$doc-\/$>$Create\+Element(\"{}fieldentry\"{})
+\item 
+\Hypertarget{fill_8php_af19c9377810620d181f79a621202addf}\label{fill_8php_af19c9377810620d181f79a621202addf} 
+{\bfseries \$fieldentrymutualexclustext} = \$doc-\/$>$Create\+Text\+Node(\"{}false\"{})
+\item 
+\Hypertarget{fill_8php_a6b8eaa6e32de0aa120e3cdb34514061e}\label{fill_8php_a6b8eaa6e32de0aa120e3cdb34514061e} 
+{\bfseries \$qtimetafieldcasesensit} = \$doc-\/$>$Create\+Element(\"{}qtimetadatafield\"{})
+\item 
+\Hypertarget{fill_8php_add189310a20b2cb13f17cc7ce164c3a0}\label{fill_8php_add189310a20b2cb13f17cc7ce164c3a0} 
+{\bfseries \$fieldlabelcasesensit} = \$doc-\/$>$Create\+Element(\"{}fieldlabel\"{})
+\item 
+\Hypertarget{fill_8php_a28a70a822687ee2221a9800dc15b2a82}\label{fill_8php_a28a70a822687ee2221a9800dc15b2a82} 
+{\bfseries \$fieldlabelcasesensittext} = \$doc-\/$>$Create\+Text\+Node(\"{}CASE\+\_\+\+SENSITIVE\"{})
+\item 
+\Hypertarget{fill_8php_acfdaadf811fede6652e55d0b77fceebf}\label{fill_8php_acfdaadf811fede6652e55d0b77fceebf} 
+{\bfseries \$fieldentrycasesensit} = \$doc-\/$>$Create\+Element(\"{}fieldentry\"{})
+\item 
+\Hypertarget{fill_8php_aeb331d93501390a0b508aacb92ee02f0}\label{fill_8php_aeb331d93501390a0b508aacb92ee02f0} 
+{\bfseries \$fieldentrycasesensittext} = \$doc-\/$>$Create\+Text\+Node(\"{}false\"{})
+\item 
+\Hypertarget{fill_8php_a917a37b6032ecb533d327801673dc986}\label{fill_8php_a917a37b6032ecb533d327801673dc986} 
+{\bfseries \$qtimetafieldignorespaces} = \$doc-\/$>$Create\+Element(\"{}qtimetadatafield\"{})
+\item 
+\Hypertarget{fill_8php_ab0fd01eda874b7920c0179a3307070d4}\label{fill_8php_ab0fd01eda874b7920c0179a3307070d4} 
+{\bfseries \$fieldlabelignorespaces} = \$doc-\/$>$Create\+Element(\"{}fieldlabel\"{})
+\item 
+\Hypertarget{fill_8php_a70636d71ddaf765f5efdd7538c8bb38a}\label{fill_8php_a70636d71ddaf765f5efdd7538c8bb38a} 
+{\bfseries \$fieldlabelignorespacestext} = \$doc-\/$>$Create\+Text\+Node(\"{}IGNORE\+\_\+\+SPACES\"{})
+\item 
+\Hypertarget{fill_8php_af2b61796e0b3f6309a7c817c5eb78570}\label{fill_8php_af2b61796e0b3f6309a7c817c5eb78570} 
+{\bfseries \$fieldentryignorespaces} = \$doc-\/$>$Create\+Element(\"{}fieldentry\"{})
+\item 
+\Hypertarget{fill_8php_ad3a7c28d37126452699ea7bc9652d6e2}\label{fill_8php_ad3a7c28d37126452699ea7bc9652d6e2} 
+{\bfseries \$fieldentryignorespacestext} = \$doc-\/$>$Create\+Text\+Node(\"{}true\"{})
+\item 
+\Hypertarget{fill_8php_a2415cdd43e7350357aba8b0e5466f8eb}\label{fill_8php_a2415cdd43e7350357aba8b0e5466f8eb} 
+{\bfseries \$qtimetafielditemobjective} = \$doc-\/$>$Create\+Element(\"{}qtimetadatafield\"{})
+\item 
+\Hypertarget{fill_8php_a4b10f71780f769bc623af98305c82d4e}\label{fill_8php_a4b10f71780f769bc623af98305c82d4e} 
+{\bfseries \$fieldlabelitemobjective} = \$doc-\/$>$Create\+Element(\"{}fieldlabel\"{})
+\item 
+\Hypertarget{fill_8php_a847c55e3632ebb81ec17b4d8d7d4b907}\label{fill_8php_a847c55e3632ebb81ec17b4d8d7d4b907} 
+{\bfseries \$fieldlabelitemobjectivetext} = \$doc-\/$>$Create\+Text\+Node(\"{}ITEM\+\_\+\+OBJECTIVE\"{})
+\item 
+\Hypertarget{fill_8php_a684fdbe6d741bb0136afe6c00a574914}\label{fill_8php_a684fdbe6d741bb0136afe6c00a574914} 
+{\bfseries \$qtimetafielditemkeyword} = \$doc-\/$>$Create\+Element(\"{}qtimetadatafield\"{})
+\item 
+\Hypertarget{fill_8php_a13ac1caf169d9ba0edc42bbe5f5a714d}\label{fill_8php_a13ac1caf169d9ba0edc42bbe5f5a714d} 
+{\bfseries \$fieldlabelitemkeyword} = \$doc-\/$>$Create\+Element(\"{}fieldlabel\"{})
+\item 
+\Hypertarget{fill_8php_a5daca9ae104367333eee27b0b98f8776}\label{fill_8php_a5daca9ae104367333eee27b0b98f8776} 
+{\bfseries \$fieldlabelitemkeywordtext} = \$doc-\/$>$Create\+Text\+Node(\"{}ITEM\+\_\+\+KEYWORD\"{})
+\item 
+\Hypertarget{fill_8php_ad9b054e0c9deeec3acd798a662ec1abc}\label{fill_8php_ad9b054e0c9deeec3acd798a662ec1abc} 
+{\bfseries \$qtimetafielditemrubric} = \$doc-\/$>$Create\+Element(\"{}qtimetadatafield\"{})
+\item 
+\Hypertarget{fill_8php_a6fefedf4e1c11347b65baad82dbd8d9d}\label{fill_8php_a6fefedf4e1c11347b65baad82dbd8d9d} 
+{\bfseries \$fieldlabelitemrubric} = \$doc-\/$>$Create\+Element(\"{}fieldlabel\"{})
+\item 
+\Hypertarget{fill_8php_a715630baf6114e23b82e7f0ef765de16}\label{fill_8php_a715630baf6114e23b82e7f0ef765de16} 
+{\bfseries \$fieldlabelitemrubrictext} = \$doc-\/$>$Create\+Text\+Node(\"{}ITEM\+\_\+\+RUBRIC\"{})
+\item 
+\Hypertarget{fill_8php_a9d45fb4488eff7fb1b47f3e208eb6f97}\label{fill_8php_a9d45fb4488eff7fb1b47f3e208eb6f97} 
+{\bfseries \$qtimetafieldattach} = \$doc-\/$>$Create\+Element(\"{}qtimetadatafield\"{})
+\item 
+\Hypertarget{fill_8php_a086909e44fdf2648a0d0e27332183971}\label{fill_8php_a086909e44fdf2648a0d0e27332183971} 
+{\bfseries \$fieldlabelattach} = \$doc-\/$>$Create\+Element(\"{}fieldlabel\"{})
+\item 
+\Hypertarget{fill_8php_a2603019b006844561a8f0061e034ba87}\label{fill_8php_a2603019b006844561a8f0061e034ba87} 
+{\bfseries \$fieldlabelattachtext} = \$doc-\/$>$Create\+Text\+Node(\"{}ATTACHMENT\"{})
+\item 
+\Hypertarget{fill_8php_ab186bf253f8154a03d6b8f18b1376e8d}\label{fill_8php_ab186bf253f8154a03d6b8f18b1376e8d} 
+{\bfseries \$itemrubric} = \$doc-\/$>$Create\+Element(\"{}rubric\"{})
+\item 
+\Hypertarget{fill_8php_a52f2fee52ecc6febde865716b3f0d493}\label{fill_8php_a52f2fee52ecc6febde865716b3f0d493} 
+{\bfseries \$itemrubricview} = \$doc-\/$>$Create\+Attribute(\"{}view\"{})
+\item 
+\Hypertarget{fill_8php_a3db7ba4f8845cb04c1548a18e8294bbc}\label{fill_8php_a3db7ba4f8845cb04c1548a18e8294bbc} 
+{\bfseries \$material} = \$doc-\/$>$Create\+Element(\"{}material\"{})
+\item 
+\Hypertarget{fill_8php_a95ed63cdc55cfc167b273db3de85706f}\label{fill_8php_a95ed63cdc55cfc167b273db3de85706f} 
+{\bfseries \$itempresentation} = \$doc-\/$>$Create\+Element(\"{}presentation\"{})
+\item 
+\Hypertarget{fill_8php_a5e75afab1de5235d3df5bf0251e1efdb}\label{fill_8php_a5e75afab1de5235d3df5bf0251e1efdb} 
+{\bfseries \$fieldentryrandomizitempresentationlabel} = \$doc-\/$>$Create\+Attribute(\"{}label\"{})
+\item 
+\Hypertarget{fill_8php_ab5bd5639263e0975b1f0b42e438e5912}\label{fill_8php_ab5bd5639263e0975b1f0b42e438e5912} 
+{\bfseries \$itempresentationlabel} = \$doc-\/$>$Create\+Attribute(\"{}label\"{})
+\item 
+\Hypertarget{fill_8php_a44c91950eb3078f9ed378b055f2ba8cb}\label{fill_8php_a44c91950eb3078f9ed378b055f2ba8cb} 
+{\bfseries \$itpresflow} = \$doc-\/$>$Create\+Element(\"{}flow\"{})
+\item 
+\Hypertarget{fill_8php_a24d260b44d17f64ab7eab934f419bbe0}\label{fill_8php_a24d260b44d17f64ab7eab934f419bbe0} 
+{\bfseries \$itpresflowclass} = \$doc-\/$>$Create\+Attribute(\"{}class\"{})
+\item 
+\Hypertarget{fill_8php_a55fd100e4773fa7d0e6fabddbff477cc}\label{fill_8php_a55fd100e4773fa7d0e6fabddbff477cc} 
+{\bfseries \$itpresflowflow} = \$doc-\/$>$Create\+Element(\"{}flow\"{})
+\item 
+\Hypertarget{fill_8php_a0ec0d64a57f7da7ddec1bdbd0defaf75}\label{fill_8php_a0ec0d64a57f7da7ddec1bdbd0defaf75} 
+{\bfseries \$itpresflowflowclass} = \$doc-\/$>$Create\+Attribute(\"{}class\"{})
+\item 
+\Hypertarget{fill_8php_aea9306cddeca0e92afece7d15f65520a}\label{fill_8php_aea9306cddeca0e92afece7d15f65520a} 
+{\bfseries \$itpresflflmattextcdata} = \$doc-\/$>$Create\+CData\+Section(\$fill\+\_\+question\mbox{[}0\mbox{]})
+\item 
+\Hypertarget{fill_8php_a6367e99a90ce088913f67a59ecd0e644}\label{fill_8php_a6367e99a90ce088913f67a59ecd0e644} 
+{\bfseries \$insertadomaterialsincdata} = false
+\item 
+\Hypertarget{fill_8php_a858d6089522d92680af2e83bb8a6ec06}\label{fill_8php_a858d6089522d92680af2e83bb8a6ec06} 
+for( \$i=0;\$i$<$=count( \$fill\+\_\+question);\$i++) if(! \$insertadomaterialsincdata) {\bfseries \$itemresprocout} = \$doc-\/$>$Create\+Element(\"{}resprocessing\"{})
+\item 
+\Hypertarget{fill_8php_acbf263066dc3399725ea3cbeb3f1a340}\label{fill_8php_acbf263066dc3399725ea3cbeb3f1a340} 
+{\bfseries \$itemresprocoutcomes} = \$doc-\/$>$Create\+Element(\"{}outcomes\"{})
+\item 
+\Hypertarget{fill_8php_a3c62608cff82a071925e15a454dcd900}\label{fill_8php_a3c62608cff82a071925e15a454dcd900} 
+{\bfseries \$itemresprocoutcdecvar} = \$doc-\/$>$Create\+Element(\"{}decvar\"{})
+\item 
+\Hypertarget{fill_8php_ae7544a20f682c46c7e1a51cbbf7b5246}\label{fill_8php_ae7544a20f682c46c7e1a51cbbf7b5246} 
+{\bfseries \$itemresprocoutcdecdefaultval} = \$doc-\/$>$Create\+Attribute(\"{}defaultval\"{})
+\item 
+\Hypertarget{fill_8php_af6adc030343cb00d872c933dada0e655}\label{fill_8php_af6adc030343cb00d872c933dada0e655} 
+{\bfseries \$itemresprocoutcdecmaxvalue} = \$doc-\/$>$Create\+Attribute(\"{}maxvalue\"{})
+\item 
+\Hypertarget{fill_8php_a4329c1457b3d55835ffec64a06618f3e}\label{fill_8php_a4329c1457b3d55835ffec64a06618f3e} 
+{\bfseries \$itemresprocoutcdecminvalue} = \$doc-\/$>$Create\+Attribute(\"{}minvalue\"{})
+\item 
+\Hypertarget{fill_8php_ac53f072f2ed972d8f2739a2526400e89}\label{fill_8php_ac53f072f2ed972d8f2739a2526400e89} 
+{\bfseries \$itemresprocoutcdecvarname} = \$doc-\/$>$Create\+Attribute(\"{}varname\"{})
+\item 
+\Hypertarget{fill_8php_ab7b06e04954188c6b4191675c3114532}\label{fill_8php_ab7b06e04954188c6b4191675c3114532} 
+{\bfseries \$itemresprocoutcdecvartype} = \$doc-\/$>$Create\+Attribute(\"{}vartype\"{})
+\item 
+\Hypertarget{fill_8php_a39b8d97e5c8efe88787a907989ca5981}\label{fill_8php_a39b8d97e5c8efe88787a907989ca5981} 
+{\bfseries \$contadoridentificador} = 0
+\item 
+\Hypertarget{fill_8php_a7a84ba518768abfb6a430341f9858ef5}\label{fill_8php_a7a84ba518768abfb6a430341f9858ef5} 
+for(\$i=0; \$i$<$ count(\$result); \$i++) {\bfseries \$itemfeedback} = \$doc-\/$>$Create\+Element(\"{}itemfeedback\"{})
+\item 
+\Hypertarget{fill_8php_a1c2b6d50535eb7e02ccf4ca1b8be62f0}\label{fill_8php_a1c2b6d50535eb7e02ccf4ca1b8be62f0} 
+{\bfseries \$itemfeedbackident} = \$doc-\/$>$Create\+Attribute(\"{}ident\"{})
+\item 
+\Hypertarget{fill_8php_a6a0ac9564492dbc9fd54f29552339bb2}\label{fill_8php_a6a0ac9564492dbc9fd54f29552339bb2} 
+{\bfseries \$itemfeedbackview} = \$doc-\/$>$Create\+Attribute(\"{}view\"{})
+\item 
+\Hypertarget{fill_8php_a44630e8144843bf687c2f9b890fa8219}\label{fill_8php_a44630e8144843bf687c2f9b890fa8219} 
+{\bfseries \$itfeedflowmat} = \$doc-\/$>$Create\+Element(\"{}flow\+\_\+mat\"{})
+\item 
+\Hypertarget{fill_8php_a45d6a85877d097f4bcf21c3afa172374}\label{fill_8php_a45d6a85877d097f4bcf21c3afa172374} 
+{\bfseries \$itfeedflowmatclass} = \$doc-\/$>$Create\+Attribute(\"{}class\"{})
+\item 
+\Hypertarget{fill_8php_ab8b909b6f76995ffecb9de4f09e3fccb}\label{fill_8php_ab8b909b6f76995ffecb9de4f09e3fccb} 
+{\bfseries \$itfeedflmater} = \$doc-\/$>$Create\+Element(\"{}material\"{})
+\item 
+\Hypertarget{fill_8php_a97d7812fd9f89369b1ea9f9cf1ad9afb}\label{fill_8php_a97d7812fd9f89369b1ea9f9cf1ad9afb} 
+{\bfseries \$itfeedflmatertext} = \$doc-\/$>$Create\+Element(\"{}mattext\"{})
+\item 
+\Hypertarget{fill_8php_a6c23da6c26359a3ffba42d6fad932f3c}\label{fill_8php_a6c23da6c26359a3ffba42d6fad932f3c} 
+{\bfseries \$itfeedflmatertextcharset} = \$doc-\/$>$Create\+Attribute(\"{}charset\"{})
+\item 
+\Hypertarget{fill_8php_a94da1c7fb332fc90333489b1c6104cdd}\label{fill_8php_a94da1c7fb332fc90333489b1c6104cdd} 
+{\bfseries \$itfeedflmatertexttexttype} = \$doc-\/$>$Create\+Attribute(\"{}texttype\"{})
+\item 
+\Hypertarget{fill_8php_af426c7481fef98426a4d39c6a1da50c3}\label{fill_8php_af426c7481fef98426a4d39c6a1da50c3} 
+{\bfseries \$itfeedflmatertextxmlspace} = \$doc-\/$>$Create\+Attribute(\"{}xml\+:space\"{})
+\item 
+\Hypertarget{fill_8php_ad54d44ae690c7d4ebf5a55ef036f6bbc}\label{fill_8php_ad54d44ae690c7d4ebf5a55ef036f6bbc} 
+{\bfseries \$itfeedflmateri} = \$doc-\/$>$Create\+Element(\"{}material\"{})
+\item 
+\Hypertarget{fill_8php_acb2f421563d9082b52afd5a74464d621}\label{fill_8php_acb2f421563d9082b52afd5a74464d621} 
+{\bfseries \$itfeedflmaterimag} = \$doc-\/$>$Create\+Element(\"{}matimage\"{})
+\item 
+\Hypertarget{fill_8php_a1b9d682076325850d990242aef77f9a2}\label{fill_8php_a1b9d682076325850d990242aef77f9a2} 
+{\bfseries \$itfeedflmaterimagembedded} = \$doc-\/$>$Create\+Attribute(\"{}embedded\"{})
+\item 
+\Hypertarget{fill_8php_ab16db662c13da1336221bcc8a78f674f}\label{fill_8php_ab16db662c13da1336221bcc8a78f674f} 
+{\bfseries \$itfeedflmaterimagimagtype} = \$doc-\/$>$Create\+Attribute(\"{}imagtype\"{})
+\item 
+\Hypertarget{fill_8php_acaeb19df8ffd2e6e7966cef35750b7fd}\label{fill_8php_acaeb19df8ffd2e6e7966cef35750b7fd} 
+{\bfseries \$itfeedflmaterimaguri} = \$doc-\/$>$Create\+Attribute(\"{}uri\"{})
+\item 
+\Hypertarget{fill_8php_a229594f49807f8b5920abac0de9e15e5}\label{fill_8php_a229594f49807f8b5920abac0de9e15e5} 
+{\bfseries \$itemfeedbacki} = \$doc-\/$>$Create\+Element(\"{}itemfeedback\"{})
+\item 
+\Hypertarget{fill_8php_abe3e701ac4f5c7de8416fb91da866daf}\label{fill_8php_abe3e701ac4f5c7de8416fb91da866daf} 
+{\bfseries \$itemfeedbackiident} = \$doc-\/$>$Create\+Attribute(\"{}ident\"{})
+\item 
+\Hypertarget{fill_8php_a2e5608eb1d234d382f8ddc00f4b7ee11}\label{fill_8php_a2e5608eb1d234d382f8ddc00f4b7ee11} 
+{\bfseries \$itemfeedbackiview} = \$doc-\/$>$Create\+Attribute(\"{}view\"{})
+\item 
+\Hypertarget{fill_8php_a2c3ee6e7385b40b9bb8cf00b14e17e4e}\label{fill_8php_a2c3ee6e7385b40b9bb8cf00b14e17e4e} 
+{\bfseries \$itfeediflowmat} = \$doc-\/$>$Create\+Element(\"{}flow\+\_\+mat\"{})
+\item 
+\Hypertarget{fill_8php_a0ff1a4b392b23a60623d72e788a644d7}\label{fill_8php_a0ff1a4b392b23a60623d72e788a644d7} 
+{\bfseries \$itfeediflowmatclass} = \$doc-\/$>$Create\+Attribute(\"{}class\"{})
+\item 
+\Hypertarget{fill_8php_a0e3c5bc83ed8c9c045e309be7bb0acd6}\label{fill_8php_a0e3c5bc83ed8c9c045e309be7bb0acd6} 
+{\bfseries \$itfeediflmater} = \$doc-\/$>$Create\+Element(\"{}material\"{})
+\item 
+\Hypertarget{fill_8php_abc37f06f100ed67c7d4a5cdf2ecd025e}\label{fill_8php_abc37f06f100ed67c7d4a5cdf2ecd025e} 
+{\bfseries \$itfeediflmatertext} = \$doc-\/$>$Create\+Element(\"{}mattext\"{})
+\item 
+\Hypertarget{fill_8php_a12cdcfc404736c2f6ceb54c2d22052ec}\label{fill_8php_a12cdcfc404736c2f6ceb54c2d22052ec} 
+{\bfseries \$itfeediflmatertextcharset} = \$doc-\/$>$Create\+Attribute(\"{}charset\"{})
+\item 
+\Hypertarget{fill_8php_a2fbedf92af6d345e30e38d83a7d2e2e4}\label{fill_8php_a2fbedf92af6d345e30e38d83a7d2e2e4} 
+{\bfseries \$itfeediflmatertexttexttype} = \$doc-\/$>$Create\+Attribute(\"{}texttype\"{})
+\item 
+\Hypertarget{fill_8php_abc86b837b6af21c3647a1ad110dbc74e}\label{fill_8php_abc86b837b6af21c3647a1ad110dbc74e} 
+{\bfseries \$itfeediflmatertextxmlspace} = \$doc-\/$>$Create\+Attribute(\"{}xml\+:space\"{})
+\item 
+\Hypertarget{fill_8php_aaa8cc9be9da0a51b7e31114d4656d60f}\label{fill_8php_aaa8cc9be9da0a51b7e31114d4656d60f} 
+{\bfseries \$itfeediflmateri} = \$doc-\/$>$Create\+Element(\"{}material\"{})
+\item 
+\Hypertarget{fill_8php_ac84eec35d85aae674e52d89a2da29fc2}\label{fill_8php_ac84eec35d85aae674e52d89a2da29fc2} 
+{\bfseries \$itfeediflmaterimag} = \$doc-\/$>$Create\+Element(\"{}matimage\"{})
+\item 
+\Hypertarget{fill_8php_a63ebfa7fee9ebc9f495460f3e24e09c0}\label{fill_8php_a63ebfa7fee9ebc9f495460f3e24e09c0} 
+{\bfseries \$itfeediflmaterimagembedded} = \$doc-\/$>$Create\+Attribute(\"{}embedded\"{})
+\item 
+\Hypertarget{fill_8php_acfef9d4e1fe82660e3bf2456d99aefea}\label{fill_8php_acfef9d4e1fe82660e3bf2456d99aefea} 
+{\bfseries \$itfeediflmaterimagimagtype} = \$doc-\/$>$Create\+Attribute(\"{}imagtype\"{})
+\item 
+\Hypertarget{fill_8php_aa7ed84bc664a6568129717e6feb3ce2f}\label{fill_8php_aa7ed84bc664a6568129717e6feb3ce2f} 
+{\bfseries \$itfeediflmaterimaguri} = \$doc-\/$>$Create\+Attribute(\"{}uri\"{})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This file contains a PHP script for generating an XML file from form inputs. PHP version 7.\+4 \begin{DoxyAuthor}{Author}
+Sun Julien 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{fill_8php_adb4a02b0919cae6853943866aa589a7d}\label{fill_8php_adb4a02b0919cae6853943866aa589a7d} 
+\index{fill.php@{fill.php}!\$Start@{\$Start}}
+\index{\$Start@{\$Start}!fill.php@{fill.php}}
+\doxysubsubsection{\texorpdfstring{\$Start}{\$Start}}
+{\footnotesize\ttfamily \$Start = \"{}$<$LX$>$\"{}}
+
+This function checks if \"{}$<$/\+Q$>$\"{} is not present in \$line\+\_\+encode\mbox{[}\$x\mbox{]} if that the case the function will add the next line until a line with \"{}$<$/\+Q$>$\"{} is met This ways we can work with all the component of one question and not the other 
+\begin{DoxyParams}[1]{Parameters}
+array & {\em \$line\+\_\+encode} & Array of strings \\
+\hline
+int & {\em \$x} & Index of the current element in the text This function checks if \"{}$<$\+M$>$\"{} or \"{}$<$\+MN$>$\"{} is present in \$line\+\_\+encode\mbox{[}\$x\mbox{]} if that the case we take the value in the tag and stock in the pluspoint and minuspoint\\
+\hline
+array & {\em \$line\+\_\+encode} & Array of strings \\
+\hline
+int & {\em \$x} & Index of the current element in the text \\
+\hline
+int & {\em \$minuspoint} & point deduce if incorrect answer \\
+\hline
+int & {\em \$pluspoint} & point deduce if correct answer \\
+\hline
+\end{DoxyParams}

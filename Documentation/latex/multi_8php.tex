@@ -1,0 +1,307 @@
+\doxysection{multi.\+php File Reference}
+\hypertarget{multi_8php}{}\label{multi_8php}\index{multi.php@{multi.php}}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+if(strpos( \$line\+\_\+encode\mbox{[} \$x\mbox{]}, \"{}\&lt;/Q\&gt;\"{})===false) if(strpos(\$line\+\_\+encode\mbox{[}\$x\mbox{]}, \"{}\&lt;M\"{})!==false) if(strpos( \$line\+\_\+encode\mbox{[} \$x\mbox{]}, \"{}\&lt;CAF\&gt;\"{}) !==false) if(strpos(\$line\+\_\+encode\mbox{[}\$x\mbox{]}, \"{}\&lt;IAF\&gt;\"{}) !==false) \mbox{\hyperlink{multi_8php_a617a7f01e2fea7de82f55c7aa9298d9c}{\$line\+\_\+decode}} = htmlspecialchars\+\_\+decode(\$line\+\_\+encode\mbox{[}\$x\mbox{]})
+\item 
+\mbox{\hyperlink{multi_8php_adb4a02b0919cae6853943866aa589a7d}{\$\+Start}} = \"{}$<$LX$>$\"{}
+\item 
+\Hypertarget{multi_8php_ae1bb46ff4f14dfb3544c6e5d4edeb513}\label{multi_8php_ae1bb46ff4f14dfb3544c6e5d4edeb513} 
+{\bfseries \$\+Finish} = \"{}$<$/LX$>$\"{}
+\item 
+\Hypertarget{multi_8php_a932dd0de68c78888c50f77639a4673b4}\label{multi_8php_a932dd0de68c78888c50f77639a4673b4} 
+{\bfseries \$regularexpression\+Latex} = \textquotesingle{}/\textquotesingle{} . preg\+\_\+quote(\$Start, \textquotesingle{}/\textquotesingle{}) . \textquotesingle{}(.$\ast$?)\textquotesingle{} . preg\+\_\+quote(\$Finish, \textquotesingle{}/\textquotesingle{}) . \textquotesingle{}/\textquotesingle{}
+\item 
+\Hypertarget{multi_8php_aff64fe4c27991fae747ef304f45a64dd}\label{multi_8php_aff64fe4c27991fae747ef304f45a64dd} 
+{\bfseries \$result\+Latex} = array()
+\item 
+\Hypertarget{multi_8php_abd652f457b266f54462bb10fb6d76d50}\label{multi_8php_abd652f457b266f54462bb10fb6d76d50} 
+{\bfseries \$chiffre} = 1
+\item 
+\Hypertarget{multi_8php_a7009542551e0ad5c4e0a84b09678ba11}\label{multi_8php_a7009542551e0ad5c4e0a84b09678ba11} 
+{\bfseries \$option} = explode(\"{}$<$OP$>$\"{}, \$line\+\_\+decode)
+\item 
+\Hypertarget{multi_8php_a1ceab392f0ea611a8db9c9ecb25ddf94}\label{multi_8php_a1ceab392f0ea611a8db9c9ecb25ddf94} 
+{\bfseries \$tableau} = array()
+\item 
+for( \$answer\+\_\+number=1; \$answer\+\_\+number$<$ count( \$option); \$answer\+\_\+number++) if(\$compteurbis\+RC $>$1) \mbox{\hyperlink{multi_8php_a211e93d01f61843b5d2ac9dedac95233}{else}}
+\item 
+\Hypertarget{multi_8php_a9c9138a84fc365bb6f4cdec5a17ab9c1}\label{multi_8php_a9c9138a84fc365bb6f4cdec5a17ab9c1} 
+{\bfseries \$compteurbis\+RC} = 0
+\item 
+\Hypertarget{multi_8php_adcd1c70b853b3d2b711a6b47d867a693}\label{multi_8php_adcd1c70b853b3d2b711a6b47d867a693} 
+{\bfseries \$letraresp} = \textquotesingle{}A\textquotesingle{}
+\item 
+\Hypertarget{multi_8php_af3784088295d1b8359b055382314ec17}\label{multi_8php_af3784088295d1b8359b055382314ec17} 
+{\bfseries \$ident\+\_\+value}
+\item 
+\Hypertarget{multi_8php_aa61b415cee119a7511e05c405ecd0b32}\label{multi_8php_aa61b415cee119a7511e05c405ecd0b32} 
+{\bfseries \$item} = \$doc-\/$>$Create\+Element(\"{}item\"{})
+\item 
+\Hypertarget{multi_8php_ae948819d752105bfa58b6f3e37931025}\label{multi_8php_ae948819d752105bfa58b6f3e37931025} 
+{\bfseries \$itemident} = \$doc-\/$>$Create\+Attribute(\"{}ident\"{})
+\item 
+\Hypertarget{multi_8php_ab97cfb937113c7be3c7cc5f9d3555576}\label{multi_8php_ab97cfb937113c7be3c7cc5f9d3555576} 
+\$itemident {\bfseries value} = \$ident\+\_\+value
+\item 
+\Hypertarget{multi_8php_a6e0b3189e37cc41917a04125cfdb69a0}\label{multi_8php_a6e0b3189e37cc41917a04125cfdb69a0} 
+{\bfseries \$itemtitle} = \$doc-\/$>$Create\+Attribute(\"{}title\"{})
+\item 
+\Hypertarget{multi_8php_a530175402d2bb81c769590af02f7758d}\label{multi_8php_a530175402d2bb81c769590af02f7758d} 
+{\bfseries \$durat} = \$doc-\/$>$Create\+Element(\"{}duration\"{})
+\item 
+\Hypertarget{multi_8php_a81525e0fb08a20e91c54bf79f720728c}\label{multi_8php_a81525e0fb08a20e91c54bf79f720728c} 
+{\bfseries \$itemmetadata} = \$doc-\/$>$Create\+Element(\"{}itemmetadata\"{})
+\item 
+\Hypertarget{multi_8php_a0874f888bbf5fbbe665c9a2fa0669bfd}\label{multi_8php_a0874f888bbf5fbbe665c9a2fa0669bfd} 
+{\bfseries \$qtimeta} = \$doc-\/$>$Create\+Element(\"{}qtimetadata\"{})
+\item 
+\Hypertarget{multi_8php_a4d9ddf467558d557039c72bcf30be403}\label{multi_8php_a4d9ddf467558d557039c72bcf30be403} 
+{\bfseries \$qtimetafieldqmditemtype} = \$doc-\/$>$Create\+Element(\"{}qtimetadatafield\"{})
+\item 
+\Hypertarget{multi_8php_a3fcd10bdd0f36ed95e4d3a17da126f2e}\label{multi_8php_a3fcd10bdd0f36ed95e4d3a17da126f2e} 
+{\bfseries \$fieldlabelqmditemtype} = \$doc-\/$>$Create\+Element(\"{}fieldlabel\"{})
+\item 
+\Hypertarget{multi_8php_a852737b69f0630030719f228162c8185}\label{multi_8php_a852737b69f0630030719f228162c8185} 
+{\bfseries \$fieldlabelqmditemtypetext} = \$doc-\/$>$Create\+Text\+Node(\"{}qmd\+\_\+itemtype\"{})
+\item 
+\Hypertarget{multi_8php_ab3281f12c351e288f0fbb649b71f0278}\label{multi_8php_ab3281f12c351e288f0fbb649b71f0278} 
+{\bfseries \$fieldentryqmditemtype} = \$doc-\/$>$Create\+Element(\"{}fieldentry\"{})
+\item 
+\Hypertarget{multi_8php_a0dbdc97d5cf48e33f60c0d2079572e1a}\label{multi_8php_a0dbdc97d5cf48e33f60c0d2079572e1a} 
+{\bfseries \$fieldentryqmditemtypetext} = \$doc-\/$>$Create\+Text\+Node(\$titl)
+\item 
+\Hypertarget{multi_8php_a94b045c1f0ad330a23eecd64e1710456}\label{multi_8php_a94b045c1f0ad330a23eecd64e1710456} 
+{\bfseries \$qtimetafieldtextformat} = \$doc-\/$>$Create\+Element(\"{}qtimetadatafield\"{})
+\item 
+\Hypertarget{multi_8php_a7ecbe8be41f52531645a322cfba64a6f}\label{multi_8php_a7ecbe8be41f52531645a322cfba64a6f} 
+{\bfseries \$fieldlabeltextformat} = \$doc-\/$>$Create\+Element(\"{}fieldlabel\"{})
+\item 
+\Hypertarget{multi_8php_a55c2d853fe530a834e54a3f020b9c3dc}\label{multi_8php_a55c2d853fe530a834e54a3f020b9c3dc} 
+{\bfseries \$fieldlabeltextformattext} = \$doc-\/$>$Create\+Text\+Node(\"{}TEXT\+\_\+\+FORMAT\"{})
+\item 
+\Hypertarget{multi_8php_a0cd602b216f80db722f4a08a6cbbdb27}\label{multi_8php_a0cd602b216f80db722f4a08a6cbbdb27} 
+{\bfseries \$fieldentrytextformat} = \$doc-\/$>$Create\+Element(\"{}fieldentry\"{})
+\item 
+\Hypertarget{multi_8php_a269b67f64b79fb14e60b67f849de15dd}\label{multi_8php_a269b67f64b79fb14e60b67f849de15dd} 
+{\bfseries \$fieldentrytextformattext} = \$doc-\/$>$Create\+Text\+Node(\"{}HTML\"{})
+\item 
+\Hypertarget{multi_8php_a2415cdd43e7350357aba8b0e5466f8eb}\label{multi_8php_a2415cdd43e7350357aba8b0e5466f8eb} 
+{\bfseries \$qtimetafielditemobjective} = \$doc-\/$>$Create\+Element(\"{}qtimetadatafield\"{})
+\item 
+\Hypertarget{multi_8php_a4b10f71780f769bc623af98305c82d4e}\label{multi_8php_a4b10f71780f769bc623af98305c82d4e} 
+{\bfseries \$fieldlabelitemobjective} = \$doc-\/$>$Create\+Element(\"{}fieldlabel\"{})
+\item 
+\Hypertarget{multi_8php_a847c55e3632ebb81ec17b4d8d7d4b907}\label{multi_8php_a847c55e3632ebb81ec17b4d8d7d4b907} 
+{\bfseries \$fieldlabelitemobjectivetext} = \$doc-\/$>$Create\+Text\+Node(\"{}ITEM\+\_\+\+OBJECTIVE\"{})
+\item 
+\Hypertarget{multi_8php_a684fdbe6d741bb0136afe6c00a574914}\label{multi_8php_a684fdbe6d741bb0136afe6c00a574914} 
+{\bfseries \$qtimetafielditemkeyword} = \$doc-\/$>$Create\+Element(\"{}qtimetadatafield\"{})
+\item 
+\Hypertarget{multi_8php_a13ac1caf169d9ba0edc42bbe5f5a714d}\label{multi_8php_a13ac1caf169d9ba0edc42bbe5f5a714d} 
+{\bfseries \$fieldlabelitemkeyword} = \$doc-\/$>$Create\+Element(\"{}fieldlabel\"{})
+\item 
+\Hypertarget{multi_8php_a5daca9ae104367333eee27b0b98f8776}\label{multi_8php_a5daca9ae104367333eee27b0b98f8776} 
+{\bfseries \$fieldlabelitemkeywordtext} = \$doc-\/$>$Create\+Text\+Node(\"{}ITEM\+\_\+\+KEYWORD\"{})
+\item 
+\Hypertarget{multi_8php_ad9b054e0c9deeec3acd798a662ec1abc}\label{multi_8php_ad9b054e0c9deeec3acd798a662ec1abc} 
+{\bfseries \$qtimetafielditemrubric} = \$doc-\/$>$Create\+Element(\"{}qtimetadatafield\"{})
+\item 
+\Hypertarget{multi_8php_a6fefedf4e1c11347b65baad82dbd8d9d}\label{multi_8php_a6fefedf4e1c11347b65baad82dbd8d9d} 
+{\bfseries \$fieldlabelitemrubric} = \$doc-\/$>$Create\+Element(\"{}fieldlabel\"{})
+\item 
+\Hypertarget{multi_8php_a715630baf6114e23b82e7f0ef765de16}\label{multi_8php_a715630baf6114e23b82e7f0ef765de16} 
+{\bfseries \$fieldlabelitemrubrictext} = \$doc-\/$>$Create\+Text\+Node(\"{}ITEM\+\_\+\+RUBRIC\"{})
+\item 
+\Hypertarget{multi_8php_a9d45fb4488eff7fb1b47f3e208eb6f97}\label{multi_8php_a9d45fb4488eff7fb1b47f3e208eb6f97} 
+{\bfseries \$qtimetafieldattach} = \$doc-\/$>$Create\+Element(\"{}qtimetadatafield\"{})
+\item 
+\Hypertarget{multi_8php_a086909e44fdf2648a0d0e27332183971}\label{multi_8php_a086909e44fdf2648a0d0e27332183971} 
+{\bfseries \$fieldlabelattach} = \$doc-\/$>$Create\+Element(\"{}fieldlabel\"{})
+\item 
+\Hypertarget{multi_8php_a2603019b006844561a8f0061e034ba87}\label{multi_8php_a2603019b006844561a8f0061e034ba87} 
+{\bfseries \$fieldlabelattachtext} = \$doc-\/$>$Create\+Text\+Node(\"{}ATTACHMENT\"{})
+\item 
+\Hypertarget{multi_8php_ac11c7375105c769a4563266d90c65c30}\label{multi_8php_ac11c7375105c769a4563266d90c65c30} 
+{\bfseries \$fieldentryformattext} = \$doc-\/$>$Create\+Element(\"{}fieldentry\"{})
+\item 
+\Hypertarget{multi_8php_aca86aea1ed8177e004eccd908191dfb9}\label{multi_8php_aca86aea1ed8177e004eccd908191dfb9} 
+if(\$titl==\"{}Multiple Choice\"{}) {\bfseries \$qtimetafieldrandomiz} = \$doc-\/$>$Create\+Element(\"{}qtimetadatafield\"{})
+\item 
+\Hypertarget{multi_8php_afc3cda217c459c0d74729f64330a9fb4}\label{multi_8php_afc3cda217c459c0d74729f64330a9fb4} 
+{\bfseries \$fieldlabelrandomiz} = \$doc-\/$>$Create\+Element(\"{}fieldlabel\"{})
+\item 
+\Hypertarget{multi_8php_ab9f55b2c56f9cded9d17686771f1152d}\label{multi_8php_ab9f55b2c56f9cded9d17686771f1152d} 
+{\bfseries \$fieldlabelrandomiztext} = \$doc-\/$>$Create\+Text\+Node(\"{}RANDOMIZE\"{})
+\item 
+\Hypertarget{multi_8php_a6ce0f5ea3880a7bf2cbe393fec53112b}\label{multi_8php_a6ce0f5ea3880a7bf2cbe393fec53112b} 
+{\bfseries \$fieldentryrandomiz} = \$doc-\/$>$Create\+Element(\"{}fieldentry\"{})
+\item 
+\Hypertarget{multi_8php_ab186bf253f8154a03d6b8f18b1376e8d}\label{multi_8php_ab186bf253f8154a03d6b8f18b1376e8d} 
+{\bfseries \$itemrubric} = \$doc-\/$>$Create\+Element(\"{}rubric\"{})
+\item 
+\Hypertarget{multi_8php_a52f2fee52ecc6febde865716b3f0d493}\label{multi_8php_a52f2fee52ecc6febde865716b3f0d493} 
+{\bfseries \$itemrubricview} = \$doc-\/$>$Create\+Attribute(\"{}view\"{})
+\item 
+\Hypertarget{multi_8php_a3db7ba4f8845cb04c1548a18e8294bbc}\label{multi_8php_a3db7ba4f8845cb04c1548a18e8294bbc} 
+{\bfseries \$material} = \$doc-\/$>$Create\+Element(\"{}material\"{})
+\item 
+\Hypertarget{multi_8php_a95ed63cdc55cfc167b273db3de85706f}\label{multi_8php_a95ed63cdc55cfc167b273db3de85706f} 
+{\bfseries \$itempresentation} = \$doc-\/$>$Create\+Element(\"{}presentation\"{})
+\item 
+\Hypertarget{multi_8php_a5e75afab1de5235d3df5bf0251e1efdb}\label{multi_8php_a5e75afab1de5235d3df5bf0251e1efdb} 
+{\bfseries \$fieldentryrandomizitempresentationlabel} = \$doc-\/$>$Create\+Attribute(\"{}label\"{})
+\item 
+\Hypertarget{multi_8php_ab5bd5639263e0975b1f0b42e438e5912}\label{multi_8php_ab5bd5639263e0975b1f0b42e438e5912} 
+{\bfseries \$itempresentationlabel} = \$doc-\/$>$Create\+Attribute(\"{}label\"{})
+\item 
+\Hypertarget{multi_8php_a55fd100e4773fa7d0e6fabddbff477cc}\label{multi_8php_a55fd100e4773fa7d0e6fabddbff477cc} 
+{\bfseries \$itpresflowflow} = \$doc-\/$>$Create\+Element(\"{}flow\"{})
+\item 
+\Hypertarget{multi_8php_a0ec0d64a57f7da7ddec1bdbd0defaf75}\label{multi_8php_a0ec0d64a57f7da7ddec1bdbd0defaf75} 
+{\bfseries \$itpresflowflowclass} = \$doc-\/$>$Create\+Attribute(\"{}class\"{})
+\item 
+\Hypertarget{multi_8php_aea9306cddeca0e92afece7d15f65520a}\label{multi_8php_aea9306cddeca0e92afece7d15f65520a} 
+{\bfseries \$itpresflflmattextcdata} = \$doc-\/$>$create\+CDATAsection(\$option\mbox{[}0\mbox{]})
+\item 
+\Hypertarget{multi_8php_a067f2fc1dad7528c6e4cd01f4e7043fb}\label{multi_8php_a067f2fc1dad7528c6e4cd01f4e7043fb} 
+{\bfseries \$itpresflflresplid} = \$doc-\/$>$Create\+Element(\"{}response\+\_\+lid\"{})
+\item 
+\Hypertarget{multi_8php_ad0e62b26049725d230bf627be220311e}\label{multi_8php_ad0e62b26049725d230bf627be220311e} 
+{\bfseries \$itpresflflresplidid} = \$doc-\/$>$Create\+Attribute(\"{}ident\"{})
+\item 
+\Hypertarget{multi_8php_ac374defbede45895586eb9ded9e201c8}\label{multi_8php_ac374defbede45895586eb9ded9e201c8} 
+{\bfseries \$itpresflflresplidrcardin} = \$doc-\/$>$Create\+Attribute(\"{}rcardinality\"{})
+\item 
+\Hypertarget{multi_8php_a19d325f591182add017b8836784739ad}\label{multi_8php_a19d325f591182add017b8836784739ad} 
+{\bfseries \$itpresflflresplidrtim} = \$doc-\/$>$Create\+Attribute(\"{}rtiming\"{})
+\item 
+\Hypertarget{multi_8php_a030a1634e5da3341f133268f542d0886}\label{multi_8php_a030a1634e5da3341f133268f542d0886} 
+{\bfseries \$itpresflflresplidrendcho} = \$doc-\/$>$Create\+Element(\"{}render\+\_\+choice\"{})
+\item 
+\Hypertarget{multi_8php_a53853eb3363e57e5689052e5e4a02171}\label{multi_8php_a53853eb3363e57e5689052e5e4a02171} 
+{\bfseries \$itpresflflresplidrendchoshuf} = \$doc-\/$>$Create\+Attribute(\"{}shuffle\"{})
+\item 
+\Hypertarget{multi_8php_a44c34b20492a87df392bceda0f1f86e0}\label{multi_8php_a44c34b20492a87df392bceda0f1f86e0} 
+for(\$z=1;\$z$<$ count(\$option);\$z++) for( \$i=0;\$i$<$ \$question\+\_\+counter;\$i++) for(\$i=0; \$i$<$ 4; \$i++) {\bfseries \$itemresproc} = \$doc-\/$>$Create\+Element(\"{}resprocessing\"{})
+\item 
+\Hypertarget{multi_8php_a69786280e381e0ccfe0714590c12da14}\label{multi_8php_a69786280e381e0ccfe0714590c12da14} 
+{\bfseries \$itemresprocoutc} = \$doc-\/$>$create\+Element(\"{}outcomes\"{})
+\item 
+\Hypertarget{multi_8php_a3c62608cff82a071925e15a454dcd900}\label{multi_8php_a3c62608cff82a071925e15a454dcd900} 
+{\bfseries \$itemresprocoutcdecvar} = \$doc-\/$>$create\+Element(\"{}decvar\"{})
+\item 
+\Hypertarget{multi_8php_a0e1cf57e450389383d0f95c6c400a3e4}\label{multi_8php_a0e1cf57e450389383d0f95c6c400a3e4} 
+{\bfseries \$itemresprocoutcdecvardefaultval} = \$doc-\/$>$create\+Attribute(\"{}defaultval\"{})
+\item 
+\Hypertarget{multi_8php_a7656f93a3365124904f9d9aca1a542dc}\label{multi_8php_a7656f93a3365124904f9d9aca1a542dc} 
+{\bfseries \$itemresprocoutcdecvarmaxvalue} = \$doc-\/$>$create\+Attribute(\"{}maxvalue\"{})
+\item 
+\Hypertarget{multi_8php_a9ebd5c22e69173607b5c2156354ce4ed}\label{multi_8php_a9ebd5c22e69173607b5c2156354ce4ed} 
+{\bfseries \$itemresprocoutcdecvarminvalue} = \$doc-\/$>$create\+Attribute(\"{}minvalue\"{})
+\item 
+\Hypertarget{multi_8php_ab568d19c607e87ac3dd80d632c06fb30}\label{multi_8php_ab568d19c607e87ac3dd80d632c06fb30} 
+{\bfseries \$itemresprocoutcdecvarvarname} = \$doc-\/$>$create\+Attribute(\"{}varname\"{})
+\item 
+\Hypertarget{multi_8php_a1b6424ac1ff45523bbb0c59730b388f4}\label{multi_8php_a1b6424ac1ff45523bbb0c59730b388f4} 
+{\bfseries \$itemresprocoutcdecvarvartype} = \$doc-\/$>$create\+Attribute(\"{}vartype\"{})
+\item 
+\Hypertarget{multi_8php_aeaa02bc4725ff9013c5c7158f72f6c7b}\label{multi_8php_aeaa02bc4725ff9013c5c7158f72f6c7b} 
+{\bfseries \$abcdario} = \textquotesingle{}A\textquotesingle{}
+\item 
+\Hypertarget{multi_8php_a9dfc818027b143547ee759e627b4b5d9}\label{multi_8php_a9dfc818027b143547ee759e627b4b5d9} 
+for(\$abc=0; \$abc$<$ \$number; \$abc++) {\bfseries \$auxcharitemfeed} = \textquotesingle{}A\textquotesingle{}
+\item 
+\Hypertarget{multi_8php_a4455d1cd7616e7bcb0bfcbbcc8f18525}\label{multi_8php_a4455d1cd7616e7bcb0bfcbbcc8f18525} 
+for(\$nn=0; \$nn$<$ 6; \$nn++) {\bfseries \$itemfeedback} = \$doc-\/$>$Create\+Element(\"{}itemfeedback\"{})
+\item 
+\Hypertarget{multi_8php_a1c2b6d50535eb7e02ccf4ca1b8be62f0}\label{multi_8php_a1c2b6d50535eb7e02ccf4ca1b8be62f0} 
+{\bfseries \$itemfeedbackident} = \$doc-\/$>$Create\+Attribute(\"{}ident\"{})
+\item 
+\Hypertarget{multi_8php_a6a0ac9564492dbc9fd54f29552339bb2}\label{multi_8php_a6a0ac9564492dbc9fd54f29552339bb2} 
+{\bfseries \$itemfeedbackview} = \$doc-\/$>$Create\+Attribute(\"{}view\"{})
+\item 
+\Hypertarget{multi_8php_a44630e8144843bf687c2f9b890fa8219}\label{multi_8php_a44630e8144843bf687c2f9b890fa8219} 
+{\bfseries \$itfeedflowmat} = \$doc-\/$>$Create\+Element(\"{}flow\+\_\+mat\"{})
+\item 
+\Hypertarget{multi_8php_a45d6a85877d097f4bcf21c3afa172374}\label{multi_8php_a45d6a85877d097f4bcf21c3afa172374} 
+{\bfseries \$itfeedflowmatclass} = \$doc-\/$>$Create\+Attribute(\"{}class\"{})
+\item 
+\Hypertarget{multi_8php_a229594f49807f8b5920abac0de9e15e5}\label{multi_8php_a229594f49807f8b5920abac0de9e15e5} 
+{\bfseries \$itemfeedbacki} = \$doc-\/$>$Create\+Element(\"{}itemfeedback\"{})
+\item 
+\Hypertarget{multi_8php_abe3e701ac4f5c7de8416fb91da866daf}\label{multi_8php_abe3e701ac4f5c7de8416fb91da866daf} 
+{\bfseries \$itemfeedbackiident} = \$doc-\/$>$Create\+Attribute(\"{}ident\"{})
+\item 
+\Hypertarget{multi_8php_a2e5608eb1d234d382f8ddc00f4b7ee11}\label{multi_8php_a2e5608eb1d234d382f8ddc00f4b7ee11} 
+{\bfseries \$itemfeedbackiview} = \$doc-\/$>$Create\+Attribute(\"{}view\"{})
+\item 
+\Hypertarget{multi_8php_a2c3ee6e7385b40b9bb8cf00b14e17e4e}\label{multi_8php_a2c3ee6e7385b40b9bb8cf00b14e17e4e} 
+{\bfseries \$itfeediflowmat} = \$doc-\/$>$Create\+Element(\"{}flow\+\_\+mat\"{})
+\item 
+\Hypertarget{multi_8php_a0ff1a4b392b23a60623d72e788a644d7}\label{multi_8php_a0ff1a4b392b23a60623d72e788a644d7} 
+{\bfseries \$itfeediflowmatclass} = \$doc-\/$>$Create\+Attribute(\"{}class\"{})
+\item 
+\Hypertarget{multi_8php_a0e3c5bc83ed8c9c045e309be7bb0acd6}\label{multi_8php_a0e3c5bc83ed8c9c045e309be7bb0acd6} 
+{\bfseries \$itfeediflmater} = \$doc-\/$>$Create\+Element(\"{}material\"{})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This file contains a PHP script for generating an XML file from form inputs. PHP version 7.\+4 \begin{DoxyAuthor}{Author}
+Sun Julien 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{multi_8php_a617a7f01e2fea7de82f55c7aa9298d9c}\label{multi_8php_a617a7f01e2fea7de82f55c7aa9298d9c} 
+\index{multi.php@{multi.php}!\$line\_decode@{\$line\_decode}}
+\index{\$line\_decode@{\$line\_decode}!multi.php@{multi.php}}
+\doxysubsubsection{\texorpdfstring{\$line\_decode}{\$line\_decode}}
+{\footnotesize\ttfamily while (( \$pos=strpos( \$line\+\_\+decode, \textquotesingle{}latex\textquotesingle{})) !==false) \$line\+\_\+decode = htmlspecialchars\+\_\+decode(\$line\+\_\+encode\mbox{[}\$x\mbox{]})}
+
+This function checks if \"{}$<$/\+Q$>$\"{} is not present in \$line\+\_\+encode\mbox{[}\$x\mbox{]} if that the case the function will add the next line until a line with \"{}$<$/\+Q$>$\"{} is met This ways we can work with all the component of one question and not the other 
+\begin{DoxyParams}[1]{Parameters}
+array & {\em \$line\+\_\+encode} & Array of strings \\
+\hline
+int & {\em \$x} & Index of the current element in the text This function checks if \"{}$<$\+M$>$\"{} or \"{}$<$\+MN$>$\"{} is present in \$line\+\_\+encode\mbox{[}\$x\mbox{]} if that the case we take the value in the tag and stock in the pluspoint and minuspoint\\
+\hline
+array & {\em \$line\+\_\+encode} & Array of strings \\
+\hline
+int & {\em \$x} & Index of the current element in the text \\
+\hline
+int & {\em \$minuspoint} & point deduce if incorrect answer \\
+\hline
+int & {\em \$pluspoint} & point deduce if correct answer \\
+\hline
+\end{DoxyParams}
+\Hypertarget{multi_8php_adb4a02b0919cae6853943866aa589a7d}\label{multi_8php_adb4a02b0919cae6853943866aa589a7d} 
+\index{multi.php@{multi.php}!\$Start@{\$Start}}
+\index{\$Start@{\$Start}!multi.php@{multi.php}}
+\doxysubsubsection{\texorpdfstring{\$Start}{\$Start}}
+{\footnotesize\ttfamily \$Start = \"{}$<$LX$>$\"{}}
+
+This function checks if \"{}$<$\+LX$>$\"{} is present in \$line\+\_\+encode\mbox{[}\$x\mbox{]} if that the case we take the value and indentifie as a latex equation
+
+
+\begin{DoxyParams}[1]{Parameters}
+array & {\em \$line\+\_\+encode} & Array of strings \\
+\hline
+int & {\em \$x} & Index of the current element in the text \\
+\hline
+array & {\em \$result\+Latex} & Array of all the latex equation \\
+\hline
+\end{DoxyParams}
+\Hypertarget{multi_8php_a211e93d01f61843b5d2ac9dedac95233}\label{multi_8php_a211e93d01f61843b5d2ac9dedac95233} 
+\index{multi.php@{multi.php}!else@{else}}
+\index{else@{else}!multi.php@{multi.php}}
+\doxysubsubsection{\texorpdfstring{else}{else}}
+{\footnotesize\ttfamily if ( \$answer\+\_\+number$<$ 27) else}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \$titl\ =\ \textcolor{stringliteral}{"{}Multiple\ Choice"{}}}
+
+\end{DoxyCode}

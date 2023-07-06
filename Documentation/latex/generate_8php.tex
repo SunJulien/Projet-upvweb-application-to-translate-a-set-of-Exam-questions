@@ -1,0 +1,62 @@
+\doxysection{generate.\+php File Reference}
+\hypertarget{generate_8php}{}\label{generate_8php}\index{generate.php@{generate.php}}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{generate_8php_a0156f4a93a7b833b3eaaa732458072c1}\label{generate_8php_a0156f4a93a7b833b3eaaa732458072c1} 
+{\bfseries \$\+Content} = \$\+\_\+\+POST\mbox{[}\textquotesingle{}Text\+Area1\textquotesingle{}\mbox{]}
+\item 
+\Hypertarget{generate_8php_abdcfb82849f6a5363e4415cc09cde394}\label{generate_8php_abdcfb82849f6a5363e4415cc09cde394} 
+{\bfseries \$\+Filename} = \$\+\_\+\+POST\mbox{[}\textquotesingle{}filename\textquotesingle{}\mbox{]}. \"{}.xml\"{}
+\item 
+\Hypertarget{generate_8php_a238767e41a3de876480bb979cd1b2fe2}\label{generate_8php_a238767e41a3de876480bb979cd1b2fe2} 
+{\bfseries \$\+Theme} = \$\+\_\+\+POST\mbox{[}\textquotesingle{}theme\textquotesingle{}\mbox{]}
+\item 
+\Hypertarget{generate_8php_afb6ff301f2b9db1de492fb38da1b2292}\label{generate_8php_afb6ff301f2b9db1de492fb38da1b2292} 
+{\bfseries \$regularexpression} = \textquotesingle{}/(?$<$=$<$)(\mbox{[}$^\wedge$$<$$>$\mbox{]}+)(?=$>$)/\textquotesingle{}
+\item 
+\Hypertarget{generate_8php_a52f469b0182d9abac2d0f20548680c9c}\label{generate_8php_a52f469b0182d9abac2d0f20548680c9c} 
+{\bfseries \$line} = explode(\"{}\textbackslash{}r\textbackslash{}n\"{}, \$Content)
+\item 
+\Hypertarget{generate_8php_a0b5e0e01bbc8c1d0aa2f812ec33732be}\label{generate_8php_a0b5e0e01bbc8c1d0aa2f812ec33732be} 
+{\bfseries \$line\+\_\+encode} = array\+\_\+map(\textquotesingle{}htmlspecialchars\textquotesingle{}, \$line)
+\item 
+\Hypertarget{generate_8php_af594986e4618a8d6a5d7566617f583c6}\label{generate_8php_af594986e4618a8d6a5d7566617f583c6} 
+{\bfseries \$size} = count(\$line)
+\item 
+\Hypertarget{generate_8php_af3784088295d1b8359b055382314ec17}\label{generate_8php_af3784088295d1b8359b055382314ec17} 
+{\bfseries \$ident\+\_\+value} = 9960884
+\item 
+\Hypertarget{generate_8php_abe4ecb8ec72ae3bc9d8846eb71332105}\label{generate_8php_abe4ecb8ec72ae3bc9d8846eb71332105} 
+{\bfseries \$question\+\_\+counter} = 4
+\item 
+\Hypertarget{generate_8php_afc5e9ce512cd97cf2e0e25bb20dcd39b}\label{generate_8php_afc5e9ce512cd97cf2e0e25bb20dcd39b} 
+{\bfseries \$doc} = new DOMDocument(\textquotesingle{}1.\+0\textquotesingle{}, \textquotesingle{}UTF-\/8\textquotesingle{})
+\item 
+\Hypertarget{generate_8php_a9a567f4b3446c9773f5f3f56428a15da}\label{generate_8php_a9a567f4b3446c9773f5f3f56428a15da} 
+\$doc {\bfseries xml\+Standalone} = true
+\item 
+\Hypertarget{generate_8php_ad6a75e78cfe6bcf50b7ffbc7e50a92da}\label{generate_8php_ad6a75e78cfe6bcf50b7ffbc7e50a92da} 
+\$doc {\bfseries format\+Output} = true
+\item 
+\Hypertarget{generate_8php_af9f4599049ff542942c7b63957843a6e}\label{generate_8php_af9f4599049ff542942c7b63957843a6e} 
+{\bfseries \$questestinterop} = \$doc-\/$>$create\+Element(\textquotesingle{}questestinterop\textquotesingle{})
+\item 
+\Hypertarget{generate_8php_a54138d4381547109434baed95918bcc6}\label{generate_8php_a54138d4381547109434baed95918bcc6} 
+{\bfseries \$chemin\+Fichier} = \textquotesingle{}/var/www/upvsun/\textquotesingle{} . \$Filename
+\item 
+\Hypertarget{generate_8php_aa108d9d91e700ac530401dd363b0723b}\label{generate_8php_aa108d9d91e700ac530401dd363b0723b} 
+{\bfseries \$xml} = file\+\_\+get\+\_\+contents(\$Filename)
+\item 
+\Hypertarget{generate_8php_a311dba6d8e9380038bd16b8355185855}\label{generate_8php_a311dba6d8e9380038bd16b8355185855} 
+{\bfseries while} (ob\+\_\+get\+\_\+level()) = preg\+\_\+replace(\"{}/$<$\textbackslash{}/Q$>$/\"{}, \"{}\"{}, \$line\+\_\+decode)
+\item 
+\Hypertarget{generate_8php_a6733eb5f605d09eaede9845835d71c4e}\label{generate_8php_a6733eb5f605d09eaede9845835d71c4e} 
+{\bfseries exit}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This file contains a PHP script for generating an XML file from form inputs. PHP version 7.\+4 \begin{DoxyAuthor}{Author}
+Sun Julien 
+\end{DoxyAuthor}

@@ -1,7 +1,7 @@
 <?php
     /**
      * @file
-     * This file contains a PHP script for generating an XML file from form inputs.
+     * This file contains a PHP script for generating an XML part related to the multiple question.
      * PHP version 7.4
      * @author Sun Julien
      */
